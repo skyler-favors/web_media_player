@@ -9,3 +9,28 @@
     line-height: inherit;
     color: inherit;
 }
+
+input {
+    margin: 20px;
+}
+
+video {
+    margin: 20px;
+}
+
+audio {
+    margin: 20px;
+}
+
+img {
+    margin: 20px;
+}
+
+#container {
+    display: flex;
+    margin: 20px;
+    border: black 2px solid;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
