@@ -1,0 +1,55 @@
+--- change directory
+cd switch\to\this\directory
+
+--- change to the root of your C drive
+cd C:\
+
+--- print working directory, shows your current directory
+pwd
+
+--- List all files in your current directory, very useful
+ls
+
+EXAMPLES:
+
+pwd
+* C:\Users\sfav\Desktop
+
+ls
+* Folder1\  picture.png  Videos\  doc.txt 
+
+cd Videos\
+
+pwd
+* C:\Users\sfav\Desktop\Videos
+
+---------------------------------------------------------------------
+
+*** Shortcuts ***
+--- a period selects current directory
+.
+
+--- two periods selects the directory behind the current
+..
+
+EXAMPLES:
+
+pwd
+* C:\Users\sfav
+
+cd ..
+
+pwd
+* C:\Users
+
+---------------------------------------------------------------------
+
+*** TIP ***
+hit tab to autocomplete commands,
+for example:
+  cd Desk
+    -> press tab
+  cd Desktop\
+
+
+
