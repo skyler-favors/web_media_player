@@ -41,7 +41,10 @@ function loadImage() {
 
 }
 
-loadVideo()
-loadAudio()
-loadImage()
+function checkFileExtension() {
+    fileName = document.querySelector('#chooseFile').value;
+    extension = fileName.split('.').pop();
+    console.log(extension)  
+};
+
 
