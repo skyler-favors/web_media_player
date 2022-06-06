@@ -1,0 +1,43 @@
+--- copy the repo to your computer
+git clone https://user.github.git
+
+--- changes to your branch, run this to make sure your on your branch and not main
+git checkout your_name
+
+--- Adds all files in current directory
+git add .     
+
+--- commits additions to local repo, do this after doing git add,  make sure you add a summary that is in quotations
+git commit -m "A short summary"
+
+--- pushes the changes to the online repo, do this last
+git push origin your_name
+
+
+EXAMPLES:
+
+--- Make sure you are in the web_media_player folder, check the terminal_commands.txt for more info
+--- pwd should say web_media_player, if not check terminal_commands.txt
+pwd
+* C:\Users\sfav\Projects\web_media_player
+
+
+--- Now make sure you are in the correct branch.
+git checkout skyler
+* Already on 'skyler'
+--- or
+* Switched to branch 'skyler'
+
+
+--- now add the files you have changed to your local repo
+git add index.html script.js styles.css
+--- or
+git add .
+
+
+--- now that they are added you must commit the changes
+git commit -m "added a new div to the html, updated the javascript"
+
+
+--- and lastly push your changes to your online repo
+git push origin skyler
