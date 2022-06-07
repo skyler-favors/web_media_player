@@ -16,6 +16,7 @@ input {
 
 video {
     margin: 20px;
+    visibility: hidden;
 }
 
 audio {
@@ -24,6 +25,7 @@ audio {
 
 img {
     margin: 20px;
+    visibility: hidden;
 }
 
 #container {

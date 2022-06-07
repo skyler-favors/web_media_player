@@ -8,20 +8,9 @@
 </head>
 <body>
     <div id="container">
-        <input class="in-video" type="file" accept="video/*"/>
-        <video class="video-player" controls></video>
-    </div>
-    <div id="container">
-        <input class="in-audio" type="file" accept="audio/*"/>
-        <audio class="audio-player" controls>
-    </div>
-    <div id="container">
-        <input class="in-image" type="file" accept="image/*"/>
+        <input class="input-file" id="choose-file" type="file" onchange="checkFileExtension()" />
+        <video class="video-player" controls></video> 
         <img class="image-viewer">
-    </div>
-
-    <div>
-        <input type="file" id="chooseFile" onchange="checkFileExtension()"/>
     </div>
 
     <script src="index.js"></script>
