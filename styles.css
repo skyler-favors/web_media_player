@@ -14,8 +14,17 @@ input {
     margin: 20px;
 }
 
+#cover {
+    width: 275px;
+    height: 275px; 
+    border: 1px solid black;
+    background-position: center;
+    background-size: cover;
+}
+
 video {
     margin: 20px;
+    visibility: hidden;
 }
 
 audio {
@@ -24,6 +33,7 @@ audio {
 
 img {
     margin: 20px;
+    visibility: hidden;
 }
 
 #container {

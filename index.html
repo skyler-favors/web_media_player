@@ -4,23 +4,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=firefox">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
     <title>Media Player</title>
 </head>
 <body>
     <div id="container">
-        <input class="in-video" type="file" accept="video/*"/>
-        <video class="video-player" controls></video>
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">    </div>
-    <div id="container">
-        <input class="in-audio" type="file" accept="audio/*"/>
-        <audio class="audio-player" controls>
-    </div>
-    <div id="container">
-        <input class="in-image" type="file" accept="image/*"/>
+        <input class="input-file" id="choose-file" type="file" onchange="checkFileExtension()" />
+        <video class="video-player" controls></video> 
         <img class="image-viewer">
     </div>
 
+    <div>
+        <input type="file" id="input" accept=".mp3, .wav">
+        <div id="cover"></div>
+        <p id="track"></p>
+        <p id="artist"></p>
+        <p id="album"></p>
+        <p id="genre"></p>
 
+    </div>
 
     <script src="index.js"></script>
 </body>
