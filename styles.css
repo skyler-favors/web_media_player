@@ -15,22 +15,46 @@ input {
 }
 
 video {
-    margin: 20px;
+    border-style:groove;
+    margin: 20px; 
+    width: 300px;
+    border: 15px solid rgb(20, 22, 21);
+    padding: 50px;
+    margin: 20px; 
+    border-style:none
+
+
+  
+
+
 }
 
 audio {
+    
     margin: 20px;
+    padding: 20px;
 }
 
 img {
-    margin: 20px;
+    border: 5px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    width: 215px;
 }
 
 #container {
-    display: flex;
+   display: flex;
     margin: 20px;
     border: black 2px solid;
+    padding:50px;
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
-}
+    border-style:none;
+
+
+}  
+
+
+
+

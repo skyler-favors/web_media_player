@@ -8,6 +8,7 @@ function loadVideo() {
         var fileURL = URL.createObjectURL(file)
         var videoNode = document.querySelector('.video-player')
         videoNode.src = fileURL
+        
     }
 
     var inputNode = document.querySelector('.in-video')
@@ -43,5 +44,7 @@ function loadImage() {
 
 loadVideo()
 loadAudio()
-loadImage()
+loadImage() 
+
+
 
