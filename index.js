@@ -1,5 +1,44 @@
 // adds a event listener to the input that adds the video source
 // to the player
+
+//Getting access to CDNJS library and saving to global var
+const jsmediatags = window.jsmediatags;
+
+//Get access to input button on HTML
+document.querySelector("#test").addEventListener("change", (event) => {
+    //Storing event into this var 
+    const file = event.target.files[0];
+
+    //Return api response
+    jsmediatags.read(file, {
+        onSuccess: function(tag){
+            //TEST
+            //console.log(tag);
+/*
+            const data = tag.tags.picture.data;
+            const format = tag.tags.picture.format;
+            let base64String = "";
+
+            //Display the cover art
+            for (let i = 0; i < data.length; i++)
+                base64String += String.fromCharCode(data[i]);                            
+
+            document.querySelector("#cover").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
+*/
+            //Retrieve metatag and display track info 
+            document.querySelector("#track").textContent = tag.tags.title;
+            document.querySelector("#artist").textContent = tag.tags.artist;
+            document.querySelector("#album").textContent = tag.tags.album;
+            document.querySelector("#genre").textContent = tag.tags.genre;
+
+        },
+        onError: function(error){
+            console.log(error);
+        }
+    })
+})
+
+
 function loadVideo() {
     var playSelectedFile = function(event) {
         var file = this.files[0]

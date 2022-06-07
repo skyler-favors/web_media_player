@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=firefox">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
     <title>Media Player</title>
 </head>
 <body>
@@ -11,6 +12,16 @@
         <input class="input-file" id="choose-file" type="file" onchange="checkFileExtension()" />
         <video class="video-player" controls></video> 
         <img class="image-viewer">
+    </div>
+
+    <div>
+        <input type="file" id="test" accept=".mp3, .wav">
+        <div id="cover"></div>
+        <p id="track"></p>
+        <p id="artist"></p>
+        <p id="album"></p>
+        <p id="genre"></p>
+
     </div>
 
     <script src="index.js"></script>
