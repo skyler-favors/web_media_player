@@ -1,45 +1,30 @@
-* {
-    background-gray:after #e0e5ec;
-    gray:after #7e8a98;
-    dark-gray:after darken(#7e8a98, 10%);
-    red:after #e22d49;
-    track: #3fbbe9;
-}
-
-
-@mixin reverse-neu {
-    box-shadow: inset -5px -5px 15px 0px #ffffff9e,
-        inset 5px 5px 15px 0px #a3b1c6a8:
-}
-
 body {
     padding: 0;
     margin: 0;
-    background: $background-gray;
+    background: #e0e5ec;
     font-family: "Roboto", sans-serif;
 }
-
 
 .container {
     width: 100vw;
     height: 100vh;
-    display: flex;    
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: center;    
 }
 
 .iphone {
     width: 312px;
     height: 612px;
-    background: $background-gray;
+    background: #e0e5ec;
     border-radius: 2em;
     box-sizing: border-box;
     padding: 2em;
     display: flex;
     flex-direction: column;
-    .title
+}
 
-{
+.iphone .title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -47,13 +32,13 @@ body {
     margin-bottom: 2em;
 }
 
-.album-cover {
+.iphone .album-cover {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    .album-overlay
+}
 
-{
+.iphone .album-cover .album-overlay {
     background: #fff;
     width: 248px;
     height: 248px;
@@ -65,52 +50,48 @@ body {
     clip-path: ellipse(61% 64% at 82% 56%);
 }
 
-img {
+.iphone .album-cover img {
     width: 100%;
     border-radius: 15px;
 }
 
-.song-title {
+.iphone .album-cover .song-title {
     text-align: center;
     padding-bottom: 0;
     margin-bottom: 0;
-    color: $dark-gray;
+    color: #65717e;
 }
 
-.artist-title {
+.iphone .album-cover .artist-title {
     text-align: center;
     padding: 1em 0;
     margin: 0;
     font-size: 0.85em;
-    color: $dark-gray;
+    color: #65717e;
 }
 
-}
-
-.track {
+.iphone .track {
     margin-top: 1em;
     height: 10px;
-    div
+}
 
-{
+.iphone .track div {
     width: 42%;
     height: 100%;
-    background: $gray;
+    background: #7e8a98;
     opacity: 0.75;
     border-radius: 15px;
 }
 
-}
-
-.buttons {
+.iphone .buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     padding: 1em 0;
 }
 
-.lyrics {
-    color: $gray;
+.iphone .lyrics {
+    color: #7e8a98;
     margin-top: 2em;
     text-align: center;
     font-size: 0.75em;
@@ -118,11 +99,9 @@ img {
     flex-direction: column;
 }
 
-}
-
 .neu {
     box-shadow: -5px -5px 15px 0px #ffffff9e, 5px 5px 15px 0px #a3b1c6a8;
-    background: $background-gray;
+    background: #e0e5ec;
     border-radius: 2em;
     border: 0;
 }
@@ -130,24 +109,22 @@ img {
 .btn {
     padding: 15px;
     border-radius: 30px;
-    color: $gray;
+    color: #7e8a98;
     outline: none;
     cursor: pointer;
-    &.lg
+}
 
-{
+.btn.lg {
     font-size: 1em;
 }
 
-&:active {
+.btn:active {
     cursor: pointer;
-    @include reverse-neu;
-}
-
+    box-shadow: inset -5px -5px 15px 0px #ffffff9e, inset 5px 5px 15px 0px #a3b1c6a8;
 }
 
 .red {
-    color: $red;
+    color: #e22d49;
 }
 
 #video_container {
