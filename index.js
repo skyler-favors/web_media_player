@@ -1,114 +1,111 @@
 let extension = "";
-// adds a event listener to the input that adds the video source
-// to the player
 let video_extensions = ["mp4", "mov"];
 let audio_extensions = ["mp3", "wav", "ogg"];
 let image_extensions = ["png", "ppm", "jpg", "gif"];
 let current_file = 0;
 
-//Getting access to CDNJS library and saving to global var
-const jsmediatags = window.jsmediatags;
 
-//Get access to input button on HTML
-document.querySelector("#test-audiodata").addEventListener("change", (event) => {
-    //Storing event into this var 
-    const file = event.target.files[0];
+function getCoverArt() {
+  //Getting access to CDNJS library and saving to global var
+  const jsmediatags = window.jsmediatags;
 
-    //Return api response
-    jsmediatags.read(file, {
-        onSuccess: function(tag){
-            //TEST
-            //console.log(tag);
+  //Get access to input button on HTML
+  const file = this.files[0];
 
-            const data = tag.tags.picture.data;
-            const format = tag.tags.picture.format;
-            let base64String = "";
+  //Return api response
+  jsmediatags.read(file, {
+      onSuccess: function(tag){
 
-            //Display the cover art
-            for (let i = 0; i < data.length; i++) {
-                base64String += String.fromCharCode(data[i]);                            
-            }
+          const data = tag.tags.picture.data;
+          const format = tag.tags.picture.format;
+          let base64String = "";
 
-            /* Takes base64String and converts ascii data to binary data 
-            - url(url )
-            - btoa() = creates a Base64-encoded ASCII string from a binary string (i.e., a String object in which each character in the string is treated as a byte of binary data)
-             */
-            document.querySelector("#cover").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
+          //Display the cover art
+          for (let i = 0; i < data.length; i++) {
+              base64String += String.fromCharCode(data[i]);                            
+          }
 
-            //Retrieve metatag and display track info 
-            document.querySelector("#track").textContent = tag.tags.title;
-            document.querySelector("#artist").textContent = tag.tags.artist;
-            document.querySelector("#album").textContent = tag.tags.album;
-            document.querySelector("#genre").textContent = tag.tags.genre;
+          /* Takes base64String and converts ascii data to binary data 
+          - url(url )
+          - btoa() = creates a Base64-encoded ASCII string from a binary string (i.e., a String object in which each character in the string is treated as a byte of binary data)
+           */
+          document.querySelector("#cover").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
 
-        },
-        onError: function(error){
-            console.log(error);
-        }
-    })
-})
+          //Retrieve metatag and display track info 
+          document.querySelector("#track").textContent = tag.tags.title;
+          document.querySelector("#artist").textContent = tag.tags.artist;
+          document.querySelector("#album").textContent = tag.tags.album;
+          document.querySelector("#genre").textContent = tag.tags.genre;
+
+      },
+      onError: function(error){
+          console.log(error);
+      }
+  })
+}
 
 
 function loadVideo() {
-    var playSelectedFile = function(event) {
-        var file = this.files[current_file]
-        var URL = window.URL || window.webkitURL 
-        var fileURL = URL.createObjectURL(file)
-        var videoNode = document.querySelector('.video-player')
+  var playSelectedFile = function(event) {
+    var file = this.files[current_file];
+    var URL = window.URL || window.webkitURL; 
+    var fileURL = URL.createObjectURL(file);
+    var videoNode = document.querySelector('.video-player');
+    let combined = video_extensions.concat(audio_extensions);
 
-        let combined = video_extensions.concat(audio_extensions);
-        for (let i in combined) {
-          if (extension == combined[i]) {
-            videoNode.style.display = "initial"
-            videoNode.src = fileURL
-            document.querySelector(".video-player").style.visibility = "visible";
-            document.querySelector(".buttons").style.visibility = "visible";
-            return
-          }
-        }
+    if (combined.includes(extension)) {
+      videoNode.style.display = "initial"
+      videoNode.src = fileURL
+      document.querySelector(".video-player").style.visibility = "visible";
+      document.querySelector(".buttons").style.visibility = "visible";
 
-        videoNode.src = null;
-        videoNode.style.display = "none"
+      // load cover art if its a audio file
+      if (audio_extensions.includes(extension)) {
+        getCoverArt();
+      }
+
+      return
     }
-    
-    var inputNode = document.querySelector('.input-file')
-    inputNode.addEventListener('change', playSelectedFile, false)
+
+    videoNode.src = null;
+    videoNode.style.display = "none"
+  }
+
+  var inputNode = document.querySelector('.input-file')
+  inputNode.addEventListener('change', playSelectedFile, false)
 }
 
 function loadImage() {
-    var viewSelectedFile = function(event) {
-    
-        var file = this.files[current_file]
-        var URL = window.URL || window.webkitURL 
-        var fileURL = URL.createObjectURL(file)
-        var imageNode = document.querySelector('.image-viewer')
+  var viewSelectedFile = function(event) {
+    var file = this.files[current_file]
+    var URL = window.URL || window.webkitURL 
+    var fileURL = URL.createObjectURL(file)
+    var imageNode = document.querySelector('.image-viewer')
 
-        for (let i in image_extensions) {
-            if (extension == image_extensions[i]) {
-              imageNode.style.display = "initial"
-              imageNode.src = fileURL
-              document.querySelector(".image-viewer").style.visibility = "visible";
-              return
-          }
-      }
-    
+    if (image_extensions.includes(extension)) {
+      imageNode.style.display = "initial"
+      imageNode.src = fileURL
+      document.querySelector(".image-viewer").style.visibility = "visible";
+      return
+    }
+
     imageNode.src = null
     imageNode.style.display = "none"
-}
+  }
 
-    var inputNode = document.querySelector('.input-file')
-    inputNode.addEventListener('change', viewSelectedFile, false)
+  var inputNode = document.querySelector('.input-file')
+  inputNode.addEventListener('change', viewSelectedFile, false)
 
 }
 
 
 function checkFileExtension() {
-    fileName = document.querySelector('#choose-file').value;
-    //split extension path into substrings and pops the last element of the array off
-    extension = fileName.split('.').pop();
-    extension = extension.toLowerCase();
-    console.log(extension) 
-};
+  fileName = document.querySelector('#choose-file').value;
+  //split extension path into substrings and pops the last element of the array off
+  extension = fileName.split('.').pop();
+  extension = extension.toLowerCase();
+  console.log(extension);
+}
 
 function loadFiles() {
   const picker = document.getElementById("filepicker");
@@ -135,10 +132,13 @@ function loadFiles() {
   }, false);
 }
 
-loadFiles()
+// disabling folder loader for now
+//loadFiles()
 loadVideo()
 loadImage()
 
+
+// -------- MEDIA CONTROLS -------
 // Select the HTML5 video
 const video = document.querySelector(".video-player")
 
