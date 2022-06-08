@@ -3,7 +3,7 @@ let extension = "";
 // to the player
 let video_extensions = ["mp4", "mov"];
 let audio_extensions = ["mp3", "wav", "ogg"];
-let image_extensions = ["png", "ppm", "jpg"];
+let image_extensions = ["png", "ppm", "jpg", "gif"];
 let current_file = 0;
 
 //Getting access to CDNJS library and saving to global var
