@@ -12,17 +12,18 @@
         <input class="input-file" id="choose-file" type="file" onchange="checkFileExtension()" />
         <video class="video-player" controls></video> 
         <img class="image-viewer">
+
+        <div class="test">
+            <input type="file" id="test-audiodata" accept=".mp3, .wav, .ogg">
+            <div id="cover"></div>
+            <p id="track"></p>
+            <p id="artist"></p>
+            <p id="album"></p>
+            <p id="genre"></p>
+        </div>
     </div>
 
-    <div>
-        <input type="file" id="input" accept=".mp3, .wav">
-        <div id="cover"></div>
-        <p id="track"></p>
-        <p id="artist"></p>
-        <p id="album"></p>
-        <p id="genre"></p>
 
-    </div>
 
     <script src="index.js"></script>
 </body>
