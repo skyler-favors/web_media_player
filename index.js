@@ -4,10 +4,11 @@ let extension = "";
 let video_extensions = ["mp4", "mov"];
 let audio_extensions = ["mp3", "wav", "ogg"];
 let image_extensions = ["png", "ppm", "jpg"];
+let current_file = 0;
 
 function loadVideo() {
     var playSelectedFile = function(event) {
-        var file = this.files[0]
+        var file = this.files[current_file]
         var URL = window.URL || window.webkitURL 
         var fileURL = URL.createObjectURL(file)
         var videoNode = document.querySelector('.video-player')
@@ -34,7 +35,7 @@ function loadVideo() {
 function loadImage() {
     var viewSelectedFile = function(event) {
     
-        var file = this.files[0]
+        var file = this.files[current_file]
         var URL = window.URL || window.webkitURL 
         var fileURL = URL.createObjectURL(file)
         var imageNode = document.querySelector('.image-viewer')
@@ -66,6 +67,32 @@ function checkFileExtension() {
     console.log(extension) 
 };
 
+function loadFiles() {
+  const picker = document.getElementById("filepicker");
+  picker.addEventListener("change", function(event) {
+    let output = document.getElementById("listing");
+    let files = event.target.files;
+
+    for (let i=0; i<files.length; i++) {
+      let item = document.createElement("li");
+      item.innerHTML = files[i].webkitRelativePath;
+      item.className = "file_path";
+      item.addEventListener("click", function(e) {
+        var list_elements = document.getElementsByClassName("file_path");
+
+        for (let i in list_elements) {
+          if (list_elements[i].innerHTML == this.innerHTML) {
+            current_file = i;
+            alert(i)
+          }
+        }
+      });
+      output.appendChild(item);
+    };
+  }, false);
+}
+
+loadFiles()
 loadVideo()
 loadImage()
 
