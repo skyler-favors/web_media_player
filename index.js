@@ -47,10 +47,6 @@ function loadImage() {
               return
           }
       }
-
-        imageNode.src = null;
-        imageNode.style.display = "none"
-    }
     
     imageNode.src = null
     imageNode.style.display = "none"
