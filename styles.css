@@ -13,35 +13,6 @@ body {
     align-items: center;
 }
 
-test {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-#cover {
-    width: 275px;
-    height: 275px; 
-    border: 1px solid black;
-    background-position: center;
-    background-size: cover;
-}
-
-video {
-    margin: 20px;
-    visibility: hidden;
-}
-
-.video-player {
-    position: relative;
-    z-index: -1;
-}
-
-audio {
-    margin: 20px;
-}
-
 .iphone {
     width: 412px;
     height: 612px;
@@ -112,10 +83,6 @@ audio {
     border-radius: 15px;
 }
 
-.container {
-    z-index: 0;
-}
-
 .iphone .buttons {
     display: flex;
     flex-direction: row;
@@ -123,15 +90,6 @@ audio {
     padding: 1em 0;
 }
 
-
-.buttons {
-    top: -2em;
-    opacity: 1;
-    display: flex;
-    justify-content:space-between;
-    width: 55%;
-    visibility: hidden;
-}
 
 /*for the border shadow*/
 .neu {
@@ -180,6 +138,5 @@ audio {
         object-fit: cover
     }
 }
-
 
 

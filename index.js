@@ -46,6 +46,7 @@ function getCoverArt() {
 
 function loadVideo() {
   var playSelectedFile = function(event) {
+    checkFileExtension();
     var file = this.files[current_file];
     var URL = window.URL || window.webkitURL; 
     var fileURL = URL.createObjectURL(file);
@@ -142,7 +143,7 @@ loadImage()
 const video = document.querySelector(".video-player")
 
 // set the pause button to display:none by default
-document.querySelector(".fa-pause").style.display = "none"
+//document.querySelector(".fa-pause").style.display = "none"
 
 // update the progress bar
 video.addEventListener("timeupdate", () => {
