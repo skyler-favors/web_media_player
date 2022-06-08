@@ -6,7 +6,7 @@ let current_file = 0;
 
 // adds a event listener to the input that adds the video source
 // to the player
-
+function getMetaData() {
 //Getting access to CDNJS library and saving to global var
 const jsmediatags = window.jsmediatags;
 
@@ -49,6 +49,7 @@ document.querySelector("#test-audiodata").addEventListener("change", (event) => 
     })
 })
 
+}
 
 function loadVideo() {
     var playSelectedFile = function(event) {
