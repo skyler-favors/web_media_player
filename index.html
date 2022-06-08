@@ -16,7 +16,13 @@
             </div>
             <div class="album-overlay">
                 <div class="album-overlay"></div>
-                <img src="https://images-na.ssl-images-amazon.com/images/I/810GyyWObmL._SL1400_.jpg" alt="">
+                <!--our code -->
+                <div id="video_container">
+                    <input class="input-file" id="choose-file" type="file" onchange="checkFileExtension()" />
+                    <video class="video-player" controls></video>
+                    <img class="image-viewer">
+                </div>
+                <!--end our code -->
                 <h2 class="song-title">
                     Test
                 </h2>
@@ -35,18 +41,8 @@
                 <div></div>
             </div>
 
-            <div class="lyrics">
-                <i class="fas fa-angle-up"></i>
-                <span>LYRICS</span>
-            </div>
-
-            <!--our code -->
-            <div id="video_container">
-                <input class="input-file" id="choose-file" type="file" onchange="checkFileExtension()" />
-                <video class="video-player" controls></video>
-                <img class="image-viewer">
-            </div>   
-            <!--end our code -->
+            
+            
         </div>
     </div>
 
