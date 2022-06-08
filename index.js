@@ -1,7 +1,7 @@
 let extension = "";
 let video_extensions = ["mp4", "mov"];
 let audio_extensions = ["mp3", "wav", "ogg"];
-let image_extensions = ["png", "ppm", "jpg", "gif"];
+let image_extensions = ["png", "jpg", "gif"];
 let current_file = 0;
 
 function getCoverArt() {
@@ -43,6 +43,85 @@ function getCoverArt() {
   })
 }
 
+var canvas;
+var ctx;
+
+function processPPM(fileContents) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  fileContents = fileContents.replace(/^\s+/, '').replace(/\s+$/, '');
+  var data = fileContents.split(/\s+/);
+
+  if (fileContents.substr(0, 2) != 'P3' || data[0] != 'P3') {
+    console.log('File is not a PPM');
+    return;
+  } 
+
+  var width = data[1];
+  var height = data[2];
+  var maxColors = data[3];
+
+  if (data[3] != 255) {
+    console.log('MaxColors is not 255');
+    return;
+  }
+
+  if (data.length != 3 * width * height + 4) {
+    console.log('Not enough pixel data.<br>'
+      + 'Found: ' + (data.length  -  4) + '<br>'
+      + 'Expecting: ' + (3 * width * height) + '<br>'
+      + 'Based on width = ' + width 
+      + ' and height = ' + height);
+    return;
+  }
+
+  canvas.width=width; 
+  canvas.height=height; 
+
+  var img = ctx.getImageData(0, 0, width, height);
+  var pixels = img.data;
+
+  var imageIndex = 0;
+  for (var i = 4; i < data.length; i += 3) {
+    pixels[imageIndex++] = data[i]; // r
+    pixels[imageIndex++] = data[i+1]; // g
+    pixels[imageIndex++] = data[i+2]; // b
+    pixels[imageIndex++] = 255; // a
+  }
+  ctx.putImageData(img, 0, 0);
+  reloadButton.disabled = false;
+}
+
+function loadPPM() {
+  var playSelectedFile = function(event) {
+    checkFileExtension();
+    var file = this.files[current_file];
+    var URL = window.URL || window.webkitURL; 
+    var fileURL = URL.createObjectURL(file);
+    canvas = document.getElementById("imageCanvas");
+    ctx = canvas.getContext("2d");
+
+    if (extension == "ppm") {
+      canvas.style.display = "initial";
+      var r = new FileReader();
+      r.onload = function(e) {
+        var contents = e.target.result;
+        processPPM(contents);
+      }
+      r.readAsText(file);
+    } else {
+      canvas.style.display = "none"
+    }
+  }
+
+  var inputNode = document.querySelector('.input-file')
+  inputNode.addEventListener('change', playSelectedFile, false)
+  document.getElementById("imageCanvas").style.display = "none";
+}
+
+loadPPM()
+
+
 function loadVideo() {
   var playSelectedFile = function(event) {
     checkFileExtension();
@@ -62,16 +141,15 @@ function loadVideo() {
       if (audio_extensions.includes(extension)) {
         getCoverArt();
       }
-
-      return
+    } else {
+      videoNode.src = null;
+      videoNode.style.display = "none"
     }
-
-    videoNode.src = null;
-    videoNode.style.display = "none"
   }
 
   var inputNode = document.querySelector('.input-file')
   inputNode.addEventListener('change', playSelectedFile, false)
+  document.querySelector('.video-player').style.display = "none";
 }
 
 function loadImage() {
@@ -85,16 +163,15 @@ function loadImage() {
       imageNode.style.display = "initial"
       imageNode.src = fileURL
       document.querySelector(".image-viewer").style.visibility = "visible";
-      return
+    } else {
+      imageNode.src = null
+      imageNode.style.display = "none"
     }
-
-    imageNode.src = null
-    imageNode.style.display = "none"
   }
 
   var inputNode = document.querySelector('.input-file')
   inputNode.addEventListener('change', viewSelectedFile, false)
-
+  document.querySelector('.image-viewer').style.display = "none";
 }
 
 
@@ -106,7 +183,7 @@ function checkFileExtension() {
   console.log(extension);
 }
 
-function loadFiles() {
+function loadFolder() {
   const picker = document.getElementById("filepicker");
   picker.addEventListener("change", function(event) {
     let output = document.getElementById("listing");
@@ -131,14 +208,30 @@ function loadFiles() {
   }, false);
 }
 
+
+
 // disabling folder loader for now
-//loadFiles()
+//loadFolder()
 loadVideo()
 loadImage()
+
 
 // -------- MEDIA CONTROLS -------
 // Select the HTML5 video
 const video = document.querySelector(".video-player")
+
+// set the pause button to display:none by default
+//document.querySelector(".fa-pause").style.display = "none"
+
+// update the progress bar
+video.addEventListener("timeupdate", () => {
+    let curr = (video.currentTime / video.duration) * 100
+    if(video.ended){
+        document.querySelector(".fa-play").style.display = "block"
+        document.querySelector(".fa-pause").style.display = "none"
+    }
+    document.querySelector('.inner').style.width = `${curr}%`
+})
 
 // pause or play the video
 const play = (e) => {
@@ -187,5 +280,3 @@ playbackrate.addEventListener('change', e => {
   display.innerText = displayvalue(playbackrate.value);
   window.localStorage.pbspeed = playbackrate.value;
 });
-
-
