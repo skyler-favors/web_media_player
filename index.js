@@ -21,6 +21,7 @@ document.querySelector("#test-audiodata").addEventListener("change", (event) => 
             //TEST
             //console.log(tag);
 
+            
             const data = tag.tags.picture.data;
             const format = tag.tags.picture.format;
             let base64String = "";
