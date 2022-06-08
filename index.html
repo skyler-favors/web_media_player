@@ -10,7 +10,7 @@
 <body>
     <div id="container">
         <input class="input-file" id="choose-file" type="file" onchange="checkFileExtension()" />
-        <video class="video-player" controls></video> 
+        <video class="video-player" id="video-player" preload="metadata" controls></video> 
         <img class="image-viewer">
 
         <div class="test">
@@ -24,6 +24,10 @@
     </div>
 
 
+    <div id="container">
+      <input type="file" id="filepicker" webkitdirectory multiple>
+      <ul id="listing"></ul>
+    </div>
 
     <script src="index.js"></script>
 </body>
