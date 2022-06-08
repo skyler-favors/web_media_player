@@ -41,7 +41,7 @@ img {
     visibility: hidden;
 }
 
-#container {
+.container {
     z-index: 0;
     display: flex;
     margin: 20px;
