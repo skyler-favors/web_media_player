@@ -1,13 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    border: 0;
-    font-size: inherit;
-    font-weight: inherit;
-    font-family: inherit;
-    text-decoration: inherit;
-    line-height: inherit;
-    color: inherit;
 }
 
 input {
@@ -17,6 +10,11 @@ input {
 video {
     margin: 20px;
     visibility: hidden;
+}
+
+.video-player {
+    position: relative;
+    z-index: -1;
 }
 
 audio {
@@ -29,6 +27,7 @@ img {
 }
 
 #container {
+    z-index: 0;
     display: flex;
     margin: 20px;
     border: black 2px solid;
@@ -36,3 +35,15 @@ img {
     justify-content: space-around;
     flex-direction: column;
 }
+
+
+.buttons {
+    top: -2em;
+    opacity: 1;
+    display: flex;
+    justify-content:space-between;
+    width: 55%;
+    visibility: hidden;
+  
+}
+

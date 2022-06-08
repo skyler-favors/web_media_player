@@ -1,10 +1,10 @@
 let extension = "";
-let video_extensions = ["mp4"];
+// adds a event listener to the input that adds the video source
+// to the player
+let video_extensions = ["mp4", "mov"];
 let audio_extensions = ["mp3", "wav", "ogg"];
 let image_extensions = ["png", "ppm", "jpg"];
 
-// adds a event listener to the input that adds the video source
-// to the player
 function loadVideo() {
     var playSelectedFile = function(event) {
         var file = this.files[0]
@@ -18,13 +18,13 @@ function loadVideo() {
             videoNode.style.display = "initial"
             videoNode.src = fileURL
             document.querySelector(".video-player").style.visibility = "visible";
+            document.querySelector(".buttons").style.visibility = "visible";
             return
           }
         }
 
-    videoNode.src = null;
-    videoNode.style.display = "none"
- 
+        videoNode.src = null;
+        videoNode.style.display = "none"
     }
     
     var inputNode = document.querySelector('.input-file')
@@ -40,12 +40,16 @@ function loadImage() {
         var imageNode = document.querySelector('.image-viewer')
 
         for (let i in image_extensions) {
-          if (extension == image_extensions[i]) {
-            imageNode.style.display = "initial"
-            imageNode.src = fileURL
-            document.querySelector(".image-viewer").style.visibility = "visible";
-            return
-        }
+            if (extension == image_extensions[i]) {
+              imageNode.style.display = "initial"
+              imageNode.src = fileURL
+              document.querySelector(".image-viewer").style.visibility = "visible";
+              return
+          }
+      }
+
+        imageNode.src = null;
+        imageNode.style.display = "none"
     }
     
     imageNode.src = null
@@ -69,5 +73,49 @@ function checkFileExtension() {
 loadVideo()
 loadImage()
 
+// Select the HTML5 video
+const video = document.querySelector(".video-player")
 
+// set the pause button to display:none by default
+document.querySelector(".fa-pause").style.display = "none"
 
+// update the progress bar
+video.addEventListener("timeupdate", () => {
+    let curr = (video.currentTime / video.duration) * 100
+    if(video.ended){
+        document.querySelector(".fa-play").style.display = "block"
+        document.querySelector(".fa-pause").style.display = "none"
+    }
+    document.querySelector('.inner').style.width = `${curr}%`
+})
+
+// pause or play the video
+const play = (e) => {
+    // Condition when to play a video
+    if(video.paused){
+        document.querySelector(".fa-play").style.display = "none"
+        document.querySelector(".fa-pause").style.display = "block"
+        video.play()
+    }
+    else{
+        document.querySelector(".fa-play").style.display = "block"
+        document.querySelector(".fa-pause").style.display = "none"
+        video.pause()
+    }
+}
+
+// trigger fullscreen
+const fullScreen = (e) => {
+    e.preventDefault()
+    video.requestFullscreen()
+}
+
+// rewind the current time
+const rewind = (e) => {
+    video.currentTime = video.currentTime - ((video.duration/100) * 5)
+}
+
+// forward the current time
+const forward = (e) => {
+    video.currentTime = video.currentTime + ((video.duration/100) * 5)
+}
