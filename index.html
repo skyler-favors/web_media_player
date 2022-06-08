@@ -24,10 +24,10 @@
         <div class="album-overlay"></div>
           <!--our code-->
         <div id="video_container">
-          <input class="input-file" id="choose-file" type="file" onchange="myFunction()"/>
-          
-          <video class="video-player" controls></video>
+          <input class="input-file" id="choose-file" type="file" />
+          <video class="video-player"></video>
           <img class="image-viewer">
+          <canvas id="imageCanvas" width="250" height="250"></canvas>
         </div>
           <!--end our code-->       
         
@@ -37,19 +37,19 @@
 
       </div>
       <div class="buttons">
-        <button class="btn lg red neu"><i class="fas fa-heart"></i></button>
-        <button class="btn lg neu"><i class="fas fa-backward"></i></button>
-        <button class="btn lg neu"><i class="fas fa-play"></i></button>
-        <button class="btn lg neu"><i class="fas fa-forward"></i></button>
+        <button onclick="rewind(event)" class="btn lg neu"><i class="fa fa-backward"></i></button>
+        <button onclick="play(event)" class="btn lg neu" ><i class="fa fa-play"></i><i class="fa fa-pause"></i></button>
+        <button onclick="rewind(event)" class="btn lg neu"><i class="fa fa-forward"></i></button>
+        <button onclick="fullScreen(event)" class="btn lg red neu"><i class="fa fa-expand"></i></button>
       </div>
 
-            <div class="track neu">
-                <div></div>
-            </div>
-
-            
-            
+      <div class="speedcontrolcontainer">
+        <div>
+          <input type="range" id="pbrate" min=0 max=2 value=100 step=.1>
+          <span id="durtimetext"></span>  
+          <span>Speed</span>
         </div>
+      </div>
     </div>
 
     <script src="index.js"></script>
