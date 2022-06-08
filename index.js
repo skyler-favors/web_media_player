@@ -4,7 +4,6 @@ let audio_extensions = ["mp3", "wav", "ogg"];
 let image_extensions = ["png", "ppm", "jpg", "gif"];
 let current_file = 0;
 
-
 function getCoverArt() {
   //Getting access to CDNJS library and saving to global var
   const jsmediatags = window.jsmediatags;
