@@ -1,10 +1,16 @@
-* {
-    margin: 0;
+body {
     padding: 0;
+    margin: 0;
+    background: #e0e5ec;
+    font-family: "Roboto", sans-serif;
 }
 
-input {
-    margin: 20px;
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 test {
@@ -36,21 +42,95 @@ audio {
     margin: 20px;
 }
 
-img {
-    margin: 20px;
-    visibility: hidden;
+.iphone {
+    width: 312px;
+    height: 612px;
+    background: #e0e5ec;
+    border-radius: 2em;
+    box-sizing: border-box;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.iphone .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 0.75em;
+    margin-bottom: 2em;
+}
+
+.iphone .album-cover {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.iphone .album-cover .album-overlay {
+    background: #fff;
+    width: 248px;
+    height: 248px;
+    z-index: 2;
+    border-radius: 15px;
+    position: absolute;
+    opacity: 0.35;
+    -webkit-clip-path: ellipse(61% 64% at 82% 56%);
+    clip-path: ellipse(61% 64% at 82% 56%);
+}
+
+.iphone .album-cover img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.iphone .album-cover .song-title {
+    text-align: center;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    color: #65717e;
+}
+
+.iphone .album-cover .artist-title {
+    text-align: center;
+    padding: 1em 0;
+    margin: 0;
+    font-size: 0.85em;
+    color: #65717e;
+}
+
+.iphone .track {
+    margin-top: 1em;
+    height: 10px;
+}
+
+.iphone .track div {
+    width: 42%;
+    height: 100%;
+    background: #7e8a98;
+    opacity: 0.75;
+    border-radius: 15px;
 }
 
 .container {
     z-index: 0;
-    display: flex;
-    margin: 20px;
-    border: black 2px solid;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: column;
 }
 
+.iphone .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1em 0;
+}
+
+.iphone .lyrics {
+    color: #7e8a98;
+    margin-top: 2em;
+    text-align: center;
+    font-size: 0.75em;
+    display: flex;
+    flex-direction: column;
+}
 
 .buttons {
     top: -2em;
@@ -59,6 +139,53 @@ img {
     justify-content:space-between;
     width: 55%;
     visibility: hidden;
-  
+}
+
+.neu {
+    box-shadow: -5px -5px 15px 0px #ffffff9e, 5px 5px 15px 0px #a3b1c6a8;
+    background: #e0e5ec;
+    border-radius: 2em;
+    border: 0;
+}
+
+.btn {
+    padding: 15px;
+    border-radius: 30px;
+    color: #7e8a98;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn.lg {
+    font-size: 1em;
+}
+
+.btn:active {
+    cursor: pointer;
+    box-shadow: inset -5px -5px 15px 0px #ffffff9e, inset 5px 5px 15px 0px #a3b1c6a8;
+}
+
+.red {
+    color: #e22d49;
+}
+
+@media screen and (min-width:350px){
+    video {
+        max-width: 100%;
+        border-style:groove;
+        margin: 20px;
+        width: 300px;
+        border: 15px solid rgb(20, 22, 21);
+        padding: 50px;
+        margin: 20px;
+        border-style:none
+    }
+
+}
+
+img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover
 }
 
