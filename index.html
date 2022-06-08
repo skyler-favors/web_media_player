@@ -7,19 +7,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
     <title>Media Player</title>
 </head>
+
 <body>
-    <div id="container">
+    <!--<div id="container">
         <input class="input-file" id="choose-file" type="file" onchange="checkFileExtension()" />
         <video class="video-player" controls></video> 
         <img class="image-viewer">
+    </div>
+    -->
+    <!-- KENNY'S CODE -->
 
-        <div class="test">
-            <input type="file" id="test-audiodata" accept=".mp3, .wav, .ogg">
-            <div id="cover"></div>
-            <p id="track"></p>
-            <p id="artist"></p>
-            <p id="album"></p>
-            <p id="genre"></p>
 
     <div class="container">
         <div class="iphone neu">
@@ -28,7 +25,16 @@
                 <div>NOW PLAYING</div>
                 <div><i class="fas fa-ellipsis-v"></i></div>
             </div>
-            <div class="album-overlay">
+
+            <div class="test">
+                <input type="file" id="test-audiodata" accept=".mp3, .wav, .ogg">
+                <div id="cover"></div>
+                <p id="track"></p>
+                <p id="artist"></p>
+                <p id="album"></p>
+                <p id="genre"></p>
+            </div>
+            <!--<div class="album-overlay">
                 <div class="album-overlay"></div>
                 <img src="htps://images-na.ssl-images-amazon.com/images/I/810GyyWObmL._SL1400_.jpg" alt="">
                 <h2 class="song-title">
@@ -37,7 +43,7 @@
                 <h3 class="artist-title">
                     Test
                 </h3>
-            </div>
+            </div>-->
             <div class="buttons">
                 <button class="btn lg red neu"><i class="fas fa-heart"></i></button>
                 <button class="btn lg neu"><i class="fas fa-backward"></i></button>
@@ -52,7 +58,7 @@
             <div class="lyrics">
                 <i class="fas fa-angle-up"></i>
                 <span>LYRICS</span>
-            </div>
+            </div> 
 
             <!--our code -->
             <div id="video_container">

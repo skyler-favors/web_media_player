@@ -137,9 +137,10 @@ body {
 
 test {
     display: flex;
+    object-fit: cover;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /*height: 100vh;*/
 }
 
 #cover {
