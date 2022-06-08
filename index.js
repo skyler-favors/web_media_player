@@ -1,7 +1,7 @@
 let extension = "";
-let video_extensions = ["mp4", "mov"];
+let video_extensions = ["mp4", "mp3", "mov"];
 let audio_extensions = ["mp3", "wav", "ogg"];
-let image_extensions = ["png", "ppm", "jpg"];
+let image_extensions = ["png", "ppm", "gif", "jpg"];
 
 function loadVideo() {
     var playSelectedFile = function(event) {
@@ -61,6 +61,10 @@ function checkFileExtension() {
     extension = fileName.split('.').pop();
     extension = extension.toLowerCase();
     console.log(extension) 
+    document.querySelector(".fa-play").style.display = "block"
+    document.querySelector(".fa-pause").style.display = "none"
+
+
 };
 
 loadVideo()
@@ -105,10 +109,10 @@ const fullScreen = (e) => {
 
 // rewind the current time
 const rewind = (e) => {
-    video.currentTime = video.currentTime - ((video.duration/100) * 5)
+    video.currentTime = video.currentTime - ((video.duration/50) * 3.3)
 }
 
 // forward the current time
 const forward = (e) => {
-    video.currentTime = video.currentTime + ((video.duration/100) * 5)
+    video.currentTime = video.currentTime + ((video.duration/50) * 3.3)
 }

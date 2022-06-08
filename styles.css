@@ -38,12 +38,14 @@ img {
 
 
 .buttons {
+    display: flex;
+    position: relative;
     top: -2em;
     opacity: 1;
-    display: flex;
     justify-content:space-between;
     width: 55%;
     visibility: hidden;
   
 }
+
 
