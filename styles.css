@@ -137,18 +137,18 @@ body {
 
 test {
     display: flex;
-    object-fit: cover;
     justify-content: center;
     align-items: center;
-    /*height: 100vh;*/
+    height: 100vh;
 }
 
 #cover {
+    
     width: 275px;
     height: 275px; 
     border: 1px solid black;
     background-position: center;
-    background-size: cover;
+    background-size: cover;    
 }
 
 video {
