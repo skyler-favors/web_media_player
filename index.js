@@ -1,3 +1,8 @@
+let extension = "";
+let video_extensions = ["mp4"];
+let audio_extensions = ["mp3", "wav", "ogg"];
+let image_extensions = ["png", "ppm", "jpg"];
+
 // adds a event listener to the input that adds the video source
 // to the player
 
@@ -52,15 +57,19 @@ function loadVideo() {
         var fileURL = URL.createObjectURL(file)
         var videoNode = document.querySelector('.video-player')
 
-        if (extension != "mp4") {
-        videoNode.src = null;
-        videoNode.style.display = "none"
-        return
+        let combined = video_extensions.concat(audio_extensions);
+        for (let i in combined) {
+          if (extension == combined[i]) {
+            videoNode.style.display = "initial"
+            videoNode.src = fileURL
+            document.querySelector(".video-player").style.visibility = "visible";
+            return
+          }
         }
 
-        videoNode.style.display = "initial"
-        videoNode.src = fileURL
-        document.querySelector(".video-player").style.visibility = "visible";
+    videoNode.src = null;
+    videoNode.style.display = "none"
+ 
     }
     
     var inputNode = document.querySelector('.input-file')
@@ -75,23 +84,24 @@ function loadImage() {
         var fileURL = URL.createObjectURL(file)
         var imageNode = document.querySelector('.image-viewer')
 
-        if (extension != "png") {
-           imageNode.src = null
-           imageNode.style.display = "none"
-           return
+        for (let i in image_extensions) {
+          if (extension == image_extensions[i]) {
+            imageNode.style.display = "initial"
+            imageNode.src = fileURL
+            document.querySelector(".image-viewer").style.visibility = "visible";
+            return
         }
-
-        imageNode.style.display = "initial"
-        imageNode.src = fileURL
-        document.querySelector(".image-viewer").style.visibility = "visible";
     }
+    
+    imageNode.src = null
+    imageNode.style.display = "none"
+}
 
     var inputNode = document.querySelector('.input-file')
     inputNode.addEventListener('change', viewSelectedFile, false)
 
 }
 
-let extension = "";
 
 function checkFileExtension() {
     fileName = document.querySelector('#choose-file').value;

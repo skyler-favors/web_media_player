@@ -20,6 +20,47 @@
             <p id="artist"></p>
             <p id="album"></p>
             <p id="genre"></p>
+
+    <div class="container">
+        <div class="iphone neu">
+            <div class="title">
+                <div><i class="fas fa-chevron-left"></i></div>
+                <div>NOW PLAYING</div>
+                <div><i class="fas fa-ellipsis-v"></i></div>
+            </div>
+            <div class="album-overlay">
+                <div class="album-overlay"></div>
+                <img src="htps://images-na.ssl-images-amazon.com/images/I/810GyyWObmL._SL1400_.jpg" alt="">
+                <h2 class="song-title">
+                    Test
+                </h2>
+                <h3 class="artist-title">
+                    Test
+                </h3>
+            </div>
+            <div class="buttons">
+                <button class="btn lg red neu"><i class="fas fa-heart"></i></button>
+                <button class="btn lg neu"><i class="fas fa-backward"></i></button>
+                <button class="btn lg neu"><i class="fas fa-play"></i></button>
+                <button class="btn lg neu"><i class="fas fa-forward"></i></button>
+            </div>
+
+            <div class="track neu">
+                <div></div>
+            </div>
+
+            <div class="lyrics">
+                <i class="fas fa-angle-up"></i>
+                <span>LYRICS</span>
+            </div>
+
+            <!--our code -->
+            <div id="video_container">
+                <input class="input-file" id="choose-file" type="file" onchange="checkFileExtension()" />
+                <video class="video-player" controls></video>
+                <img class="image-viewer">
+            </div>   
+            <!--end our code -->
         </div>
     </div>
 
