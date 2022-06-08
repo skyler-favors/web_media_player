@@ -4,7 +4,6 @@ let audio_extensions = ["mp3", "wav", "ogg"];
 let image_extensions = ["png", "jpg", "gif"];
 let current_file = 0;
 
-<<<<<<< HEAD
 function myFunction() {
     var fileName = document.getElementById("choose-file");
     var fileText = "";
@@ -39,10 +38,7 @@ function myFunction() {
     document.getElementById("demo").innerHTML = fileText;
 }
 
-function getCoverArt() {
-=======
 function getCoverArt(file) {
->>>>>>> main
   //Getting access to CDNJS library and saving to global var
   const jsmediatags = window.jsmediatags;
 
@@ -310,14 +306,10 @@ if (window.localStorage.pbspeed) {
   video.playbackRate = window.localStorage.pbspeed;
   playbackrate.value = window.localStorage.pbspeed;
 }
-<<<<<<< HEAD
 
-
-=======
 display.innerText = displayvalue(video.playbackRate);
 playbackrate.addEventListener('change', e => {
   video.playbackRate = playbackrate.value;
   display.innerText = displayvalue(playbackrate.value);
   window.localStorage.pbspeed = playbackrate.value;
 });
->>>>>>> main
