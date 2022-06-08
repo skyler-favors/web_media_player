@@ -7,6 +7,21 @@ input {
     margin: 20px;
 }
 
+test {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#cover {
+    width: 275px;
+    height: 275px; 
+    border: 1px solid black;
+    background-position: center;
+    background-size: cover;
+}
+
 video {
     margin: 20px;
     visibility: hidden;

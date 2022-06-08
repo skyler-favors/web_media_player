@@ -6,6 +6,49 @@ let audio_extensions = ["mp3", "wav", "ogg"];
 let image_extensions = ["png", "ppm", "jpg"];
 let current_file = 0;
 
+//Getting access to CDNJS library and saving to global var
+const jsmediatags = window.jsmediatags;
+
+//Get access to input button on HTML
+document.querySelector("#test-audiodata").addEventListener("change", (event) => {
+    //Storing event into this var 
+    const file = event.target.files[0];
+
+    //Return api response
+    jsmediatags.read(file, {
+        onSuccess: function(tag){
+            //TEST
+            //console.log(tag);
+
+            const data = tag.tags.picture.data;
+            const format = tag.tags.picture.format;
+            let base64String = "";
+
+            //Display the cover art
+            for (let i = 0; i < data.length; i++) {
+                base64String += String.fromCharCode(data[i]);                            
+            }
+
+            /* Takes base64String and converts ascii data to binary data 
+            - url(url )
+            - btoa() = creates a Base64-encoded ASCII string from a binary string (i.e., a String object in which each character in the string is treated as a byte of binary data)
+             */
+            document.querySelector("#cover").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
+
+            //Retrieve metatag and display track info 
+            document.querySelector("#track").textContent = tag.tags.title;
+            document.querySelector("#artist").textContent = tag.tags.artist;
+            document.querySelector("#album").textContent = tag.tags.album;
+            document.querySelector("#genre").textContent = tag.tags.genre;
+
+        },
+        onError: function(error){
+            console.log(error);
+        }
+    })
+})
+
+
 function loadVideo() {
     var playSelectedFile = function(event) {
         var file = this.files[current_file]
