@@ -10,11 +10,14 @@ let image_extensions = ["png", "ppm", "jpg"];
 const jsmediatags = window.jsmediatags;
 
 //Get access to input button on HTML
-document.querySelector("#test-audiodata").addEventListener("change", (event) => {
+function loadAudioTag(){
+    var displayAudioTag = function(event){
+//document.querySelector("#test-audiodata").addEventListener("change", (event) => {
     //Storing event into this var 
-    const file = event.target.files[0];
+    //const file = event.target.files[0];
+    const file = this.files[0];
 
-    //Return api response
+    //Return metadata response
     jsmediatags.read(file, {
         onSuccess: function(tag){
             //TEST
@@ -47,7 +50,9 @@ document.querySelector("#test-audiodata").addEventListener("change", (event) => 
             console.log(error);
         }
     })
-})
+//})
+    }
+}
 
 
 function loadVideo() {
