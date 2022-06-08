@@ -24,7 +24,7 @@
         <div class="album-overlay"></div>
         <div id="video_container">
           <input class="input-file" id="choose-file" type="file" />
-          <video class="video-player" controls></video>
+          <video class="video-player"></video>
           <img class="image-viewer">
           <canvas id="imageCanvas" width="250" height="250"></canvas>
         </div>
@@ -44,7 +44,7 @@
 
       <div class="speedcontrolcontainer">
         <div>
-          <input type="range" id="pbrate" min=1 max=3 value=1 step=.1>
+          <input type="range" id="pbrate" min=0 max=2 value=100 step=.1>
           <span id="durtimetext"></span>  
           <span>Speed</span>
         </div>
