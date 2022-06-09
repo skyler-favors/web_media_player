@@ -2,9 +2,7 @@ const playbackrateSlider = document.querySelector(".speedcontrolcontainer input"
 const videoScrubber = document.querySelector(".seekSlider");
 const display = document.querySelector(".speedcontrolcontainer span");
 const video = document.querySelector(".video-player");
-const curTimeText = document.getElementById("curtimetext");
-const durTimeText = document.getElementById("durtimetext");
-
+const curTimeText = document.getElementById("curtimetext"); const durTimeText = document.getElementById("durtimetext");
 
 // -------- MEDIA CONTROLS -------
 
@@ -78,6 +76,7 @@ function playbackSlider() {
   //setting our video playback rate to the value inside of local storage (that we just set above)
   video.playbackRate = window.localStorage.pbspeed;
   //setting our sliders value to the value inside of local storage (that we just set above)
+<<<<<<< HEAD
   playbackrateSlider.value = window.localStorage.pbspeed;
   display.innerText = displayvalue(video.playbackRate);
 }
@@ -97,4 +96,3 @@ function seektimeupdate(){
 
 videoScrubber.addEventListener("change",vidSeek,false);
 video.addEventListener("timeupdate",seektimeupdate,false);
-
