@@ -153,8 +153,9 @@ body {
     }
     img {
         width: 100%;
+        max-height: 200px;
         height: auto;
-        object-fit: cover;
+        object-fit: scale-down;
     }
 }
 
