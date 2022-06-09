@@ -110,7 +110,7 @@ body {
 }
 
 
-/*for the border shadow*/
+/*for the out box border shadow*/
 .neu {
     box-shadow: -5px -5px 15px 0px #ffffff9e, 5px 5px 15px 0px #a3b1c6a8;
     background: #e0e5ec;
