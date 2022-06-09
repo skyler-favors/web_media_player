@@ -63,6 +63,8 @@ function getCoverArt(file) {
            */
           document.querySelector(".image-viewer").style.display = "initial";
           document.querySelector(".image-viewer").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
+          document.querySelector(".image-viewer").style.width = '100%'
+          document.querySelector(".image-viewer").style.height = '500'
 
           //Retrieve metatag and display track info 
           //document.querySelector("#track").textContent = tag.tags.title;
@@ -172,6 +174,8 @@ function loadVideo() {
       // load cover art if its a audio file
       if (audio_extensions.includes(extension)) {
         getCoverArt(file);
+        videoNode.style.display = "none"
+        document.querySelector(".image-viewer").style.display = "initial"
       }
     } else {
       videoNode.src = null;
@@ -196,7 +200,7 @@ function loadImage() {
       imageNode.src = fileURL
       document.querySelector(".image-viewer").style.visibility = "visible";
     } else {
-      imageNode.src = null
+      //imageNode.src = null
       imageNode.style.display = "none"
     }
   }
