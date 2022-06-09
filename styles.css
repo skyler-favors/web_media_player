@@ -85,7 +85,7 @@ body {
     text-align: center;
     padding: 1em 0;
     margin: 0;
-    font-size: 0.85em;
+    font-size: 0.25em;
     color: #65717e;
 }
 
@@ -154,7 +154,7 @@ body {
     img {
         width: 100%;
         height: auto;
-        object-fit: cover
+        object-fit: cover;
     }
 }
 
