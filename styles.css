@@ -159,6 +159,9 @@ input[type=file]::file-selector-button {
     background-color: #acacad;
 }
 
+.input-file {
+  width: 90%;
+}
 
 /*for the media file loader*/
 @media screen and (min-width:350px){
