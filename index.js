@@ -4,15 +4,45 @@ const video = document.querySelector(".video-player");
 let extension = "";
 let video_extensions = ["mp4", "mov"];
 let audio_extensions = ["mp3", "wav", "ogg"];
-let image_extensions = ["png", "ppm", "jpg", "gif"];
+let image_extensions = ["png", "jpg", "gif"];
 let current_file = 0;
 
-function getCoverArt() {
+function myFunction() {
+    var fileName = document.getElementById("choose-file");
+    var fileText = "";
+
+    if ('files' in fileName) {
+        if (fileName.files.length == 0) {
+            fileText = "No file selected";
+        }
+        else {
+            for (var i = 0; i < fileName.files.length; i++) {
+                fileText += "<br> <strong>" + (i + 1) + ".File </strong> <br>";
+                var file = fileName.files[i];
+                if ('name' in file) {
+                    fileText += "Name:" + file.name + "<br>";
+                }
+                if ('size' in file) {
+                    fileText += "Size:" + file.size + "bytes <br>";
+                }
+            }
+        }
+    }
+    else {
+        if (fileName.value == "") {
+            fileText += "Please select a file";
+        }
+        else {
+            fileText += "The file property is not supported";
+            fileText += "<br> The file path selected:" + fileName.value;
+        }
+    }
+    document.getElementById("demo").innerHTML = fileText;
+}
+
+function getCoverArt(file) {
   //Getting access to CDNJS library and saving to global var
   const jsmediatags = window.jsmediatags;
-
-  //Get access to input button on HTML
-  const file = this.files[0];
 
   //Return api response
   jsmediatags.read(file, {
@@ -31,13 +61,16 @@ function getCoverArt() {
           - url(url )
           - btoa() = creates a Base64-encoded ASCII string from a binary string (i.e., a String object in which each character in the string is treated as a byte of binary data)
            */
-          document.querySelector("#cover").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
+          document.querySelector(".image-viewer").style.display = "initial";
+          document.querySelector(".image-viewer").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
+          document.querySelector(".image-viewer").style.width = '100%'
+          document.querySelector(".image-viewer").style.height = '500'
 
           //Retrieve metatag and display track info 
-          document.querySelector("#track").textContent = tag.tags.title;
-          document.querySelector("#artist").textContent = tag.tags.artist;
-          document.querySelector("#album").textContent = tag.tags.album;
-          document.querySelector("#genre").textContent = tag.tags.genre;
+          //document.querySelector("#track").textContent = tag.tags.title;
+          //document.querySelector("#artist").textContent = tag.tags.artist;
+          //document.querySelector("#album").textContent = tag.tags.album;
+          //document.querySelector("#genre").textContent = tag.tags.genre;
 
       },
       onError: function(error){
@@ -45,6 +78,85 @@ function getCoverArt() {
       }
   })
 }
+
+var canvas;
+var ctx;
+
+function processPPM(fileContents) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  fileContents = fileContents.replace(/^\s+/, '').replace(/\s+$/, '');
+  var data = fileContents.split(/\s+/);
+
+  if (fileContents.substr(0, 2) != 'P3' || data[0] != 'P3') {
+    console.log('File is not a PPM');
+    return;
+  } 
+
+  var width = data[1];
+  var height = data[2];
+  var maxColors = data[3];
+
+  if (data[3] != 255) {
+    console.log('MaxColors is not 255');
+    return;
+  }
+
+  if (data.length != 3 * width * height + 4) {
+    console.log('Not enough pixel data.<br>'
+      + 'Found: ' + (data.length  -  4) + '<br>'
+      + 'Expecting: ' + (3 * width * height) + '<br>'
+      + 'Based on width = ' + width 
+      + ' and height = ' + height);
+    return;
+  }
+
+  canvas.width=width; 
+  canvas.height=height; 
+
+  var img = ctx.getImageData(0, 0, width, height);
+  var pixels = img.data;
+
+  var imageIndex = 0;
+  for (var i = 4; i < data.length; i += 3) {
+    pixels[imageIndex++] = data[i]; // r
+    pixels[imageIndex++] = data[i+1]; // g
+    pixels[imageIndex++] = data[i+2]; // b
+    pixels[imageIndex++] = 255; // a
+  }
+  ctx.putImageData(img, 0, 0);
+  reloadButton.disabled = false;
+}
+
+function loadPPM() {
+  var playSelectedFile = function(event) {
+    checkFileExtension();
+    var file = this.files[current_file];
+    var URL = window.URL || window.webkitURL; 
+    var fileURL = URL.createObjectURL(file);
+    canvas = document.getElementById("imageCanvas");
+    ctx = canvas.getContext("2d");
+
+    if (extension == "ppm") {
+      canvas.style.display = "initial";
+      var r = new FileReader();
+      r.onload = function(e) {
+        var contents = e.target.result;
+        processPPM(contents);
+      }
+      r.readAsText(file);
+    } else {
+      canvas.style.display = "none"
+    }
+  }
+
+  var inputNode = document.querySelector('.input-file')
+  inputNode.addEventListener('change', playSelectedFile, false)
+  document.getElementById("imageCanvas").style.display = "none";
+}
+
+loadPPM()
+
 
 function loadVideo() {
   var playSelectedFile = function(event) {
@@ -61,18 +173,19 @@ function loadVideo() {
 
       // load cover art if its a audio file
       if (audio_extensions.includes(extension)) {
-        getCoverArt();
+        getCoverArt(file);
+        videoNode.style.display = "none"
+        document.querySelector(".image-viewer").style.display = "initial"
       }
-
-      return
+    } else {
+      videoNode.src = null;
+      videoNode.style.display = "none"
     }
-
-    videoNode.src = null;
-    videoNode.style.display = "none"
   }
 
   var inputNode = document.querySelector(".input-file")
   inputNode.addEventListener('change', playSelectedFile, false)
+  document.querySelector('.video-player').style.display = "none";
 }
 
 function loadImage() {
@@ -85,16 +198,16 @@ function loadImage() {
     if (image_extensions.includes(extension)) {
       imageNode.style.display = "initial"
       imageNode.src = fileURL
-      return
+      document.querySelector(".image-viewer").style.visibility = "visible";
+    } else {
+      //imageNode.src = null
+      imageNode.style.display = "none"
     }
-
-    imageNode.src = null
-    imageNode.style.display = "none"
   }
 
   var inputNode = document.querySelector(".input-file")
   inputNode.addEventListener('change', viewSelectedFile, false)
-
+  document.querySelector('.image-viewer').style.display = "none";
 }
 
 function checkFileExtension() {
@@ -107,7 +220,7 @@ function checkFileExtension() {
   console.log(extension);
 }
 
-function loadFiles() {
+function loadFolder() {
   const picker = document.getElementById("filepicker");
   picker.addEventListener("change", function(event) {
     let output = document.getElementById("listing");
@@ -132,13 +245,28 @@ function loadFiles() {
   }, false);
 }
 
+
+
 // disabling folder loader for now
-//loadFiles()
+//loadFolder()
 loadVideo()
 loadImage()
 
 
 // -------- MEDIA CONTROLS -------
+
+// set the pause button to display:none by default
+//document.querySelector(".fa-pause").style.display = "none"
+
+// update the progress bar
+video.addEventListener("timeupdate", () => {
+    let curr = (video.currentTime / video.duration) * 100
+    if(video.ended){
+        document.querySelector(".fa-play").style.display = "block"
+        document.querySelector(".fa-pause").style.display = "none"
+    }
+    document.querySelector('.inner').style.width = `${curr}%`
+})
 
 // pause or play the video
 const play = (e) => {
@@ -201,4 +329,3 @@ function playbackSlider() {
   display.innerText = displayvalue(video.playbackRate);
   
 }
-  
