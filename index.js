@@ -21,7 +21,6 @@ function myFunction() {
                 }
                 if ('size' in file) {
                     fileText += "Size:" + file.size + "bytes <br>";
-
                 }
             }
         }
