@@ -7,12 +7,42 @@ let audio_extensions = ["mp3", "wav", "ogg"];
 let image_extensions = ["png", "jpg", "gif"];
 let current_file = 0;
 
-function getCoverArt() {
+function myFunction() {
+    var fileName = document.getElementById("choose-file");
+    var fileText = "";
+
+    if ('files' in fileName) {
+        if (fileName.files.length == 0) {
+            fileText = "No file selected";
+        }
+        else {
+            for (var i = 0; i < fileName.files.length; i++) {
+                fileText += "<br> <strong>" + (i + 1) + ".File </strong> <br>";
+                var file = fileName.files[i];
+                if ('name' in file) {
+                    fileText += "Name:" + file.name + "<br>";
+                }
+                if ('size' in file) {
+                    fileText += "Size:" + file.size + "bytes <br>";
+                }
+            }
+        }
+    }
+    else {
+        if (fileName.value == "") {
+            fileText += "Please select a file";
+        }
+        else {
+            fileText += "The file property is not supported";
+            fileText += "<br> The file path selected:" + fileName.value;
+        }
+    }
+    document.getElementById("demo").innerHTML = fileText;
+}
+
+function getCoverArt(file) {
   //Getting access to CDNJS library and saving to global var
   const jsmediatags = window.jsmediatags;
-
-  //Get access to input button on HTML
-  const file = this.files[0];
 
   //Return api response
   jsmediatags.read(file, {
@@ -31,13 +61,14 @@ function getCoverArt() {
           - url(url )
           - btoa() = creates a Base64-encoded ASCII string from a binary string (i.e., a String object in which each character in the string is treated as a byte of binary data)
            */
-          document.querySelector("#cover").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
+          document.querySelector(".image-viewer").style.display = "initial";
+          document.querySelector(".image-viewer").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
 
           //Retrieve metatag and display track info 
-          document.querySelector("#track").textContent = tag.tags.title;
-          document.querySelector("#artist").textContent = tag.tags.artist;
-          document.querySelector("#album").textContent = tag.tags.album;
-          document.querySelector("#genre").textContent = tag.tags.genre;
+          //document.querySelector("#track").textContent = tag.tags.title;
+          //document.querySelector("#artist").textContent = tag.tags.artist;
+          //document.querySelector("#album").textContent = tag.tags.album;
+          //document.querySelector("#genre").textContent = tag.tags.genre;
 
       },
       onError: function(error){
@@ -140,7 +171,7 @@ function loadVideo() {
 
       // load cover art if its a audio file
       if (audio_extensions.includes(extension)) {
-        getCoverArt();
+        getCoverArt(file);
       }
     } else {
       videoNode.src = null;

@@ -22,22 +22,21 @@
       </div>
       <div class="album-overlay">
         <div class="album-overlay"></div>
+        <!--our code-->
         <div id="video_container">
-          <input onchange="playbackSlider()" class="input-file" id="choose-file" onclicked="videoLength" type="file"/>
+          <input onchange="playbackSlider()" class="input-file" id="choose-file" onclicked="videoLength" type="file" />
           <video class="video-player"></video>
           <img class="image-viewer">
           <canvas id="imageCanvas" width="250" height="250"></canvas>
         </div>
-        <h2 class="song-title">
+        <h2 class="song-title" id="demo">
           Test
         </h2>
-        <h3 class="artist-title">
-          Test
-        </h3>
+
       </div>
       <div class="buttons">
         <button onclick="rewind(event)" class="btn lg neu"><i class="fa fa-backward"></i></button>
-        <button onclick="play(event)" class="btn lg neu" ><i class="fa fa-play"></i><i class="fa fa-pause"></i></button>
+        <button onclick="play(event)" class="btn lg neu"><i class="fa fa-play"></i><i class="fa fa-pause"></i></button>
         <button onclick="forward(event)" class="btn lg neu"><i class="fa fa-forward"></i></button>
         <button class="btn lg red neu"><i class="fa-solid fa-shuffle"></i></button>
         <button class="btn lg red neu"><i class="fa-solid fa-repeat"></i></button>
@@ -46,8 +45,8 @@
 
       <div class="speedcontrolcontainer">
         <div>
-          <input type="range" id="pbrate" min=0 value=100 max=2 step=.1>
-          <span id="durtimetext"></span>  
+          <input type="range" id="pbrate" min=0 max=2 value=100 step=.1>
+          <span id="durtimetext"></span>
           <span>Speed</span>
         </div>
       </div>
@@ -55,8 +54,8 @@
         <div class="speed-bar"></div>
       </div>
     </div>
-  </div>
-  <script src="index.js"></script>
+
+    <script src="index.js"></script>
 </body>
 
 </html>
