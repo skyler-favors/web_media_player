@@ -56,7 +56,7 @@ function loadImage() {
       imageNode.src = fileURL
       document.querySelector(".image-viewer").style.visibility = "visible";
     } else {
-      //imageNode.src = null
+      imageNode.src = null
       imageNode.style.display = "none"
     }
   }
