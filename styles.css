@@ -87,7 +87,7 @@ body {
     text-align: center;
     padding: 1em 0;
     margin: 0;
-    font-size: 0.85em;
+    font-size: 0.25em;
     color: #65717e;
 }
 
@@ -112,12 +112,11 @@ body {
     transition: 1s;
 }
 
-
 .buttons {
   color: red;
 }
 
-/*for the border shadow*/
+/*for the out box border shadow*/
 .neu {
     box-shadow: -5px -5px 15px 0px #ffffff9e, 5px 5px 15px 0px #a3b1c6a8;
     background: #e0e5ec;
@@ -150,6 +149,11 @@ body {
     width:90%;
 }
 
+.song-title {
+    width: 98%;
+    overflow:hidden;
+}
+
 input[type=file]::file-selector-button {
     border: 2px solid #848282;
     padding: .2em .4em;
@@ -169,10 +173,10 @@ input[type='range'] {
   -moz-appearance: none;
 }
 
-.slider {
+.slider, .seekSlider {
   background-color: #e22d49;
   border-radius: 8px;
-  width:70%;
+  width:65%;
   cursor: pointer;
   opacity: 75%;
   transition: 1s;
@@ -180,6 +184,15 @@ input[type='range'] {
 
 .slider:hover {
     opacity: 100%;
+}
+
+.seekSlider:hover {
+    opacity: 100%;
+
+}
+
+span {
+    font-size: 90%;
 }
 
 /*for the media file loader*/
@@ -192,12 +205,16 @@ input[type='range'] {
         border: 15px solid rgb(20, 22, 21);
         padding: 0;
         margin: 0;
-        border-style:none
+        border-style:none;
+        max-height: 200px;
+        object-fit: scale-down;
     }
+
     img {
         width: 100%;
+        max-height: 200px;
         height: auto;
-        object-fit: cover
+        object-fit: scale-down;
     }
 }
 
