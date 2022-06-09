@@ -1,3 +1,6 @@
+const playbackrate = document.querySelector(".speedcontrolcontainer input");
+const display = document.querySelector(".speedcontrolcontainer span");
+const video = document.querySelector(".video-player");
 let extension = "";
 let video_extensions = ["mp4", "mov"];
 let audio_extensions = ["mp3", "wav", "ogg"];
@@ -134,8 +137,6 @@ function loadVideo() {
     if (combined.includes(extension)) {
       videoNode.style.display = "initial"
       videoNode.src = fileURL
-      document.querySelector(".video-player").style.visibility = "visible";
-      document.querySelector(".buttons").style.visibility = "visible";
 
       // load cover art if its a audio file
       if (audio_extensions.includes(extension)) {
@@ -147,7 +148,7 @@ function loadVideo() {
     }
   }
 
-  var inputNode = document.querySelector('.input-file')
+  var inputNode = document.querySelector(".input-file")
   inputNode.addEventListener('change', playSelectedFile, false)
   document.querySelector('.video-player').style.display = "none";
 }
@@ -157,7 +158,7 @@ function loadImage() {
     var file = this.files[current_file]
     var URL = window.URL || window.webkitURL 
     var fileURL = URL.createObjectURL(file)
-    var imageNode = document.querySelector('.image-viewer')
+    var imageNode = document.querySelector(".image-viewer")
 
     if (image_extensions.includes(extension)) {
       imageNode.style.display = "initial"
@@ -169,17 +170,18 @@ function loadImage() {
     }
   }
 
-  var inputNode = document.querySelector('.input-file')
+  var inputNode = document.querySelector(".input-file")
   inputNode.addEventListener('change', viewSelectedFile, false)
   document.querySelector('.image-viewer').style.display = "none";
 }
 
-
 function checkFileExtension() {
-  fileName = document.querySelector('#choose-file').value;
+  fileName = document.querySelector("#choose-file").value;
   //split extension path into substrings and pops the last element of the array off
   extension = fileName.split('.').pop();
   extension = extension.toLowerCase();
+  document.querySelector(".fa-play").style.display = "block"
+  document.querySelector(".fa-pause").style.display = "none"
   console.log(extension);
 }
 
@@ -217,8 +219,6 @@ loadImage()
 
 
 // -------- MEDIA CONTROLS -------
-// Select the HTML5 video
-const video = document.querySelector(".video-player")
 
 // set the pause button to display:none by default
 //document.querySelector(".fa-pause").style.display = "none"
@@ -264,19 +264,33 @@ const forward = (e) => {
     video.currentTime = video.currentTime + ((video.duration/50) * 3.3)
 }
 
-const playbackrate = document.querySelector('.speedcontrolcontainer input');
-const display = document.querySelector('.speedcontrolcontainer span');
 const displayvalue = val => {
   return parseInt(val * 100, 10) + '%'
 }
 
+window.localStorage.pbspeed = 1;
+
 if (window.localStorage.pbspeed) {
-  video.playbackRate = window.localStorage.pbspeed;
+  //setting the value of our slider to pbspeed in local storage
   playbackrate.value = window.localStorage.pbspeed;
 }
+
+//setting our speed display to our video playback rate
 display.innerText = displayvalue(video.playbackRate);
-playbackrate.addEventListener('change', e => {
+
+playbackrate.addEventListener("change", e => {
+  //sets our video playback rate to the value of our slider
   video.playbackRate = playbackrate.value;
   display.innerText = displayvalue(playbackrate.value);
-  window.localStorage.pbspeed = playbackrate.value;
 });
+
+function playbackSlider() {
+  //set our video playback speed to 1 (100%, normal play speed)
+  window.localStorage.pbspeed = 1;
+  //setting our video playback rate to the value inside of local storage (that we just set above)
+  video.playbackRate = window.localStorage.pbspeed;
+  //setting our sliders value to the value inside of local storage (that we just set above)
+  playbackrate.value = window.localStorage.pbspeed;
+  display.innerText = displayvalue(video.playbackRate);
+  
+}
