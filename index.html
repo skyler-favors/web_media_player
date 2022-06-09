@@ -24,8 +24,9 @@
         <div class="album-overlay"></div>
           <!--our code-->
         <div id="video_container">
-          <input class="input-file" id="choose-file" type="file" />
+          <input class="input-file" id="choose-file" type="file" onchange="getFileName()"/>
           <video class="video-player"></video>
+          
           <img class="image-viewer">
           <canvas id="imageCanvas" width="250" height="250"></canvas>
         </div>

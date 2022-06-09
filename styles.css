@@ -85,7 +85,7 @@ body {
     text-align: center;
     padding: 1em 0;
     margin: 0;
-    font-size: 0.85em;
+    font-size: 0.25em;
     color: #65717e;
 }
 
@@ -110,7 +110,7 @@ body {
 }
 
 
-/*for the border shadow*/
+/*for the out box border shadow*/
 .neu {
     box-shadow: -5px -5px 15px 0px #ffffff9e, 5px 5px 15px 0px #a3b1c6a8;
     background: #e0e5ec;
@@ -153,8 +153,9 @@ body {
     }
     img {
         width: 100%;
+        max-height: 200px;
         height: auto;
-        object-fit: cover
+        object-fit: scale-down;
     }
 }
 
