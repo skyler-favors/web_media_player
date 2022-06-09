@@ -4,7 +4,7 @@ let audio_extensions = ["mp3", "wav", "ogg"];
 let image_extensions = ["png", "ppm", "jpg", "gif"];
 let current_file = 0;
 
-function myFunction() {
+function getFileName() {
     var fileName = document.getElementById("choose-file");
     var fileText = "";
 
