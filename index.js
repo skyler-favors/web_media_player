@@ -186,10 +186,9 @@ if (window.localStorage.pbspeed) {
 display.innerText = displayvalue(video.playbackRate);
 
 playbackrate.addEventListener("change", e => {
+  //sets our video playback rate to the value of our slider
   video.playbackRate = playbackrate.value;
   display.innerText = displayvalue(playbackrate.value);
-  //placing our slider value inside of local storage
-  window.localStorage.pbspeed = playbackrate.value;
 });
 
 function playbackSlider() {
