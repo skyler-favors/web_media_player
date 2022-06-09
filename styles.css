@@ -10,6 +10,8 @@ body {
     background-size: 400% 400%;
     position: relative;
     animation: change 10s ease-in-out infinite;
+
+    color: grey;
 }
 
 @keyframes change{
@@ -109,6 +111,9 @@ body {
     padding: 1em 0;
 }
 
+.buttons {
+  color: red;
+}
 
 /*for the out box border shadow*/
 .neu {
@@ -139,6 +144,22 @@ body {
     color: #e22d49;
 }
 
+input[type=file]::file-selector-button {
+    border: 2px solid #848282;
+    padding: .2em .4em;
+    border-radius: .2em;
+    background-color: #e0e5ec;
+    transition: 1s;
+    cursor: pointer;
+    content: 'Select some files';
+}
+  
+  input[type=file]::file-selector-button:hover {
+    opacity: 70%;
+    background-color: #acacad;
+}
+
+
 /*for the media file loader*/
 @media screen and (min-width:350px){
     video {
@@ -159,5 +180,7 @@ body {
     }
 }
 
-
-
+.speedcontrolcontainer {
+  fill: red;
+  stroke: none;
+}
