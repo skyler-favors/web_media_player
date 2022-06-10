@@ -76,7 +76,6 @@ function playbackSlider() {
   //setting our video playback rate to the value inside of local storage (that we just set above)
   video.playbackRate = window.localStorage.pbspeed;
   //setting our sliders value to the value inside of local storage (that we just set above)
-<<<<<<< HEAD
   playbackrateSlider.value = window.localStorage.pbspeed;
   display.innerText = displayvalue(video.playbackRate);
 }
