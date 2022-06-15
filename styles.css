@@ -275,7 +275,7 @@ span {
 }
 
 .fa-ellipsis-v {
-    font-size: 3vh;
+    font-size: 2.5vh;
     color: grey;
 
 }
@@ -283,6 +283,11 @@ span {
 .fa-ellipsis-v:hover {
     color: #e22d49;
 
+}
+
+#uploadDirectory {
+    opacity: 0;
+    position: absolute;
 }
 /*END HERE*/
 

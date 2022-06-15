@@ -145,5 +145,9 @@ let directory = document.querySelector(".fa-ellipsis-v");
 directory.addEventListener("click", openDirectory);
 
 function openDirectory(){
-  alert("works");
+  //alert("works"); //test  
+  /*
+  let directoryDialog = document.getElementById("dialogBox");
+  directoryDialog.innerHTML = `<input type="file" id="uploadDirectory" accept="image/png, image/jpeg">`;
+  */
 }
