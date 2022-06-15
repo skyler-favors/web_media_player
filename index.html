@@ -21,24 +21,21 @@
         <div><i class="fas fa-ellipsis-v" id="directory""></i></div>
       </div>
       <div class="album-overlay">
-        <div class="album-overlay"></div>
         <div id="video_container">
-          <input onchange="playbackSlider(); getFileName()" class="input-file" id="choose-file" onclicked="videoLength" type="file" />
-          <video class="video-player"></video>
-          
+          <input onchange="playbackSlider(); getFileName()" class="input-file" id="choose-file" onclicked="videoLength"
+            type="file" />
+            <video id="video-player" class="media"></video>
+            <img id="image-viewer" class="media"></img>
+            <img id="cover-art" class="media"></img>
+            <canvas id="imageCanvas" class="media" width="250" height="250"></canvas>
 
-          <!--Displays cover art and other image files
-            Note: div has better styling results over img tag 
-          -->
-          <div id="cover"><img class="image-viewer"></div>
-          
+          <div id=musicData>
+            <!--Displays audio track data-->
+            <p class="audiotag" id="track"></p>
+            <p class="audiotag" id="artist"></p>
+            <p class="audiotag" id="album"></p>
+          </div>
 
-          <!--Displays audio track data-->
-          <p class="audiotag" id="track"></p>
-          <p class="audiotag" id="artist"></p>
-          <p class="audiotag" id="album"></p>
-
-          <canvas id="imageCanvas" width="250" height="250"></canvas>
         </div>
 
         <!--
@@ -52,7 +49,7 @@
         <button onclick="play(event)" class="btn lg neu"><i class="fa fa-play"></i><i class="fa fa-pause"></i></button>
         <button onclick="forward(event)" class="btn lg neu"><i class="fa fa-forward"></i></button>
         <button class="btn lg red neu"><i class="fa-solid fa-shuffle"></i></button>
-        <button class="btn lg red neu"><i class="fa-solid fa-repeat"></i></button>
+        <button onclick="repeat(event)" class="btn lg red neu"><i class="fa-solid fa-repeat"></i></button>
         <button onclick="fullScreen(event)" class="btn lg red neu"><i class="fa fa-expand"></i></button>
       </div>
 
@@ -60,26 +57,18 @@
         <div>
           <input type="range" id="pbrate" class="slider" min=0 value=100 max=2 step=.1>
           <span id="speedAmount"></span>  
-          <!--<span>Speed</span>-->
         </div>
       </div>
-      
+
       <div id="video_seek_bar">
         <input id="scrubtimer" class="seekSlider" type="range" min="0" max="100" value="0" step="1">
         <span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
       </div>
-<<<<<<< HEAD
-    </div>
-  </div>
-  <script src="index.js"></script>
-=======
-
-    <script src="script/index.js"></script>
-    <script src="script/load_media.js"></script>
-    <script src="script/controls.js"></script>
-    <script src="script/ppm.js"></script>
-    <script src="script/folders.js"></script>
->>>>>>> 3c1b10981df28ab3b63b0926f6dbd7ec7e00a96b
+      <script src="script/index.js"></script>
+      <script src="script/load_media.js"></script>
+      <script src="script/controls.js"></script>
+      <script src="script/ppm.js"></script>
+      <script src="script/folders.js"></script>
 </body>
 
 </html>
