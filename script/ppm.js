@@ -1,5 +1,5 @@
 var canvas = document.getElementById("imageCanvas");
-var ctx;
+var ctx = canvas.getContext("2d");
 
 function processPPM(fileContents) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -64,8 +64,6 @@ function loadPPM() {
     var file = this.files[current_file];
     var URL = window.URL || window.webkitURL; 
     var fileURL = URL.createObjectURL(file);
-    canvas = document.getElementById("imageCanvas");
-    ctx = canvas.getContext("2d");
 
     if (extension == "ppm") {
       canvas.style.display = "initial";
@@ -82,7 +80,6 @@ function loadPPM() {
 
   var inputNode = document.querySelector('.input-file')
   inputNode.addEventListener('change', playSelectedFile, false)
-  document.getElementById("imageCanvas").style.display = "none";
+  document.getElementsByClassName("imageCanvas").style.display = "none";
 }
 
-loadPPM()

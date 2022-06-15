@@ -28,7 +28,6 @@ function getFileName() {
             fileText += "<br> The file path selected:" + fileName.value;
         }
     }
-    document.getElementById("demo").innerHTML = fileText;
 }
 
 

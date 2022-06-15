@@ -1,69 +1,61 @@
-let extension = "";
-let video_extensions = ["mp4", "mov"];
-let audio_extensions = ["mp3", "wav", "ogg"];
-let image_extensions = ["png", "jpg", "gif"];
-let current_file = 0;
+var videoNode = document.getElementById("video-player");
+var imageNode = document.getElementById("image-viewer");
+var coverArtNode = document.getElementById("cover-art");
+var ppmNode = document.getElementById("imageCanvas");
+var musicInfo = document.getElementsByClassName("audiotag");
+var allMedia = document.getElementsByClassName("media");
 
-function checkFileExtension() {
-  fileName = document.querySelector("#choose-file").value;
-  //split extension path into substrings and pops the last element of the array off
-  extension = fileName.split('.').pop();
-  extension = extension.toLowerCase();
-  document.querySelector(".fa-play").style.display = "block"
-  document.querySelector(".fa-pause").style.display = "none"
-  console.log(extension);
-}
+function loadMedia() {
+  let video_extensions = ["mp4", "mov"];
+  let audio_extensions = ["mp3", "wav", "ogg"];
+  let image_extensions = ["png", "jpg", "gif"];
 
-function loadVideo() {
-  var playSelectedFile = function(event) {
-    checkFileExtension();
-    var file = this.files[current_file];
+
+  // play is run when the input file node detects a new file
+  var play = function() {
+    extension = checkFileExtension();
+    var file = this.files[0];
     var URL = window.URL || window.webkitURL; 
     var fileURL = URL.createObjectURL(file);
-    var videoNode = document.querySelector('.video-player');
-    let combined = video_extensions.concat(audio_extensions);
 
-    if (combined.includes(extension)) {
-      videoNode.style.display = "initial"
+    if (video_extensions.includes(extension)) {
+      hideMedia("video");
       videoNode.src = fileURL
+    } else if (audio_extensions.includes(extension)) {
+      hideMedia("audio");
+      getCoverArt(file);
+      videoNode.src = fileURL
+    } else if (image_extensions.includes(extension)) {
+      hideMedia("image");
+      imageNode.src = fileURL
+    } else if (extension == "ppm") {
+      hideMedia("ppm");
 
-      // load cover art if its a audio file
-      if (audio_extensions.includes(extension)) {
-        getCoverArt(file);
-        videoNode.style.display = "none"
-        document.querySelector(".image-viewer").style.display = "initial"
+      // r reads file as binary once it loads
+      var r = new FileReader();
+      r.onload = function(e) {
+        var contents = e.target.result;
+        processPPM(contents);
       }
+      r.readAsBinaryString(file)
     } else {
-      videoNode.src = null;
-      videoNode.style.display = "none"
+      console.log("ERROR: switch statement defualted when it shouldnt");
+      hideMedia();
     }
   }
 
-  var inputNode = document.querySelector(".input-file")
-  inputNode.addEventListener('change', playSelectedFile, false)
-  document.querySelector('.video-player').style.display = "none";
+  let inputNode = document.querySelector(".input-file");
+  inputNode.addEventListener('change', play, false);
+  hideMedia();
 }
 
-function loadImage() {
-  var viewSelectedFile = function(event) {
-    var file = this.files[current_file]
-    var URL = window.URL || window.webkitURL 
-    var fileURL = URL.createObjectURL(file)
-    var imageNode = document.querySelector(".image-viewer")
-
-    if (image_extensions.includes(extension)) {
-      imageNode.style.display = "initial"
-      imageNode.src = fileURL
-      document.querySelector(".image-viewer").style.visibility = "visible";
-    } else {
-      imageNode.src = null
-      imageNode.style.display = "none"
-    }
-  }
-
-  var inputNode = document.querySelector(".input-file")
-  inputNode.addEventListener('change', viewSelectedFile, false)
-  document.querySelector('.image-viewer').style.display = "none";
+function checkFileExtension() {
+  //split extension path into substrings and pops the last element of the array off
+  let fileName = document.querySelector("#choose-file").value;
+  let extension = fileName.split('.').pop();
+  extension = extension.toLowerCase();
+  console.log(extension);
+  return extension;
 }
 
 
@@ -97,14 +89,12 @@ function getCoverArt(file) {
           - Displays cover art image
           - Note: Switched the id from img to div container. Review html file
           */
-          document.querySelector("#cover").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`; 
-          document.querySelector("#cover").style.padding = "5px";
+          coverArtNode.style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`; 
+          coverArtNode.style.padding = "5px";
 
         } else {
-          document.querySelector("#cover").style.backgroundImage = `url("https://youshark.neocities.org/assets/img/default.png")`;
+          coverArtNode.style.backgroundImage = `url("https://youshark.neocities.org/assets/img/default.png")`;
         }    
-
-
       },
       onError: function(error){
           console.log(error);
@@ -136,6 +126,61 @@ function displayAudioTag(tag){
   }
 }
 
+function hideMedia(except) {
+  switch (except) {
+    case "video":
+      videoNode.style.display = "initial"
+      imageNode.style.display = "none"
+      ppmNode.style.display = "none"
+      imageNode.style.backgroundImage = null;
+      coverArtNode.style.display = "none"
+      for (let i=0; i<musicInfo.length; i++) {
+        musicInfo[i].style.display = "none"
+      }
+      break;
 
-loadVideo()
-loadImage()
+    case "image":
+      videoNode.style.display = "none"
+      imageNode.style.display = "initial"
+      ppmNode.style.display = "none"
+      imageNode.style.backgroundImage = null;
+      coverArtNode.style.display = "none"
+      for (let i=0; i<musicInfo.length; i++) {
+        musicInfo[i].style.display = "none"
+      }
+
+      break;
+
+    case "ppm":
+      videoNode.style.display = "none"
+      imageNode.style.display = "none"
+      ppmNode.style.display = "initial"
+      imageNode.style.backgroundImage = null;
+      coverArtNode.style.display = "none"
+      for (let i=0; i<musicInfo.length; i++) {
+        musicInfo[i].style.display = "none"
+      }
+
+      break;
+
+    case "audio":
+      videoNode.style.display = "none"
+      imageNode.style.display = "none"
+      ppmNode.style.display = "none"
+      coverArtNode.style.display = "initial"
+      for (let i=0; i<musicInfo.length; i++) {
+        musicInfo[i].style.display = "initial";
+      }
+
+      break;
+
+    default:
+      for (let i=0; i<allMedia.length; i++) {
+          allMedia[i].style.display = "none";
+      }
+      break;
+  }
+}
+
+loadMedia();
+
