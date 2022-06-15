@@ -231,6 +231,14 @@ span {
     font-size: 81%;
 }
 
+#imageCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin: auto;
+  object-fit: scale-down;
+}
+
 /*for the media file loader*/
 @media screen and (min-width:350px){
     video {
