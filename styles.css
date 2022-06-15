@@ -34,8 +34,9 @@ body {
     align-items: center;
 }
 
+
 .iphone {
-    width: 412px;
+    width: 312px;
     height: 612px;
     background: #e0e5ec;
     border-radius: 2em;
@@ -180,7 +181,39 @@ input[type='range'] {
   cursor: pointer;
   opacity: 75%;
   transition: 1s;
+
+  /*Kenny*/
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
 }
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 10px;
+    background: #e22d49;
+    cursor: pointer;
+}
+
+.seekSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 10px;
+    border-radius: 50%;
+    background: #e22d49;
+    cursor: pointer;
+}
+
+.seekSlider::-webkit-slider-runnable-track {
+    background: #d3d3d3;
+}
+
+/*end here*/
 
 .slider:hover {
     opacity: 100%;
@@ -218,7 +251,32 @@ span {
     }
 }
 
-
+/*KENNY*/
 #cover {
-    text-align: center;
+    display: flex;    
+    width: 16vw;
+    height: 33vh; 
+    min-width: 240px;
+    min-height: 200px;
+    position: relative;
+    
+    /*border: 1px solid black;*/
+    background-position: center;
+    background-size: cover;    
+    object-fit: cover;
 }
+
+
+.audiotag {
+    display: flex;
+    font-weight: 600;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+}
+/*END HERE*/
+
+video {
+    max-width: 100%;
+}
+

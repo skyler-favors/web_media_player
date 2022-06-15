@@ -26,12 +26,26 @@
           <input onchange="playbackSlider(); getFileName()" class="input-file" id="choose-file" onclicked="videoLength" type="file" />
           <video class="video-player"></video>
           
-          <img class="image-viewer">
+
+          <!--Displays cover art and other image files
+            Note: div has better styling results over img tag 
+          -->
+          <div id="cover"><img class="image-viewer"></div>
+          
+
+          <!--Displays audio track data-->
+          <p class="audiotag" id="track"></p>
+          <p class="audiotag" id="artist"></p>
+          <p class="audiotag" id="album"></p>
+
           <canvas id="imageCanvas" width="250" height="250"></canvas>
         </div>
+
+        <!--
         <h2 class="song-title" id="demo">
           Test
         </h2>
+      -->
       </div>
       <div class="buttons">
         <button onclick="rewind(event)" class="btn lg neu"><i class="fa fa-backward"></i></button>
@@ -51,7 +65,7 @@
       </div>
       
       <div id="video_seek_bar">
-        <input class="seekSlider" type="range" min="0" max="100" value="0" step="1">
+        <input id="scrubtimer" class="seekSlider" type="range" min="0" max="100" value="0" step="1">
         <span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
       </div>
 
