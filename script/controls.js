@@ -1,7 +1,7 @@
 const playbackrateSlider = document.querySelector(".speedcontrolcontainer input");
 const videoScrubber = document.querySelector(".seekSlider");
 const display = document.querySelector(".speedcontrolcontainer span");
-const video = document.querySelector(".video-player");
+const video = document.querySelector("#video-player");
 const curTimeText = document.getElementById("curtimetext"); 
 const durTimeText = document.getElementById("durtimetext");
 const fileButton = document.querySelector(".input-file")
