@@ -136,6 +136,14 @@ function displayAudioTag(tag){
   }
 }
 
-
 loadVideo()
 loadImage()
+
+//Upload Directory
+let directory = document.querySelector(".fa-ellipsis-v");
+
+directory.addEventListener("click", openDirectory);
+
+function openDirectory(){
+  alert("works");
+}

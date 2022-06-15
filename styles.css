@@ -273,6 +273,17 @@ span {
     justify-content: center;
     align-items: center;
 }
+
+.fa-ellipsis-v {
+    font-size: 3vh;
+    color: grey;
+
+}
+
+.fa-ellipsis-v:hover {
+    color: #e22d49;
+
+}
 /*END HERE*/
 
 

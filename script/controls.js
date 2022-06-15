@@ -111,7 +111,6 @@ function seektimeupdate(){
     var sec2 = Math.floor(video.duration % 60);
     durTimeText.innerHTML = min2 + ':' + sec2;
 
-
   }, 10);
 }
 
