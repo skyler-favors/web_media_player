@@ -1,5 +1,3 @@
-
-
 function getFileName() {
     var fileName = document.getElementById("choose-file");
     var fileText = "";
