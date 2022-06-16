@@ -178,8 +178,7 @@ input[type=file]::file-selector-button:hover {
 }
 
 input[type='range'] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  
 }
 
 .slider, .seekSlider {
@@ -193,8 +192,6 @@ input[type='range'] {
 }
 
 .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
     width: 5px;
     border-radius: 50%;
     height: 10px;
@@ -203,17 +200,11 @@ input[type='range'] {
 }
 
 .seekSlider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
     width: 5px;
     height: 10px;
     border-radius: 50%;
     background: #e22d49;
     cursor: pointer;
-}
-
-.seekSlider::-webkit-slider-runnable-track {
-    background: #d3d3d3;
 }
 
 /*end here*/
@@ -229,6 +220,14 @@ input[type='range'] {
 
 span {
     font-size: 81%;
+}
+
+#imageCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin: auto;
+  object-fit: scale-down;
 }
 
 /*for the media file loader*/
@@ -277,6 +276,17 @@ span {
     margin: 5px;
     justify-content: center;
     align-items: center;
+}
+
+.fa-ellipsis-v {
+    font-size: 3vh;
+    color: grey;
+
+}
+
+.fa-ellipsis-v:hover {
+    color: #e22d49;
+
 }
 /*END HERE*/
 

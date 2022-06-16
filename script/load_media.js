@@ -126,6 +126,15 @@ function displayAudioTag(tag){
   }
 }
 
+//Upload Directory
+let directory = document.querySelector(".fa-ellipsis-v");
+
+directory.addEventListener("click", openDirectory);
+
+function openDirectory(){
+  alert("works");
+}
+
 function hideMedia(except) {
   switch (except) {
     case "video":
@@ -181,6 +190,11 @@ function hideMedia(except) {
       break;
   }
 }
+<<<<<<< HEAD
 
 loadMedia();
 
+=======
+
+loadMedia();
+>>>>>>> 47da3fbbf2f8d49a7e3fdd3bdf20e61d0a62c96e
