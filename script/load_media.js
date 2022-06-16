@@ -5,42 +5,55 @@ var ppmNode = document.getElementById("imageCanvas");
 var musicInfo = document.getElementsByClassName("audiotag");
 var allMedia = document.getElementsByClassName("media");
 
+var secondFile = false;
+var currentFile = "";
+
 function loadMedia() {
-  let video_extensions = ["mp4", "mov"];
-  let audio_extensions = ["mp3", "wav", "ogg"];
-  let image_extensions = ["png", "jpg", "gif"];
-
-
   // play is run when the input file node detects a new file
   var play = function() {
-    extension = checkFileExtension();
+    var extension = checkFileExtension();
     var file = this.files[0];
     var URL = window.URL || window.webkitURL; 
     var fileURL = URL.createObjectURL(file);
 
-    if (video_extensions.includes(extension)) {
-      hideMedia("video");
-      videoNode.src = fileURL
-    } else if (audio_extensions.includes(extension)) {
-      hideMedia("audio");
-      getCoverArt(file);
-      videoNode.src = fileURL
-    } else if (image_extensions.includes(extension)) {
-      hideMedia("image");
-      imageNode.src = fileURL
-    } else if (extension == "ppm") {
-      hideMedia("ppm");
+    let filetype = getFileType(extension);
 
-      // r reads file as binary once it loads
-      var r = new FileReader();
-      r.onload = function(e) {
-        var contents = e.target.result;
-        processPPM(contents);
-      }
-      r.readAsBinaryString(file)
+    // open second file
+    if (secondFile) {
+      hideMedia([currentFile, filetype])
     } else {
-      console.log("ERROR: switch statement defualted when it shouldnt");
-      hideMedia();
+      hideMedia([filetype])
+      currentFile = filetype;
+    }
+    switch (filetype) {
+      case "video":
+        videoNode.src = fileURL
+        break;
+
+      case "audio":
+        getCoverArt(file);
+        videoNode.src = fileURL
+        break;
+
+      case "image":
+        imageNode.src = fileURL
+        break;
+
+      case "ppm":
+        // r reads file as binary once it loads
+        var r = new FileReader();
+        r.onload = function(e) {
+          var contents = e.target.result;
+          processPPM(contents);
+        }
+        r.readAsBinaryString(file)
+        break;
+
+      default:
+        currentFile = "error";
+        console.log("ERROR: switch statement defualted when it shouldnt");
+        hideMedia();
+        break;
     }
   }
 
@@ -72,7 +85,6 @@ function getCoverArt(file) {
         //Checks if album cover exists
         let coverData = tag.tags;
         let coverExists = coverData.hasOwnProperty("picture");
-
         if (coverExists) {
           const data = tag.tags.picture.data;
           const format = tag.tags.picture.format;
@@ -136,59 +148,68 @@ function openDirectory(){
 }
 
 function hideMedia(except) {
-  switch (except) {
-    case "video":
-      videoNode.style.display = "initial"
-      imageNode.style.display = "none"
-      ppmNode.style.display = "none"
-      imageNode.style.backgroundImage = null;
-      coverArtNode.style.display = "none"
-      for (let i=0; i<musicInfo.length; i++) {
-        musicInfo[i].style.display = "none"
-      }
-      break;
+  // remove everything
+  videoNode.style.display = "none"
+  imageNode.style.display = "none"
+  ppmNode.style.display = "none"
+  imageNode.style.backgroundImage = null;
+  coverArtNode.style.display = "none"
+  for (let i=0; i<musicInfo.length; i++) {
+    musicInfo[i].style.display = "none"
+  }
 
-    case "image":
-      videoNode.style.display = "none"
-      imageNode.style.display = "initial"
-      ppmNode.style.display = "none"
-      imageNode.style.backgroundImage = null;
-      coverArtNode.style.display = "none"
-      for (let i=0; i<musicInfo.length; i++) {
-        musicInfo[i].style.display = "none"
-      }
+  for (let i in except) {
+    switch (except[i]) {
+      case "video":
+        videoNode.style.display = "initial"
+        break;
 
-      break;
+      case "image":
+        imageNode.style.display = "initial"
+        break;
 
-    case "ppm":
-      videoNode.style.display = "none"
-      imageNode.style.display = "none"
-      ppmNode.style.display = "initial"
-      imageNode.style.backgroundImage = null;
-      coverArtNode.style.display = "none"
-      for (let i=0; i<musicInfo.length; i++) {
-        musicInfo[i].style.display = "none"
-      }
+      case "ppm":
+        ppmNode.style.display = "initial"
+        break;
 
-      break;
+      case "audio":
+        coverArtNode.style.display = "initial"
+        for (let i=0; i<musicInfo.length; i++) {
+          musicInfo[i].style.display = "initial";
+        }
+        break;
 
-    case "audio":
-      videoNode.style.display = "none"
-      imageNode.style.display = "none"
-      ppmNode.style.display = "none"
-      coverArtNode.style.display = "initial"
-      for (let i=0; i<musicInfo.length; i++) {
-        musicInfo[i].style.display = "initial";
-      }
-
-      break;
-
-    default:
-      for (let i=0; i<allMedia.length; i++) {
-          allMedia[i].style.display = "none";
-      }
-      break;
+      default:
+        break;
+    }
   }
 }
 
+function getFileType(extension) {
+  let video_extensions = ["mp4", "mov"];
+  let audio_extensions = ["mp3", "wav", "ogg"];
+  let image_extensions = ["png", "jpg", "gif"];
+
+  if (video_extensions.includes(extension)) {
+    return "video";
+  } else if (audio_extensions.includes(extension)) {
+    return "audio";
+  } else if (image_extensions.includes(extension)) {
+    return "image";
+  } else if (extension == "ppm") {
+    return "ppm";
+  } else {
+    return "error";
+  }
+}
+
+function openSecondFile() {
+  var toggle = function() {
+    secondFile = !secondFile;
+  };
+  var toggleButton = document.getElementById("openSecond");
+  toggleButton.addEventListener('click', toggle, false);
+}
+
 loadMedia();
+openSecondFile();

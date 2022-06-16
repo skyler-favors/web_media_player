@@ -26,10 +26,9 @@ body {
     }
 }
 
-#colorscheme {
+.extraButtons {
   float: right;
 }
-
 
 .fa-play {
  display: block;
@@ -46,7 +45,6 @@ body {
     justify-content: center;
     align-items: center;
 }
-
 
 .iphone {
     width: 312px;
