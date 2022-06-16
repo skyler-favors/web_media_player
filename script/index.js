@@ -30,4 +30,25 @@ function getFileName() {
     }
 }
 
+function toggleColorscheme() {
+  var colorState = true;
+  var body = document.getElementById("main");
+  var toggleButton = document.getElementById("colorscheme");
 
+  var toggle = function() {
+    colorState = !colorState;
+
+    if (colorState) {
+      body.style.animationPlayState = "running";
+      toggleButton.innerHTML = "Animating"
+    } else {
+      body.style.animationPlayState = "paused";
+      toggleButton.innerHTML = "Paused"
+
+    }
+  };
+
+  toggleButton.addEventListener('click', toggle, false);
+}
+
+toggleColorscheme();
