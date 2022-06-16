@@ -204,10 +204,15 @@ function getFileType(extension) {
 }
 
 function openSecondFile() {
+  var toggleButton = document.getElementById("openSecond");
   var toggle = function() {
     secondFile = !secondFile;
+    if (secondFile) {
+      toggleButton.innerHTML = "Second File On";
+    } else {
+      toggleButton.innerHTML = "Second File Off";
+    }
   };
-  var toggleButton = document.getElementById("openSecond");
   toggleButton.addEventListener('click', toggle, false);
 }
 
