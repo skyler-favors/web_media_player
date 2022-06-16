@@ -132,7 +132,7 @@ let directory = document.querySelector(".fa-ellipsis-v");
 directory.addEventListener("click", openDirectory);
 
 function openDirectory(){
-  alert("works");
+  //alert("works");
 }
 
 function hideMedia(except) {
@@ -192,3 +192,23 @@ function hideMedia(except) {
 }
 
 loadMedia();
+
+//test variables for playlist
+let ellipsis = document.querySelector(".fa-ellipsis-v");
+let closeIcon = document.querySelector(".fa-times");
+let musicPlaylist = document.querySelector(".music-playlist");
+let playlistDiv = document.querySelector(".playlist-div");
+let playlist = document.querySelector(".playlist");
+
+//event listeners
+ellipsis.addEventListener("click", showPlaylist);
+closeIcon.addEventListener("click", hidePlaylist);
+
+//show playlist
+function showPlaylist() {
+  musicPlaylist.style.zIndex = "1";
+}
+//hide playlist
+function hidePlaylist() {
+  musicPlaylist.style.zIndex = "-1";
+}
