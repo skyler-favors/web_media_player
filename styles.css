@@ -26,6 +26,14 @@ body {
     }
 }
 
+.fa-play {
+ display: block;
+}
+
+.fa-pause {
+  display: none;
+}
+
 .container {
     width: 100vw;
     height: 100vh;
@@ -170,8 +178,7 @@ input[type=file]::file-selector-button:hover {
 }
 
 input[type='range'] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  
 }
 
 .slider, .seekSlider {
@@ -223,6 +230,14 @@ span {
     font-size: 81%;
 }
 
+#imageCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin: auto;
+  object-fit: scale-down;
+}
+
 /*for the media file loader*/
 @media screen and (min-width:350px){
     video {
@@ -247,18 +262,19 @@ span {
 }
 
 /*KENNY*/
-#cover {
+#cover-art {
     display: flex;    
     width: 16vw;
     height: auto; 
     min-width: 240px;
-    min-height: 200px;
+    min-height: 240px;
     position: relative;
     
     /*border: 1px solid black;*/
     background-position: center;
     background-size: cover;    
     object-fit: cover;
+    margin: 5px 0 5px 0;
 }
 
 
@@ -268,6 +284,17 @@ span {
     margin: 5px;
     justify-content: center;
     align-items: center;
+}
+
+.fa-ellipsis-v {
+    font-size: 3vh;
+    color: grey;
+
+}
+
+.fa-ellipsis-v:hover {
+    color: #e22d49;
+
 }
 /*END HERE*/
 
