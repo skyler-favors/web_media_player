@@ -145,10 +145,14 @@ let closeIcon = document.querySelector(".fa-times");
 let musicPlaylist = document.querySelector(".music-playlist");
 let playlistDiv = document.querySelector(".playlist-div");
 let playlist = document.querySelector(".playlist");
+let directory = document.querySelector(".fa-music");
+
 
 //event listeners
 ellipsis.addEventListener("click", showPlaylist);
 closeIcon.addEventListener("click", hidePlaylist);
+directory.addEventListener("click", openDirectory);
+
 
 //show playlist
 function showPlaylist() {
@@ -157,4 +161,10 @@ function showPlaylist() {
 //hide playlist
 function hidePlaylist() {
   musicPlaylist.style.zIndex = "-1";
+}
+
+function openDirectory(){
+  //alert("works"); //test   
+  //let directoryDialog = document.getElementById("dialogBox");
+  musicPlaylist.innerHTML = "Hello world";//`<input type="file" id="uploadDirectory" accept="image/png, image/jpeg">`; 
 }
