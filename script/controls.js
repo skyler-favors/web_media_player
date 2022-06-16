@@ -7,6 +7,8 @@ const durTimeText = document.getElementById("durtimetext");
 const fileButton = document.querySelector(".input-file")
 
 // -------- MEDIA CONTROLS -------
+videoScrubber.value= 0;
+document.querySelector(".fa-pause").style.display = "none"
 
 // update the progress bar
 video.addEventListener("timeupdate", () => {
@@ -18,6 +20,7 @@ video.addEventListener("timeupdate", () => {
 
 // pause or play the video
 const play = (e) => {
+ 
     // Condition when to play a video
     if(video.paused){
         document.querySelector(".fa-play").style.display = "none"
@@ -34,6 +37,7 @@ const play = (e) => {
 //repeat song/video
 const repeat = (e) => {
     document.querySelector(".fa-play").style.display = "block"
+    document.querySelector(".fa-pause").style.display = "none";
     video.playbackRate = window.localStorage.pbspeed;
     playbackrateSlider.value = window.localStorage.pbspeed;
     display.innerText = displayvalue(video.playbackRate);
@@ -45,7 +49,7 @@ const repeat = (e) => {
 //position video scrubber back to beginning when opening a new file
 function postionSliderHome() {
   document.querySelector(".fa-play").style.display = "block"
-  videoScrubber.value = 1;
+  videoScrubber.value = 0;
 }
 
 // trigger fullscreen
@@ -67,8 +71,6 @@ const forward = (e) => {
 const displayvalue = val => {
   return parseFloat(val * 1).toFixed(1) + 'x'
 }
-
-window.localStorage.sliderhome = video.playbackRate;
 
 if (window.localStorage.pbspeed) {
   //setting the value of our slider to pbspeed in local storage
@@ -152,4 +154,3 @@ changeDuration(videoScrubber.value);
 videoScrubber.addEventListener('timeupdate', (e) => {
   changeDuration(e.target.value);
 });
-
