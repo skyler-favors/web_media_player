@@ -139,15 +139,22 @@ function displayAudioTag(tag){
 loadVideo()
 loadImage()
 
-//Upload Directory
-let directory = document.querySelector(".fa-ellipsis-v");
+//test variables for playlist
+let ellipsis = document.querySelector(".fa-ellipsis-v");
+let closeIcon = document.querySelector(".fa-times");
+let musicPlaylist = document.querySelector(".music-playlist");
+let playlistDiv = document.querySelector(".playlist-div");
+let playlist = document.querySelector(".playlist");
 
-directory.addEventListener("click", openDirectory);
+//event listeners
+ellipsis.addEventListener("click", showPlaylist);
+closeIcon.addEventListener("click", hidePlaylist);
 
-function openDirectory(){
-  //alert("works"); //test  
-  /*
-  let directoryDialog = document.getElementById("dialogBox");
-  directoryDialog.innerHTML = `<input type="file" id="uploadDirectory" accept="image/png, image/jpeg">`;
-  */
+//show playlist
+function showPlaylist() {
+  musicPlaylist.style.zIndex = "1";
+}
+//hide playlist
+function hidePlaylist() {
+  musicPlaylist.style.zIndex = "-1";
 }
