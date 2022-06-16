@@ -1,7 +1,7 @@
 const playbackrateSlider = document.querySelector(".speedcontrolcontainer input");
 const videoScrubber = document.querySelector(".seekSlider");
 const display = document.querySelector(".speedcontrolcontainer span");
-const video = document.querySelector(".video-player");
+const video = document.querySelector("#video-player");
 const curTimeText = document.getElementById("curtimetext"); 
 const durTimeText = document.getElementById("durtimetext");
 const fileButton = document.querySelector(".input-file")
@@ -34,17 +34,18 @@ const play = (e) => {
 //repeat song/video
 const repeat = (e) => {
     document.querySelector(".fa-play").style.display = "block"
-    source = document.querySelector('.video-player');
-    source.loop = true
-    source.load();
+    video.playbackRate = window.localStorage.pbspeed;
     playbackrateSlider.value = window.localStorage.pbspeed;
     display.innerText = displayvalue(video.playbackRate);
-    videoScrubber.value = 0;
+    video.currentTime = 0;
+    videoScrubber.value = 0; 
+    video.pause();
 }
 
 //position video scrubber back to beginning when opening a new file
 function postionSliderHome() {
-  videoScrubber.value = 0;
+  document.querySelector(".fa-play").style.display = "block"
+  videoScrubber.value = 1;
 }
 
 // trigger fullscreen
@@ -66,7 +67,8 @@ const forward = (e) => {
 const displayvalue = val => {
   return parseFloat(val * 1).toFixed(1) + 'x'
 }
-window.localStorage.pbspeed = 1;
+
+window.localStorage.sliderhome = video.playbackRate;
 
 if (window.localStorage.pbspeed) {
   //setting the value of our slider to pbspeed in local storage
@@ -101,6 +103,9 @@ function vidSeek(){
 function seektimeupdate(){ 
   //KENNY - reformatted to scrubber
   //Keep track of scrub location
+  var nt = video.currentTime * (100 / video.duration);
+  videoScrubber.value = nt;
+  
   var update = setInterval(function() {
     var mins = Math.floor(video.currentTime / 60);
     var secs = Math.floor(video.currentTime % 60);
