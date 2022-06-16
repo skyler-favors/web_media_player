@@ -34,18 +34,21 @@ body {
     align-items: center;
 }
 
+
 .iphone {
-    width: 412px;
-    height: 612px;
+    width: 312px;
+    height: auto;
     background: #e0e5ec;
     border-radius: 2em;
     box-sizing: border-box;
     padding: 2em;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    
 }
 
-.iphone .title {
+.iphone .header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -67,7 +70,7 @@ body {
     border-radius: 15px;
     position: absolute;
     opacity: 0.35;
-    -webkit-clip-path: ellipse(61% 64% at 82% 56%);
+    --webkit-clip-path: ellipse(61% 64% at 82% 56%);
     clip-path: ellipse(61% 64% at 82% 56%);
 }
 
@@ -109,6 +112,7 @@ body {
     flex-direction: row;
     justify-content: space-around;
     padding: 1em 0;
+    transition: 1s;
 }
 
 .buttons {
@@ -144,6 +148,15 @@ body {
     color: #e22d49;
 }
 
+.input-file {
+    width:90%;
+}
+
+.song-title {
+    width: 98%;
+    overflow:hidden;
+}
+
 input[type=file]::file-selector-button {
     border: 2px solid #848282;
     padding: .2em .4em;
@@ -151,14 +164,71 @@ input[type=file]::file-selector-button {
     background-color: #e0e5ec;
     transition: 1s;
     cursor: pointer;
-    content: 'Select some files';
 }
   
-  input[type=file]::file-selector-button:hover {
+input[type=file]::file-selector-button:hover {
     opacity: 70%;
     background-color: #acacad;
 }
 
+input[type='range'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.slider, .seekSlider {
+  background-color: #e22d49;
+  border-radius: 8px;
+  width:65%;
+  cursor: pointer;
+  opacity: 75%;
+  transition: 1s;
+
+  /*Kenny*/
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 10px;
+    background: #e22d49;
+    cursor: pointer;
+}
+
+.seekSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 5px;
+    height: 10px;
+    border-radius: 50%;
+    background: #e22d49;
+    cursor: pointer;
+}
+
+.seekSlider::-webkit-slider-runnable-track {
+    background: #d3d3d3;
+}
+
+/*end here*/
+
+.slider:hover {
+    opacity: 100%;
+}
+
+.seekSlider:hover {
+    opacity: 100%;
+
+}
+
+span {
+    font-size: 90%;
+}
 
 /*for the media file loader*/
 @media screen and (min-width:350px){
@@ -170,8 +240,11 @@ input[type=file]::file-selector-button {
         border: 15px solid rgb(20, 22, 21);
         padding: 0;
         margin: 0;
-        border-style:none
+        border-style:none;
+        max-height: 200px;
+        object-fit: scale-down;
     }
+
     img {
         width: 100%;
         max-height: 200px;
@@ -180,7 +253,89 @@ input[type=file]::file-selector-button {
     }
 }
 
-.speedcontrolcontainer {
-  fill: red;
-  stroke: none;
+/*KENNY*/
+#cover {
+    display: flex;    
+    width: 16vw;
+    height: auto; 
+    min-width: 240px;
+    min-height: 200px;
+    position: relative;
+    
+    /*border: 1px solid black;*/
+    background-position: center;
+    background-size: cover;    
+    object-fit: cover;
 }
+
+
+.audiotag {
+    display: flex;
+    font-weight: 600;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+}
+/*END HERE*/
+
+video {
+    max-width: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.header .fas {
+    font-size: 1.6rem;
+}
+
+.fa-ellipsis-v {
+    cursor: pointer;
+}
+
+.header h2 {
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+/*Music Playlist*/
+.music-playlist {
+    
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    background: rgba(0,0,0,.5);
+    width: 100%;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: all .5s;
+}
+
+
+.playlist-header .fa-times {
+    cursor: pointer;
+}
+
+
+/*Playlist scroll bar*/
+.playlist-div::-webkit-scrollbar {
+    height: 5px;
+    width: 4px;
+    border: 1px solid #d5d5d5;
+    background: #d5d5d5;
+}
+
+.playlist-div::-webkit-scrollbar-track {
+    --webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+}
+
+.playlist-div::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+    outline: 1px solid #eee;
+}
+
+
+

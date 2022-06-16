@@ -71,10 +71,17 @@ function getCoverArt(file) {
   //Getting access to CDNJS library and saving to global var
   const jsmediatags = window.jsmediatags;
 
-  //Return api response
+  //Return response
   jsmediatags.read(file, {
       onSuccess: function(tag){
+        //Retrieve metatag and display track info 
+        displayAudioTag(tag);
 
+        //Checks if album cover exists
+        let coverData = tag.tags;
+        let coverExists = coverData.hasOwnProperty("picture");
+
+        if (coverExists) {
           const data = tag.tags.picture.data;
           const format = tag.tags.picture.format;
           let base64String = "";
@@ -87,23 +94,46 @@ function getCoverArt(file) {
           /* Takes base64String and converts ascii data to binary data 
           - url(url )
           - btoa() = creates a Base64-encoded ASCII string from a binary string (i.e., a String object in which each character in the string is treated as a byte of binary data)
-           */
-          document.querySelector(".image-viewer").style.display = "initial";
-          document.querySelector(".image-viewer").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`;
-          document.querySelector(".image-viewer").style.width = '100%'
-          document.querySelector(".image-viewer").style.height = '500'
+          - Displays cover art image
+          - Note: Switched the id from img to div container. Review html file
+          */
+          document.querySelector("#cover").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`; 
+          document.querySelector("#cover").style.padding = "5px";
 
-          //Retrieve metatag and display track info 
-          //document.querySelector("#track").textContent = tag.tags.title;
-          //document.querySelector("#artist").textContent = tag.tags.artist;
-          //document.querySelector("#album").textContent = tag.tags.album;
-          //document.querySelector("#genre").textContent = tag.tags.genre;
+        } else {
+          document.querySelector("#cover").style.backgroundImage = `url("https://youshark.neocities.org/assets/img/default.png")`;
+        }    
+
 
       },
       onError: function(error){
           console.log(error);
       }
   })
+}
+
+function displayAudioTag(tag){
+  let track = tag.tags.title;
+  let artist = tag.tags.artist;
+  let album = tag.tags.album;
+
+  if(track == ""){
+    document.querySelector("#track").textContent = "Unknown Music"; //display file name? 
+  } else {
+    document.querySelector("#track").textContent = tag.tags.title;
+  }
+
+  if(artist == null){
+    document.querySelector("#artist").textContent = "Unknown Artist";
+  } else {
+    document.querySelector("#artist").textContent = tag.tags.artist;
+  }
+
+  if(album == null){
+    document.querySelector("#album").textContent = "Unknown Album";
+  } else {
+    document.querySelector("#album").textContent = tag.tags.album;
+  }
 }
 
 
