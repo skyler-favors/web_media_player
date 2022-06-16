@@ -12,7 +12,8 @@
   <title>Media Player</title>
 </head>
 
-<body>
+<body id="main">
+  <button id="colorscheme">Animating</button>
   <div class="container">
     <div class="iphone neu">
       <div class="title">
@@ -24,10 +25,10 @@
         <div id="video_container">
           <input onchange="playbackSlider(); getFileName()" class="input-file" id="choose-file" onclicked="videoLength"
             type="file" />
-            <video id="video-player" class="media"></video>
-            <img id="image-viewer" class="media"></img>
-            <img id="cover-art" class="media"></img>
-            <canvas id="imageCanvas" class="media" width="250" height="250"></canvas>
+          <video id="video-player" class="media"></video>
+          <img id="image-viewer" class="media"></img>
+          <img id="cover-art" class="media"></img>
+          <canvas id="imageCanvas" class="media" width="250" height="250"></canvas>
 
           <div id=musicData>
             <!--Displays audio track data-->
@@ -37,27 +38,33 @@
           </div>
 
         </div>
-
-        <!--
-        <h2 class="song-title" id="demo">
-          Test
-        </h2>
-      -->
       </div>
-      <div class="buttons">   
-        <button onclick="rewind(event)" class="btn lg neu"><div title="backward"><i class="fa fa-backward"></i></div></button>        
-        <button onclick="play(event)" class="btn lg neu"><div title="play"><i class="fa fa-play"></i></div><div class="pause"><i class="fa fa-pause"></i></div></button>
-        <button onclick="forward(event)" class="btn lg neu"><div title="forward"><i class="fa fa-forward"></i></div></button>
-        <button onclick="repeat(event)" class="btn lg red neu"><div title="repeat"><i class="fa-solid fa-repeat"></i></div></button>
-        <button class="btn lg red neu"><div title="shuffle"><i class="fa-solid fa-shuffle"></i></div></button>
-        <button onclick="fullScreen(event)" class="btn lg red neu"><div title="fullscreen"><i class="fa fa-expand"></i></div></button>
+      <div class="buttons">
+        <button onclick="rewind(event)" class="btn lg neu">
+          <div title="backward"><i class="fa fa-backward"></i></div>
+        </button>
+        <button onclick="play(event)" class="btn lg neu">
+          <div title="play"><i class="fa fa-play"></i></div>
+          <div class="pause"><i class="fa fa-pause"></i></div>
+        </button>
+        <button onclick="forward(event)" class="btn lg neu">
+          <div title="forward"><i class="fa fa-forward"></i></div>
+        </button>
+        <button class="btn lg red neu">
+          <div title="shuffle"><i class="fa-solid fa-shuffle"></i></div>
+        </button>
+        <button onclick="repeat(event)" class="btn lg red neu">
+          <div title="repeat"><i class="fa-solid fa-repeat"></i></div>
+        </button>
+        <button onclick="fullScreen(event)" class="btn lg red neu">
+          <div title="fullscreen"><i class="fa fa-expand"></i></div>
+        </button>
       </div>
-
 
       <div class="speedcontrolcontainer">
         <div>
           <input type="range" id="pbrate" class="slider" min=0 value=100 max=2 step=.1>
-          <span id="speedAmount"></span>  
+          <span id="speedAmount"></span>
         </div>
       </div>
 
