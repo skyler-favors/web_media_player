@@ -231,14 +231,6 @@ span {
     font-size: 81%;
 }
 
-#imageCanvas {
-  width: 100%;
-  height: auto;
-  max-height: 200px;
-  margin: auto;
-  object-fit: scale-down;
-}
-
 /*for the media file loader*/
 @media screen and (min-width:350px){
     video {
@@ -262,10 +254,16 @@ span {
     }
 }
 
-/*KENNY*/
+#imageCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin: auto;
+  object-fit: scale-down;
+}
+
 #cover-art {
-    display: flex;    
-    width: 16vw;
+    width: auto;
     height: auto; 
     min-width: 240px;
     min-height: 240px;
@@ -297,7 +295,6 @@ span {
     color: #e22d49;
 
 }
-/*END HERE*/
 
 video {
     max-width: 100%;
