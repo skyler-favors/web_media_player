@@ -192,8 +192,6 @@ input[type='range'] {
 }
 
 .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
     width: 5px;
     border-radius: 50%;
     height: 10px;
@@ -202,17 +200,11 @@ input[type='range'] {
 }
 
 .seekSlider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
     width: 5px;
     height: 10px;
     border-radius: 50%;
     background: #e22d49;
     cursor: pointer;
-}
-
-.seekSlider::-webkit-slider-runnable-track {
-    background: #d3d3d3;
 }
 
 /*end here*/
