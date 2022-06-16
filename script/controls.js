@@ -7,12 +7,23 @@ const durTimeText = document.getElementById("durtimetext");
 const fileButton = document.querySelector(".input-file")
 
 // -------- MEDIA CONTROLS -------
+videoScrubber.value= 0;
+document.querySelector(".fa-pause").style.display = "none"
+
+function showPlayBtn() {
+  document.querySelector(".fa-play").style.display = "block"
+  document.querySelector(".fa-pause").style.display = "none"
+}
+
+function showPauseBtn() {
+  document.querySelector(".fa-play").style.display = "none"
+  document.querySelector(".fa-pause").style.display = "block"
+}
 
 // update the progress bar
 video.addEventListener("timeupdate", () => {
     if(video.ended){
-        document.querySelector(".fa-play").style.display = "block"
-        document.querySelector(".fa-pause").style.display = "none"
+        showPlayBtn();
     }
 })
 
@@ -20,20 +31,18 @@ video.addEventListener("timeupdate", () => {
 const play = (e) => {
     // Condition when to play a video
     if(video.paused){
-        document.querySelector(".fa-play").style.display = "none"
-        document.querySelector(".fa-pause").style.display = "block"
+        showPauseBtn()
         video.play()
     }
     else{
-        document.querySelector(".fa-play").style.display = "block"
-        document.querySelector(".fa-pause").style.display = "none"
+        showPlayBtn()
         video.pause()
     }
 }
 
 //repeat song/video
 const repeat = (e) => {
-    document.querySelector(".fa-play").style.display = "block"
+    showPlayBtn()
     video.playbackRate = window.localStorage.pbspeed;
     playbackrateSlider.value = window.localStorage.pbspeed;
     display.innerText = displayvalue(video.playbackRate);
@@ -44,8 +53,8 @@ const repeat = (e) => {
 
 //position video scrubber back to beginning when opening a new file
 function postionSliderHome() {
-  document.querySelector(".fa-play").style.display = "block"
-  videoScrubber.value = 1;
+  showPlayBtn()
+  videoScrubber.value = 0;
 }
 
 // trigger fullscreen
@@ -54,21 +63,20 @@ const fullScreen = (e) => {
     video.requestFullscreen()
 }
 
-// rewind the current time
+// rewind the current time by 10 seconds
 const rewind = (e) => {
-    video.currentTime = video.currentTime - ((video.duration/50) * 3.3)
+    video.currentTime = video.currentTime - ((video.duration/65) * 3)
 }
 
-// forward the current time
+// forward the current time by 10 seconds
 const forward = (e) => {
-    video.currentTime = video.currentTime + ((video.duration/50) * 3.3)
+    video.currentTime = video.currentTime + ((video.duration/65) * 3)
 }
 
 const displayvalue = val => {
+  //display video speed as .5x, 1x, etc
   return parseFloat(val * 1).toFixed(1) + 'x'
 }
-
-window.localStorage.sliderhome = video.playbackRate;
 
 if (window.localStorage.pbspeed) {
   //setting the value of our slider to pbspeed in local storage
@@ -124,32 +132,4 @@ function seektimeupdate(){
 fileButton.addEventListener("change", postionSliderHome, false)
 videoScrubber.addEventListener("change",vidSeek,false);
 video.addEventListener("timeupdate",seektimeupdate,false);
-
-// -------- SLIDER STYLING -------
-function updateGradient(rangeValue) {
-  const percentage = (rangeValue - slider.min) / (playbackrateSlider.max - playbackrateSlider.min) * 100;
-  playbackrateSlider.style.backgroundImage = `linear-gradient(90deg, #e22d49 ${percentage}%, transparent ${percentage}%)`;
-}
-
-// Update gradient onload
-updateGradient(playbackrateSlider.value);
-
-// Update gradient oninput
-playbackrateSlider.addEventListener('input', (e) => {
-  updateGradient(e.target.value);
-});
-
-function changeDuration(rangeValue) {  
-  //TESTING
-  var time = (rangeValue - videoScrubber.min) / (videoScrubber.max - videoScrubber.min) * 100;
-  videoScrubber.style.backgroundImage = `linear-gradient(90deg, #e22d49 ${time}%, transparent ${time}%)`;
-}
-
-// Update gradient onload
-changeDuration(videoScrubber.value);
-
-// Update gradient oninput
-videoScrubber.addEventListener('timeupdate', (e) => {
-  changeDuration(e.target.value);
-});
 

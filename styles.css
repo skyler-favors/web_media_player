@@ -10,8 +10,8 @@ body {
     background-size: 400% 400%;
     position: relative;
     animation: change 10s ease-in-out infinite;
-
     color: grey;
+    animation-play-state: running;
 }
 
 @keyframes change{
@@ -25,6 +25,11 @@ body {
         background-position: 0 50%;
     }
 }
+
+#colorscheme {
+  float: right;
+}
+
 
 .fa-play {
  display: block;
@@ -177,13 +182,7 @@ input[type=file]::file-selector-button:hover {
     background-color: #acacad;
 }
 
-input[type='range'] {
-  
-}
-
 .slider, .seekSlider {
-  /*Kenny*/
-  background: #d3d3d3;
   outline: none;
   opacity: 0.7;
   width:65%;
@@ -192,22 +191,12 @@ input[type='range'] {
 }
 
 .slider::-webkit-slider-thumb {
-    width: 5px;
-    border-radius: 50%;
-    height: 10px;
-    background: #e22d49;
     cursor: pointer;
 }
 
 .seekSlider::-webkit-slider-thumb {
-    width: 5px;
-    height: 10px;
-    border-radius: 50%;
-    background: #e22d49;
     cursor: pointer;
 }
-
-/*end here*/
 
 .slider:hover {
     opacity: 100%;
@@ -298,4 +287,3 @@ span {
 video {
     max-width: 100%;
 }
-
