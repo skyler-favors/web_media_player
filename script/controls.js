@@ -1,22 +1,19 @@
 const playbackrateSlider = document.querySelector(".speedcontrolcontainer input");
 const videoScrubber = document.querySelector(".seekSlider");
 const display = document.querySelector(".speedcontrolcontainer span");
-const video = document.querySelector(".video-player");
-const curTimeText = document.getElementById("curtimetext"); const durTimeText = document.getElementById("durtimetext");
+const video = document.querySelector("#video-player");
+const curTimeText = document.getElementById("curtimetext"); 
+const durTimeText = document.getElementById("durtimetext");
+const fileButton = document.querySelector(".input-file")
 
 // -------- MEDIA CONTROLS -------
 
-// set the pause button to display:none by default
-//document.querySelector(".fa-pause").style.display = "none"
-
 // update the progress bar
 video.addEventListener("timeupdate", () => {
-    let curr = (video.currentTime / video.duration) * 100
     if(video.ended){
         document.querySelector(".fa-play").style.display = "block"
         document.querySelector(".fa-pause").style.display = "none"
     }
-    //document.querySelector('.inner').style.width = `${curr}%`
 })
 
 // pause or play the video
@@ -32,6 +29,23 @@ const play = (e) => {
         document.querySelector(".fa-pause").style.display = "none"
         video.pause()
     }
+}
+
+//repeat song/video
+const repeat = (e) => {
+    document.querySelector(".fa-play").style.display = "block"
+    video.playbackRate = window.localStorage.pbspeed;
+    playbackrateSlider.value = window.localStorage.pbspeed;
+    display.innerText = displayvalue(video.playbackRate);
+    video.currentTime = 0;
+    videoScrubber.value = 0; 
+    video.pause();
+}
+
+//position video scrubber back to beginning when opening a new file
+function postionSliderHome() {
+  document.querySelector(".fa-play").style.display = "block"
+  videoScrubber.value = 1;
 }
 
 // trigger fullscreen
@@ -51,10 +65,10 @@ const forward = (e) => {
 }
 
 const displayvalue = val => {
-  return parseInt(val * 100, 10) + '%'
+  return parseFloat(val * 1).toFixed(1) + 'x'
 }
 
-window.localStorage.pbspeed = 1;
+window.localStorage.sliderhome = video.playbackRate;
 
 if (window.localStorage.pbspeed) {
   //setting the value of our slider to pbspeed in local storage
@@ -80,24 +94,18 @@ function playbackSlider() {
   display.innerText = displayvalue(video.playbackRate);
 }
 
+//displays vido length
 function vidSeek(){
 	var seekto = video.duration * (videoScrubber.value / 100);
 	video.currentTime = seekto;  
 }
 
-function seektimeupdate(){
-  /*
-	var nt = video.currentTime * (100 / video.duration);
-	videoScrubber.value = nt;
-  curTimeText.innerHTML = (Math.round(video.currentTime * 100) / 100).toFixed(2);
-  durTimeText.innerHTML = (Math.round(video.duration * 100) / 100).toFixed(2);
-  */
- 
+function seektimeupdate(){ 
   //KENNY - reformatted to scrubber
   //Keep track of scrub location
   var nt = video.currentTime * (100 / video.duration);
   videoScrubber.value = nt;
-
+  
   var update = setInterval(function() {
     var mins = Math.floor(video.currentTime / 60);
     var secs = Math.floor(video.currentTime % 60);
@@ -110,47 +118,38 @@ function seektimeupdate(){
     var min2 = Math.floor(video.duration / 60);
     var sec2 = Math.floor(video.duration % 60);
     durTimeText.innerHTML = min2 + ':' + sec2;
-
   }, 10);
 }
 
+fileButton.addEventListener("change", postionSliderHome, false)
 videoScrubber.addEventListener("change",vidSeek,false);
 video.addEventListener("timeupdate",seektimeupdate,false);
 
 // -------- SLIDER STYLING -------
-//Slider 1
-let slider = document.getElementById("pbrate");
-
 function updateGradient(rangeValue) {
-  const percentage = (rangeValue - slider.min) / (slider.max - slider.min) * 100;
-  slider.style.backgroundImage = `linear-gradient(90deg, #e22d49 ${percentage}%, transparent ${percentage}%)`;
+  const percentage = (rangeValue - slider.min) / (playbackrateSlider.max - playbackrateSlider.min) * 100;
+  playbackrateSlider.style.backgroundImage = `linear-gradient(90deg, #e22d49 ${percentage}%, transparent ${percentage}%)`;
 }
 
 // Update gradient onload
-updateGradient(slider.value);
+updateGradient(playbackrateSlider.value);
 
 // Update gradient oninput
-slider.addEventListener('input', (e) => {
+playbackrateSlider.addEventListener('input', (e) => {
   updateGradient(e.target.value);
 });
 
-//Slider 2
-let slider2 = document.getElementById("scrubtimer");
-
 function changeDuration(rangeValue) {  
   //TESTING
-
-  var time = (rangeValue - slider2.min) / (slider2.max - slider2.min) * 100;
-
-  slider2.style.backgroundImage = `linear-gradient(90deg, #e22d49 ${time}%, transparent ${time}%)`;
-    
+  var time = (rangeValue - videoScrubber.min) / (videoScrubber.max - videoScrubber.min) * 100;
+  videoScrubber.style.backgroundImage = `linear-gradient(90deg, #e22d49 ${time}%, transparent ${time}%)`;
 }
 
 // Update gradient onload
-changeDuration(slider2.value);
+changeDuration(videoScrubber.value);
 
 // Update gradient oninput
-slider2.addEventListener('timeupdate', (e) => {
+videoScrubber.addEventListener('timeupdate', (e) => {
   changeDuration(e.target.value);
 });
 
