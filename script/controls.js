@@ -43,18 +43,17 @@ const play = (e) => {
 //repeat song/video
 const repeat = (e) => {
     showPlayBtn()
-    video.playbackRate = window.localStorage.pbspeed;
-    playbackrateSlider.value = window.localStorage.pbspeed;
+    video.playbackRate = window.localStorage.pbspeed; //1
+    playbackrateSlider.value = window.localStorage.pbspeed; //1
     display.innerText = displayvalue(video.playbackRate);
     video.currentTime = 0;
     videoScrubber.value = 0; 
     video.pause();
 }
 
-//position video scrubber back to beginning when opening a new file
+//display our play button when a new file is loaded
 function postionSliderHome() {
-  showPlayBtn()
-  videoScrubber.value = 0;
+  showPlayBtn();
 }
 
 // trigger fullscreen
@@ -109,12 +108,12 @@ function vidSeek(){
 }
 
 function seektimeupdate(){ 
-  //KENNY - reformatted to scrubber
-  //Keep track of scrub location
-  var nt = video.currentTime * (100 / video.duration);
-  videoScrubber.value = nt;
-  
-  var update = setInterval(function() {
+ //keep track of scrub location
+ var nt = video.currentTime * (100 / video.duration);
+ videoScrubber.value = nt;
+ 
+  var update = setInterval(function() { 
+    //KENNY - reformatted scrubber time
     var mins = Math.floor(video.currentTime / 60);
     var secs = Math.floor(video.currentTime % 60);
     if (secs < 10) {
@@ -132,4 +131,8 @@ function seektimeupdate(){
 fileButton.addEventListener("change", postionSliderHome, false)
 videoScrubber.addEventListener("change",vidSeek,false);
 video.addEventListener("timeupdate",seektimeupdate,false);
+//positions our slider back home to 0 when a new media is loaded
+video.addEventListener('loadeddata', (event) => {
+  videoScrubber.value = 0;
+});
 
