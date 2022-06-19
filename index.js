@@ -1,47 +1,60 @@
-// adds a event listener to the input that adds the video source
-// to the player
-function loadVideo() {
-    'use strict'
-    var playSelectedFile = function(event) {
-        var file = this.files[0]
-        var URL = window.URL || window.webkitURL 
-        var fileURL = URL.createObjectURL(file)
-        var videoNode = document.querySelector('.video-player')
-        videoNode.src = fileURL
-    }
+function getFileName() {
+    var fileName = document.getElementById("choose-file");
+    var fileText = "";
 
-    var inputNode = document.querySelector('.in-video')
-    inputNode.addEventListener('change', playSelectedFile, false)
+    if ('files' in fileName) {
+        if (fileName.files.length == 0) {
+            fileText = "No file selected";
+        }
+        else {
+            for (var i = 0; i < fileName.files.length; i++) {
+                fileText += "<br> <strong>" + (i + 1) + ".File </strong> <br>";
+                var file = fileName.files[i];
+                if ('name' in file) {
+                    fileText += "Name:" + file.name + "<br>";
+                }
+                if ('size' in file) {
+                    fileText += "Size:" + file.size + "bytes <br>";
+                }
+            }
+        }
+    }
+    else {
+        if (fileName.value == "") {
+            fileText += "Please select a file";
+        }
+        else {
+            fileText += "The file property is not supported";
+            fileText += "<br> The file path selected:" + fileName.value;
+        }
+    }
 }
 
-function loadAudio() {
-    var playSelectedFile = function(event) {
-        var file = this.files[0]
-        var URL = window.URL || window.webkitURL 
-        var fileURL = URL.createObjectURL(file)
-        var audioNode = document.querySelector('.audio-player')
-        audioNode.src = fileURL
+
+var fs = require('fs');
+var fileType = [ ".ogg", ".mp4", ".mp3", ".jpg", ".ppm", ".wav", ".gif", ".pst"];
+//Rename the file "mynewfile1.txt" into "myrenamedfile.txt":
+function fileRename()
+{fs.rename(function (err) {
+  if (err) throw err;
+  console.log('File Renamed!');
+});
+ let FileStuff = document.getElementsByClassName(".fa-ellipsis-v")}
+ FileStuff.addEventListener("click", fileRename(), false)
+
+/*
+function saveFile(filename, data) {
+    if (isBrowser()) {
+        let file;
+        if (typeof File === 'function') {
+            file = new File([data], filename);
+        } else {
+            file = new Blob([data], { type: 'application/octet-stream' });
+        }
+        saveAs(file, filename);
+    } else {
+        const fs = require('fs');
+        fs.writeFileSync(filename, data);
     }
-
-    var inputNode = document.querySelector('.in-audio')
-    inputNode.addEventListener('change', playSelectedFile, false)
 }
-
-function loadImage() {
-    var viewSelectedFile = function(event) {
-        var file = this.files[0]
-        var URL = window.URL || window.webkitURL 
-        var fileURL = URL.createObjectURL(file)
-        var imageNode = document.querySelector('.image-viewer')
-        imageNode.src = fileURL
-    }
-
-    var inputNode = document.querySelector('.in-image')
-    inputNode.addEventListener('change', viewSelectedFile, false)
-
-}
-
-loadVideo()
-loadAudio()
-loadImage()
-
+*/
