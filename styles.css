@@ -10,8 +10,8 @@ body {
     background-size: 400% 400%;
     position: relative;
     animation: change 10s ease-in-out infinite;
-
     color: grey;
+    animation-play-state: running;
 }
 
 @keyframes change{
@@ -26,6 +26,18 @@ body {
     }
 }
 
+.extraButtons {
+  float: right;
+}
+
+.fa-play {
+ display: block;
+}
+
+.fa-pause {
+  display: none;
+}
+
 .container {
     width: 100vw;
     height: 100vh;
@@ -34,8 +46,7 @@ body {
     align-items: center;
 }
 
-
-.iphone {
+#parent {
     width: 312px;
     height: auto;
     background: #e0e5ec;
@@ -44,11 +55,13 @@ body {
     padding: 2em;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    
+   
+    position: relative;
+
 }
 
-.iphone .header {
+.iphone .title {
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -171,48 +184,36 @@ input[type=file]::file-selector-button:hover {
     background-color: #acacad;
 }
 
+/*
 input[type='range'] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  
 }
+*/
 
 .slider, .seekSlider {
-  background-color: #e22d49;
-  border-radius: 8px;
-  width:65%;
-  cursor: pointer;
-  opacity: 75%;
-  transition: 1s;
-
   /*Kenny*/
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
+  width:65%;
   -webkit-transition: .2s;
   transition: opacity .2s;
 }
 
 .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
     width: 5px;
+    border-radius: 50%;
     height: 10px;
     background: #e22d49;
     cursor: pointer;
 }
 
 .seekSlider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
     width: 5px;
     height: 10px;
     border-radius: 50%;
     background: #e22d49;
     cursor: pointer;
-}
-
-.seekSlider::-webkit-slider-runnable-track {
-    background: #d3d3d3;
 }
 
 /*end here*/
@@ -227,7 +228,15 @@ input[type='range'] {
 }
 
 span {
-    font-size: 90%;
+    font-size: 81%;
+}
+
+#imageCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin: auto;
+  object-fit: scale-down;
 }
 
 /*for the media file loader*/
@@ -253,19 +262,26 @@ span {
     }
 }
 
-/*KENNY*/
-#cover {
-    display: flex;    
-    width: 16vw;
+#imageCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin: auto;
+  object-fit: scale-down;
+}
+
+#cover-art {
+    width: auto;
     height: auto; 
     min-width: 240px;
-    min-height: 200px;
+    min-height: 240px;
     position: relative;
     
     /*border: 1px solid black;*/
     background-position: center;
     background-size: cover;    
     object-fit: cover;
+    margin: 5px 0 5px 0;
 }
 
 
@@ -276,66 +292,44 @@ span {
     justify-content: center;
     align-items: center;
 }
-/*END HERE*/
+
+.fa-ellipsis-v {
+    font-size: 2.5vh;
+    color: grey;
+
+}
+
+.fa-ellipsis-v:hover {
+    color: #e22d49;
+
+}
+
+#uploadDirectory {
+    opacity: 0;
+    position: absolute;
+}
+
+/*MUSIC PLAYER*/
+.music-playlist{
+    width: 312px;
+    height: 100%;
+    position: absolute;
+    background: rgba(0,0,0,.75);
+    border-radius: 2em;
+    box-sizing: border-box;
+    padding: 2em;
+    object-position: cover;
+    display: flex;
+    z-index: -1;
+    object-fit: contain;
+    position: absolute;
+}
+
+.playlist-header .fa-times{
+    cursor: pointer;
+}
 
 video {
     max-width: 100%;
 }
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.header .fas {
-    font-size: 1.6rem;
-}
-
-.fa-ellipsis-v {
-    cursor: pointer;
-}
-
-.header h2 {
-    font-size: 1.6rem;
-    font-weight: 400;
-}
-/*Music Playlist*/
-.music-playlist {
-    
-    top: 0;
-    left: 0;
-    padding: 1rem;
-    background: rgba(0,0,0,.5);
-    width: 100%;
-    height: 100%;
-    transform: translateX(-100%);
-    transition: all .5s;
-}
-
-
-.playlist-header .fa-times {
-    cursor: pointer;
-}
-
-
-/*Playlist scroll bar*/
-.playlist-div::-webkit-scrollbar {
-    height: 5px;
-    width: 4px;
-    border: 1px solid #d5d5d5;
-    background: #d5d5d5;
-}
-
-.playlist-div::-webkit-scrollbar-track {
-    --webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-}
-
-.playlist-div::-webkit-scrollbar-thumb {
-    background-color: var(--color-primary);
-    outline: 1px solid #eee;
-}
-
-
 

@@ -1,69 +1,74 @@
-let extension = "";
-let video_extensions = ["mp4", "mov"];
-let audio_extensions = ["mp3", "wav", "ogg"];
-let image_extensions = ["png", "jpg", "gif"];
-let current_file = 0;
+var videoNode = document.getElementById("video-player");
+var imageNode = document.getElementById("image-viewer");
+var coverArtNode = document.getElementById("cover-art");
+var ppmNode = document.getElementById("imageCanvas");
+var musicInfo = document.getElementsByClassName("audiotag");
+var allMedia = document.getElementsByClassName("media");
 
-function checkFileExtension() {
-  fileName = document.querySelector("#choose-file").value;
-  //split extension path into substrings and pops the last element of the array off
-  extension = fileName.split('.').pop();
-  extension = extension.toLowerCase();
-  document.querySelector(".fa-play").style.display = "block"
-  document.querySelector(".fa-pause").style.display = "none"
-  console.log(extension);
-}
+var secondFile = false;
+var currentFile = "";
 
-function loadVideo() {
-  var playSelectedFile = function(event) {
-    checkFileExtension();
-    var file = this.files[current_file];
+function loadMedia() {
+  // play is run when the input file node detects a new file
+  var play = function() {
+    var extension = checkFileExtension();
+    var file = this.files[0];
     var URL = window.URL || window.webkitURL; 
     var fileURL = URL.createObjectURL(file);
-    var videoNode = document.querySelector('.video-player');
-    let combined = video_extensions.concat(audio_extensions);
 
-    if (combined.includes(extension)) {
-      videoNode.style.display = "initial"
-      videoNode.src = fileURL
+    let filetype = getFileType(extension);
 
-      // load cover art if its a audio file
-      if (audio_extensions.includes(extension)) {
-        getCoverArt(file);
-        videoNode.style.display = "none"
-        document.querySelector(".image-viewer").style.display = "initial"
-      }
+    // open second file
+    if (secondFile) {
+      hideMedia([currentFile, filetype])
     } else {
-      videoNode.src = null;
-      videoNode.style.display = "none"
+      hideMedia([filetype])
+      currentFile = filetype;
+    }
+    switch (filetype) {
+      case "video":
+        videoNode.src = fileURL
+        break;
+
+      case "audio":
+        getCoverArt(file);
+        videoNode.src = fileURL
+        break;
+
+      case "image":
+        imageNode.src = fileURL
+        break;
+
+      case "ppm":
+        // r reads file as binary once it loads
+        var r = new FileReader();
+        r.onload = function(e) {
+          var contents = e.target.result;
+          processPPM(contents);
+        }
+        r.readAsBinaryString(file)
+        break;
+
+      default:
+        currentFile = "error";
+        console.log("ERROR: switch statement defualted when it shouldnt");
+        hideMedia();
+        break;
     }
   }
 
-  var inputNode = document.querySelector(".input-file")
-  inputNode.addEventListener('change', playSelectedFile, false)
-  document.querySelector('.video-player').style.display = "none";
+  let inputNode = document.querySelector(".input-file");
+  inputNode.addEventListener('change', play, false);
+  hideMedia();
 }
 
-function loadImage() {
-  var viewSelectedFile = function(event) {
-    var file = this.files[current_file]
-    var URL = window.URL || window.webkitURL 
-    var fileURL = URL.createObjectURL(file)
-    var imageNode = document.querySelector(".image-viewer")
-
-    if (image_extensions.includes(extension)) {
-      imageNode.style.display = "initial"
-      imageNode.src = fileURL
-      document.querySelector(".image-viewer").style.visibility = "visible";
-    } else {
-      imageNode.src = null
-      imageNode.style.display = "none"
-    }
-  }
-
-  var inputNode = document.querySelector(".input-file")
-  inputNode.addEventListener('change', viewSelectedFile, false)
-  document.querySelector('.image-viewer').style.display = "none";
+function checkFileExtension() {
+  //split extension path into substrings and pops the last element of the array off
+  let fileName = document.querySelector("#choose-file").value;
+  let extension = fileName.split('.').pop();
+  extension = extension.toLowerCase();
+  console.log(extension);
+  return extension;
 }
 
 
@@ -80,7 +85,6 @@ function getCoverArt(file) {
         //Checks if album cover exists
         let coverData = tag.tags;
         let coverExists = coverData.hasOwnProperty("picture");
-
         if (coverExists) {
           const data = tag.tags.picture.data;
           const format = tag.tags.picture.format;
@@ -97,14 +101,12 @@ function getCoverArt(file) {
           - Displays cover art image
           - Note: Switched the id from img to div container. Review html file
           */
-          document.querySelector("#cover").style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`; 
-          document.querySelector("#cover").style.padding = "5px";
+          coverArtNode.style.backgroundImage = `url(data:${format};base64,${window.btoa(base64String)})`; 
+          coverArtNode.style.padding = "5px";
 
         } else {
-          document.querySelector("#cover").style.backgroundImage = `url("https://youshark.neocities.org/assets/img/default.png")`;
+          coverArtNode.style.backgroundImage = `url("https://youshark.neocities.org/assets/img/default.png")`;
         }    
-
-
       },
       onError: function(error){
           console.log(error);
@@ -136,6 +138,103 @@ function displayAudioTag(tag){
   }
 }
 
+//Upload Directory
+let directory = document.querySelector(".fa-ellipsis-v");
 
-loadVideo()
-loadImage()
+directory.addEventListener("click", openDirectory);
+
+function openDirectory(){
+  //alert("works");
+}
+
+function hideMedia(except) {
+  // remove everything
+  videoNode.style.display = "none"
+  imageNode.style.display = "none"
+  ppmNode.style.display = "none"
+  imageNode.style.backgroundImage = null;
+  coverArtNode.style.display = "none"
+  for (let i=0; i<musicInfo.length; i++) {
+    musicInfo[i].style.display = "none"
+  }
+
+  for (let i in except) {
+    switch (except[i]) {
+      case "video":
+        videoNode.style.display = "initial"
+        break;
+
+      case "image":
+        imageNode.style.display = "initial"
+        break;
+
+      case "ppm":
+        ppmNode.style.display = "initial"
+        break;
+
+      case "audio":
+        coverArtNode.style.display = "initial"
+        for (let i=0; i<musicInfo.length; i++) {
+          musicInfo[i].style.display = "initial";
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+
+function getFileType(extension) {
+  let video_extensions = ["mp4", "mov"];
+  let audio_extensions = ["mp3", "wav", "ogg"];
+  let image_extensions = ["png", "jpg", "gif"];
+
+  if (video_extensions.includes(extension)) {
+    return "video";
+  } else if (audio_extensions.includes(extension)) {
+    return "audio";
+  } else if (image_extensions.includes(extension)) {
+    return "image";
+  } else if (extension == "ppm") {
+    return "ppm";
+  } else {
+    return "error";
+  }
+}
+
+function openSecondFile() {
+  var toggleButton = document.getElementById("openSecond");
+  var toggle = function() {
+    secondFile = !secondFile;
+    if (secondFile) {
+      toggleButton.innerHTML = "Second File On";
+    } else {
+      toggleButton.innerHTML = "Second File Off";
+    }
+  };
+  toggleButton.addEventListener('click', toggle, false);
+}
+
+loadMedia();
+openSecondFile();
+
+//test variables for playlist
+let ellipsis = document.querySelector(".fa-ellipsis-v");
+let closeIcon = document.querySelector(".fa-times");
+let musicPlaylist = document.querySelector(".music-playlist");
+let playlistDiv = document.querySelector(".playlist-div");
+let playlist = document.querySelector(".playlist");
+
+//event listeners
+ellipsis.addEventListener("click", showPlaylist);
+closeIcon.addEventListener("click", hidePlaylist);
+
+//show playlist
+function showPlaylist() {
+  musicPlaylist.style.zIndex = "1";
+}
+//hide playlist
+function hidePlaylist() {
+  musicPlaylist.style.zIndex = "-1";
+}
