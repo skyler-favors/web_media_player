@@ -131,8 +131,32 @@ function seektimeupdate(){
 fileButton.addEventListener("change", postionSliderHome, false)
 videoScrubber.addEventListener("change",vidSeek,false);
 video.addEventListener("timeupdate",seektimeupdate,false);
-//positions our slider back home to 0 when a new media is loaded
-video.addEventListener('loadeddata', (event) => {
-  videoScrubber.value = 0;
+
+// -------- SLIDER STYLING -------
+function updateGradient(rangeValue) {
+  const percentage = (rangeValue - slider.min) / (playbackrateSlider.max - playbackrateSlider.min) * 100;
+  playbackrateSlider.style.backgroundImage = `linear-gradient(90deg, #e22d49 ${percentage}%, transparent ${percentage}%)`;
+}
+
+// Update gradient onload
+updateGradient(playbackrateSlider.value);
+
+// Update gradient oninput
+playbackrateSlider.addEventListener('input', (e) => {
+  updateGradient(e.target.value);
+});
+
+function changeDuration(rangeValue) {  
+  //TESTING
+  var time = (rangeValue - videoScrubber.min) / (videoScrubber.max - videoScrubber.min) * 100;
+  videoScrubber.style.backgroundImage = `linear-gradient(90deg, #e22d49 ${time}%, transparent ${time}%)`;
+}
+
+// Update gradient onload
+changeDuration(videoScrubber.value);
+
+// Update gradient oninput
+videoScrubber.addEventListener('timeupdate', (e) => {
+  changeDuration(e.target.value);
 });
 
