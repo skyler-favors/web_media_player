@@ -19,12 +19,21 @@ function processPPM(fileContents) {
     return
   }
 
-  let dim = data[2].split(' ');
+  var commentCount = 0;
+  for (let i=1; i<data.length; i++) {
+    if (data[i].substr(0, 1) == "#") {
+      commentCount++;
+    } else {
+      break;
+    }
+  }
+
+  let dim = data[commentCount + 1].split(' ');
   var width = dim[0];
   var height = dim[1];
-  var maxColors = data[3];
+  var maxColors = data[commentCount + 2];
 
-  if (data[3] != 255) {
+  if (maxColors != 255) {
     console.log('MaxColors is not 255');
     return;
   }
@@ -37,7 +46,7 @@ function processPPM(fileContents) {
 
   var imageIndex = 0;
   if (file_type == "P3") {
-    for (var i = 4; i < data.length; i += 3) {
+    for (var i = commentCount + 3; i < data.length; i += 3) {
       pixels[imageIndex++] = data[i]; // r
       pixels[imageIndex++] = data[i+1]; // g
       pixels[imageIndex++] = data[i+2]; // b
@@ -46,7 +55,7 @@ function processPPM(fileContents) {
     ctx.putImageData(img, 0, 0);
   } else if (file_type == "P6") {
     //let temp = get_image_data(data[4])
-    let temp = data[4].split('')
+    let temp = data[commentCount + 3].split('')
 
     for (var i = 0; i < temp.length; i += 3) {
       pixels[imageIndex++] = temp[i].charCodeAt(0)

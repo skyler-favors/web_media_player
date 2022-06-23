@@ -184,15 +184,7 @@ input[type=file]::file-selector-button:hover {
     background-color: #acacad;
 }
 
-/*
-input[type='range'] {
-  
-}
-*/
-
 .slider, .seekSlider {
-  /*Kenny*/
-  background: #d3d3d3;
   outline: none;
   opacity: 0.7;
   width:65%;
@@ -201,22 +193,12 @@ input[type='range'] {
 }
 
 .slider::-webkit-slider-thumb {
-    width: 5px;
-    border-radius: 50%;
-    height: 10px;
-    background: #e22d49;
     cursor: pointer;
 }
 
 .seekSlider::-webkit-slider-thumb {
-    width: 5px;
-    height: 10px;
-    border-radius: 50%;
-    background: #e22d49;
     cursor: pointer;
 }
-
-/*end here*/
 
 .slider:hover {
     opacity: 100%;
