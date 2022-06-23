@@ -12,12 +12,13 @@
   <title>Media Player</title>
 </head>
 
+
 <body id="main">
   <button class="extraButtons" id="colorscheme">Animating</button>
   <button class="extraButtons" id="openSecond">Second File Off</button>
   <div class="container">
 
-    <div class="iphone neu">
+    <div id="parent" class="iphone neu">
       <div class="title">
         <div><i class="fas fa-chevron-left"></i></div>
         <div>NOW PLAYING</div>
@@ -51,6 +52,7 @@
           </div>
         </div>
       </div>
+
       <div class="buttons">
         <button onclick="rewind(event)" class="btn lg neu">
           <div title="backward"><i class="fa fa-backward"></i></div>
@@ -84,11 +86,15 @@
         <input id="scrubtimer" class="seekSlider" type="range" min="0" max="100" value="0" step="1">
         <span id="curtimetext">00:00</span> / <span id="durtimetext">00:00</span>
       </div>
+
       <script src="script/index.js"></script>
       <script src="script/load_media.js"></script>
       <script src="script/controls.js"></script>
       <script src="script/ppm.js"></script>
       <script src="script/folders.js"></script>
+
+    </div>
+   </div>
 </body>
 
 </html>

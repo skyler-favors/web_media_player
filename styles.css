@@ -46,7 +46,7 @@ body {
     align-items: center;
 }
 
-.iphone {
+#parent {
     width: 312px;
     height: auto;
     background: #e0e5ec;
@@ -55,11 +55,13 @@ body {
     padding: 2em;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+   
+    position: relative;
+
 }
 
-
 .iphone .title {
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -81,7 +83,7 @@ body {
     border-radius: 15px;
     position: absolute;
     opacity: 0.35;
-    -webkit-clip-path: ellipse(61% 64% at 82% 56%);
+    --webkit-clip-path: ellipse(61% 64% at 82% 56%);
     clip-path: ellipse(61% 64% at 82% 56%);
 }
 
@@ -292,7 +294,7 @@ span {
 /*MUSIC PLAYER*/
 .music-playlist{
     width: 312px;
-    height: 300px;
+    height: 100%;
     position: absolute;
     background: rgba(0,0,0,.75);
     border-radius: 2em;
@@ -301,6 +303,8 @@ span {
     object-position: cover;
     display: flex;
     z-index: -1;
+    object-fit: contain;
+    position: absolute;
 }
 
 .playlist-header .fa-times{
@@ -310,3 +314,4 @@ span {
 video {
     max-width: 100%;
 }
+
