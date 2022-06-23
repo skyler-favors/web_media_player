@@ -1,0 +1,312 @@
+body {
+    padding: 0;
+    margin: 0;
+    
+    font-family: "Roboto", sans-serif;
+    width: 100%;
+    height: 100vh;
+    color: #fff;
+    background: linear-gradient(-45deg, #EE7752, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+    background-size: 400% 400%;
+    position: relative;
+    animation: change 10s ease-in-out infinite;
+    color: grey;
+    animation-play-state: running;
+}
+
+@keyframes change{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+.extraButtons {
+  float: right;
+}
+
+.fa-play {
+ display: block;
+}
+
+.fa-pause {
+  display: none;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iphone {
+    width: 312px;
+    height: auto;
+    background: #e0e5ec;
+    border-radius: 2em;
+    box-sizing: border-box;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+
+.iphone .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 0.75em;
+    margin-bottom: 2em;
+}
+
+.iphone .album-cover {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.iphone .album-cover .album-overlay {
+    background: #fff;
+    width: 248px;
+    height: 248px;
+    z-index: 2;
+    border-radius: 15px;
+    position: absolute;
+    opacity: 0.35;
+    -webkit-clip-path: ellipse(61% 64% at 82% 56%);
+    clip-path: ellipse(61% 64% at 82% 56%);
+}
+
+.iphone .album-cover img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.iphone .album-cover .song-title {
+    text-align: center;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    color: #65717e;
+}
+
+.iphone .album-cover .artist-title {
+    text-align: center;
+    padding: 1em 0;
+    margin: 0;
+    font-size: 0.25em;
+    color: #65717e;
+}
+
+.iphone .track {
+    margin-top: 1em;
+    height: 10px;
+}
+
+.iphone .track div {
+    width: 42%;
+    height: 100%;
+    background: #7e8a98;
+    opacity: 0.75;
+    border-radius: 15px;
+}
+
+.iphone .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1em 0;
+    transition: 1s;
+}
+
+.buttons {
+  color: red;
+}
+
+/*for the out box border shadow*/
+.neu {
+    box-shadow: -5px -5px 15px 0px #ffffff9e, 5px 5px 15px 0px #a3b1c6a8;
+    background: #e0e5ec;
+    border-radius: 2em;
+    border: 0;
+}
+
+.btn {
+    padding: 15px;
+    border-radius: 30px;
+    color: #7e8a98;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn.lg {
+    font-size: 1em;
+}
+
+.btn:active {
+    cursor: pointer;
+    box-shadow: inset -5px -5px 15px 0px #ffffff9e, inset 5px 5px 15px 0px #a3b1c6a8;
+}
+
+.red {
+    color: #e22d49;
+}
+
+.input-file {
+    width:90%;
+}
+
+.song-title {
+    width: 98%;
+    overflow:hidden;
+}
+
+input[type=file]::file-selector-button {
+    border: 2px solid #848282;
+    padding: .2em .4em;
+    border-radius: .2em;
+    background-color: #e0e5ec;
+    transition: 1s;
+    cursor: pointer;
+}
+  
+input[type=file]::file-selector-button:hover {
+    opacity: 70%;
+    background-color: #acacad;
+}
+
+.slider, .seekSlider {
+  outline: none;
+  opacity: 0.7;
+  width:65%;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    cursor: pointer;
+}
+
+.seekSlider::-webkit-slider-thumb {
+    cursor: pointer;
+}
+
+.slider:hover {
+    opacity: 100%;
+}
+
+.seekSlider:hover {
+    opacity: 100%;
+
+}
+
+span {
+    font-size: 81%;
+}
+
+#imageCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin: auto;
+  object-fit: scale-down;
+}
+
+/*for the media file loader*/
+@media screen and (min-width:350px){
+    video {
+        max-width: 100%;        
+        margin: 0;
+        width: 100%;
+        height: auto;
+        border: 15px solid rgb(20, 22, 21);
+        padding: 0;
+        margin: 0;
+        border-style:none;
+        max-height: 200px;
+        object-fit: scale-down;
+    }
+
+    img {
+        width: 100%;
+        max-height: 200px;
+        height: auto;
+        object-fit: scale-down;
+    }
+}
+
+#imageCanvas {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  margin: auto;
+  object-fit: scale-down;
+}
+
+#cover-art {
+    width: auto;
+    height: auto; 
+    min-width: 240px;
+    min-height: 240px;
+    position: relative;
+    
+    /*border: 1px solid black;*/
+    background-position: center;
+    background-size: cover;    
+    object-fit: cover;
+    margin: 5px 0 5px 0;
+}
+
+
+.audiotag {
+    display: flex;
+    font-weight: 600;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-ellipsis-v {
+    font-size: 2.5vh;
+    color: grey;
+
+}
+
+.fa-ellipsis-v:hover {
+    color: #e22d49;
+
+}
+
+#uploadDirectory {
+    opacity: 0;
+    position: absolute;
+}
+
+/*MUSIC PLAYER*/
+.music-playlist{
+    width: 312px;
+    height: 300px;
+    position: absolute;
+    background: rgba(0,0,0,.75);
+    border-radius: 2em;
+    box-sizing: border-box;
+    padding: 2em;
+    object-position: cover;
+    display: flex;
+    z-index: -1;
+}
+
+.playlist-header .fa-times{
+    cursor: pointer;
+}
+
+video {
+    max-width: 100%;
+}
