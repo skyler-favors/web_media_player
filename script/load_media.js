@@ -1,64 +1,67 @@
 var videoNode = document.getElementById("video-player");
+var audioNode = document.getElementById("audio-player");
 var imageNode = document.getElementById("image-viewer");
 var coverArtNode = document.getElementById("cover-art");
-var ppmNode = document.getElementById("imageCanvas");
+var ppmNode = document.getElementById("image-canvas");
 var musicInfo = document.getElementsByClassName("audiotag");
 var allMedia = document.getElementsByClassName("media");
+var inputNode = document.getElementById("choose-file");
 
 var secondFile = false;
 var currentFile = "";
+var currentIndex = 0;
+
+function start() {
+  var extension = checkFileExtension();
+  var file = inputNode.files[currentIndex];
+  var URL = window.URL || window.webkitURL; 
+  var fileURL = URL.createObjectURL(file);
+
+  let filetype = getFileType(extension);
+
+  // open second file
+  if (secondFile) {
+    hideMedia([currentFile, filetype])
+  } else {
+    hideMedia([filetype])
+    currentFile = filetype;
+  }
+
+  switch (filetype) {
+    case "video":
+      videoNode.src = fileURL
+      break;
+
+    case "audio":
+      getCoverArt(file);
+      audioNode.src = fileURL
+      break;
+
+    case "image":
+      imageNode.src = fileURL
+      break;
+
+    case "ppm":
+      // r reads file as binary once it loads
+      var r = new FileReader();
+      r.onload = function(e) {
+        var contents = e.target.result;
+        processPPM(contents);
+      }
+      r.readAsBinaryString(file)
+      break;
+
+    default:
+      currentFile = "error";
+      console.log("ERROR: switch statement defualted when it shouldnt");
+      hideMedia();
+      break;
+  }
+}
 
 function loadMedia() {
   // play is run when the input file node detects a new file
-  var play = function() {
-    var extension = checkFileExtension();
-    var file = this.files[0];
-    var URL = window.URL || window.webkitURL; 
-    var fileURL = URL.createObjectURL(file);
-
-    let filetype = getFileType(extension);
-
-    // open second file
-    if (secondFile) {
-      hideMedia([currentFile, filetype])
-    } else {
-      hideMedia([filetype])
-      currentFile = filetype;
-    }
-    switch (filetype) {
-      case "video":
-        videoNode.src = fileURL
-        break;
-
-      case "audio":
-        getCoverArt(file);
-        videoNode.src = fileURL
-        break;
-
-      case "image":
-        imageNode.src = fileURL
-        break;
-
-      case "ppm":
-        // r reads file as binary once it loads
-        var r = new FileReader();
-        r.onload = function(e) {
-          var contents = e.target.result;
-          processPPM(contents);
-        }
-        r.readAsBinaryString(file)
-        break;
-
-      default:
-        currentFile = "error";
-        console.log("ERROR: switch statement defualted when it shouldnt");
-        hideMedia();
-        break;
-    }
-  }
-
-  let inputNode = document.querySelector(".input-file");
-  inputNode.addEventListener('change', play, false);
+  inputNode.addEventListener('change', start, false);
   hideMedia();
 }
 
@@ -141,6 +144,7 @@ function displayAudioTag(tag){
 function hideMedia(except) {
   // remove everything
   videoNode.style.display = "none"
+  audioNode.style.display = "none"
   imageNode.style.display = "none"
   ppmNode.style.display = "none"
   imageNode.style.backgroundImage = null;
@@ -165,6 +169,7 @@ function hideMedia(except) {
 
       case "audio":
         coverArtNode.style.display = "initial"
+        audioNode.style.display = "initial"
         for (let i=0; i<musicInfo.length; i++) {
           musicInfo[i].style.display = "initial";
         }
@@ -221,7 +226,6 @@ let directory = document.querySelector(".directory");
 //event listeners
 ellipsis.addEventListener("click", showPlaylist); //three dots icon 
 closeIcon.addEventListener("click", hidePlaylist);
-directory.addEventListener("click", openDirectory);
 
 //show playlist
 function showPlaylist() {
@@ -232,17 +236,9 @@ function hidePlaylist() {
   musicPlaylist.style.zIndex = "-1";
 }
 
-//Directory
-function openDirectory(){
-  //Music icon added in because original overwritten with new 
-  directory.innerHTML = `<label class="test" for="file" title="Music Directory">
-  <i class="fas fa-music"></i>
-  <input type="file" id="file" style="display: none" name="image" accept="image/gif,image/jpeg,image/jpg,image/png" onchange="displayPlaylist(this.files)" multiple="" data-original-title="upload photos">
-  <label>`;
-}
-
 //Later versions: add ability to add multiple playlists 
-function displayPlaylist(files){
+function displayPlaylist() {
+  var files = inputNode.files;
   //Create an ordered list 
   var listHTML = ["<ol id='display-playlist'>"];
 
@@ -275,3 +271,11 @@ function playlistPlayback(number){
   let temp = document.getElementById(`${number}`);
   temp.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
 }
+
+function getFileName() {
+  console.log(this.id)
+  currentIndex = this.id - 1;
+  start();
+}
+
+inputNode.addEventListener("change", displayPlaylist);

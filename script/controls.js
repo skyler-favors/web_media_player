@@ -2,9 +2,18 @@ const playbackrateSlider = document.querySelector(".speedcontrolcontainer input"
 const videoScrubber = document.querySelector(".seekSlider");
 const display = document.querySelector(".speedcontrolcontainer span");
 const video = document.querySelector("#video-player");
+const audio = document.querySelector("#audio-player");
 const curTimeText = document.getElementById("curtimetext"); 
 const durTimeText = document.getElementById("durtimetext");
 const fileButton = document.querySelector(".input-file")
+
+// change pitch checkbox
+const pitch = document.querySelector('#pitch');
+pitch.addEventListener('change', () => {
+  if ('preservesPitch' in audio) {
+    audio.preservesPitch = pitch.checked;
+  }
+});
 
 // -------- MEDIA CONTROLS -------
 videoScrubber.value= 0;
@@ -33,10 +42,12 @@ const play = (e) => {
     if(video.paused){
         showPauseBtn()
         video.play()
+        audio.play()
     }
     else{
         showPlayBtn()
         video.pause()
+        audio.pause()
     }
 }
 
@@ -88,6 +99,7 @@ display.innerText = displayvalue(video.playbackRate);
 playbackrateSlider.addEventListener("change", e => {
   //sets our video playback rate to the value of our slider
   video.playbackRate = playbackrateSlider.value;
+  audio.playbackRate = playbackrateSlider.value;
   display.innerText = displayvalue(playbackrateSlider.value);
 });
 

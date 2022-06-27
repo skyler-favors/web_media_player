@@ -223,7 +223,7 @@ span {
     font-size: 81%;
 }
 
-#imageCanvas {
+#image-canvas {
   width: 100%;
   height: auto;
   max-height: 200px;

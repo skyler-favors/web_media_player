@@ -16,6 +16,8 @@
 <body id="main">
   <button class="extraButtons" id="colorscheme">Animating</button>
   <button class="extraButtons" id="openSecond">Second File Off</button>
+  <label style="color: black;" for="pitch" class="extraButtons">Change Pitch</label> 
+  <input type="checkbox" class="extraButtons" id="pitch" name="pitch"></input>
   <div class="container">
 
     <div id="parent" class="iphone neu">
@@ -41,12 +43,14 @@
 
       <div class="album-overlay">
         <div id="video_container">
-          <input onchange="playbackSlider(); getFileName()" class="input-file" id="choose-file" onclicked="videoLength"
-            type="file" />
+          <input onchange="playbackSlider; getFileName;" 
+            class="input-file" id="choose-file" onclicked="videoLength"
+            type="file" webkitdirectory directory multiple />
           <video id="video-player" class="media"></video>
           <img id="image-viewer" class="media"></img>
           <img id="cover-art" class="media"></img>
-          <canvas id="imageCanvas" class="media" width="250" height="250"></canvas>
+          <canvas id="image-canvas" class="media" width="250" height="250"></canvas>
+          <audio id='audio-player' class="media"></audio>
 
           <div id=musicData>
             <!--Displays audio track data-->

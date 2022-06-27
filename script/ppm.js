@@ -1,4 +1,4 @@
-var canvas = document.getElementById("imageCanvas");
+var canvas = document.getElementById("image-canvas");
 var ctx = canvas.getContext("2d");
 
 function processPPM(fileContents) {
