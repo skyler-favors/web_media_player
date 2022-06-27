@@ -138,15 +138,6 @@ function displayAudioTag(tag){
   }
 }
 
-//Upload Directory
-let directory = document.querySelector(".fa-ellipsis-v");
-
-directory.addEventListener("click", openDirectory);
-
-function openDirectory(){
-  //alert("works");
-}
-
 function hideMedia(except) {
   // remove everything
   videoNode.style.display = "none"
@@ -219,16 +210,18 @@ function openSecondFile() {
 loadMedia();
 openSecondFile();
 
-//test variables for playlist
+//Playlist
 let ellipsis = document.querySelector(".fa-ellipsis-v");
 let closeIcon = document.querySelector(".fa-times");
 let musicPlaylist = document.querySelector(".music-playlist");
 let playlistDiv = document.querySelector(".playlist-div");
 let playlist = document.querySelector(".playlist");
+let directory = document.querySelector(".directory");
 
 //event listeners
-ellipsis.addEventListener("click", showPlaylist);
+ellipsis.addEventListener("click", showPlaylist); //three dots icon 
 closeIcon.addEventListener("click", hidePlaylist);
+directory.addEventListener("click", openDirectory);
 
 //show playlist
 function showPlaylist() {
@@ -237,4 +230,48 @@ function showPlaylist() {
 //hide playlist
 function hidePlaylist() {
   musicPlaylist.style.zIndex = "-1";
+}
+
+//Directory
+function openDirectory(){
+  //Music icon added in because original overwritten with new 
+  directory.innerHTML = `<label class="test" for="file" title="Music Directory">
+  <i class="fas fa-music"></i>
+  <input type="file" id="file" style="display: none" name="image" accept="image/gif,image/jpeg,image/jpg,image/png" onchange="displayPlaylist(this.files)" multiple="" data-original-title="upload photos">
+  <label>`;
+}
+
+//Later versions: add ability to add multiple playlists 
+function displayPlaylist(files){
+  //Create an ordered list 
+  var listHTML = ["<ol id='display-playlist'>"];
+
+  //Loop and display each media file 
+  for (let index = 0; index < files.length; index++) {
+    
+    let file = files[index].name;
+
+    //Display file name in playlist
+    listHTML.push("<li id='", (index + 1) ,"'>", (file) ,"</li>");
+  }
+
+  //Close list
+  listHTML.push("</ol>");
+
+  //Print list
+  document.querySelector(".playlist-printout").innerHTML = listHTML.join("");
+
+  //Add playback functionality to each line item***
+  for (let index = 0; index < files.length; index++) {
+    playlistPlayback(index + 1);    
+  }
+
+  //Reset list for new playlist
+  listHTML = [];
+}
+
+//Add ability to double click to play song from playlist 
+function playlistPlayback(number){
+  let temp = document.getElementById(`${number}`);
+  temp.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
 }
