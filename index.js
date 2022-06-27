@@ -58,3 +58,35 @@ function saveFile(filename, data) {
     }
 }
 */
+*/ //also untested
+function fileRename(){
+    var rename = function(){
+        var file = this.files[0];
+        console.log(file)
+
+var fileType = [ ".ogg", ".mp4", ".mp3", ".jpg", ".ppm", ".wav", ".gif", ".pst"];
+//Rename the file "mynewfile1.txt" into "myrenamedfile.txt":
+
+const myRenamedFile = new File([file], 'my-file-final-1-really.txt');
+const createFile = (bits, name) => {
+    try {
+        // If this call fails, we go for Blob
+        return new File(bits, name);
+    } catch (e) {
+        // If we reach this point a new File could not be constructed
+        var myBlob = new Blob(bits);
+        myBlob.lastModified = new Date();
+        myBlob.name = name;
+        return myBlob;
+    }
+};
+console.log(myRenamedFile);
+// Browser logs: File {name: "my-file-final-1-really.txt", …}
+}
+ //let FileStuff = document.getElementById("rename")
+ //FileStuff.addEventListener("click", rename, false)
+ let inputNode = document.querySelector(".input-file");
+ inputNode.addEventListener('change', rename, false);
+}
+*/
+fileRename()
