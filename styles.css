@@ -232,27 +232,30 @@ span {
 }
 
 /*for the media file loader*/
-@media screen and (min-width:350px){
+@media screen and (min-width:350px) and {
     video {
-        max-width: 100%;        
+        max-width: 100%;
         margin: 0;
         width: 100%;
         height: auto;
         border: 15px solid rgb(20, 22, 21);
         padding: 0;
         margin: 0;
-        border-style:none;
+        border-style: none;
         max-height: 200px;
         object-fit: scale-down;
     }
 
     img {
         width: 100%;
+        max-width: auto;
         max-height: 200px;
         height: auto;
-        object-fit: scale-down;
+        object-fit: scale-down;     
+        
     }
 }
+
 
 #imageCanvas {
   width: 100%;

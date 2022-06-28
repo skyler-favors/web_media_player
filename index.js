@@ -11,6 +11,7 @@ let musicPlaylist = document.querySelector(".music-playlist");
 let playlistDiv = document.querySelector(".playlist-div");
 let playlist = document.querySelector(".playlist");
 
+
 //event listeners
 ellipsis.addEventListener("click", showPlaylist);
 closeIcon.addEventListener("click", hidePlaylist);
@@ -214,7 +215,6 @@ function loadFiles() {
 loadVideo()
 loadImage()
 
-
 // -------- MEDIA CONTROLS -------
 // Select the HTML5 video
 const video = document.querySelector(".video-player")
@@ -249,8 +249,9 @@ const play = (e) => {
 
 // trigger fullscreen
 const fullScreen = (e) => {
-    e.preventDefault()
-    video.requestFullscreen()
+    e.preventDefault()    
+        video.requestFullscreen();
+    
 }
 
 // rewind the current time
