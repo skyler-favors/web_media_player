@@ -166,6 +166,11 @@ body {
     width:90%;
 }
 
+/*KENNY 6/28*/
+#choose-file {
+    display:none;
+}
+
 .song-title {
     width: 98%;
     overflow:hidden;
@@ -296,7 +301,11 @@ span {
 
 .fa-ellipsis-v:hover {
     color: #e22d49;
+    cursor: pointer;
+}
 
+.fa-chevron-left{
+    cursor: pointer;
 }
 
 #uploadDirectory {
@@ -327,19 +336,55 @@ span {
 
 .playlist-header > *  {
     display: inline-block;
+    margin-top: 2vh;
+
+    /*
     margin-left: 1.5vw;
     margin-right: 1.5vw;
+    */
 }
 
-
+/*
 .playlist-header .fa-music {
     cursor: pointer;
+}
+*/
+
+/*Kenny 6/28*/
+#playlist-switchback{
+    float: left;
+    margin-left: 2vw;
+}
+
+#playlist-header-title {
+text-align: center;
+margin-top: 1.5vh;
 
 }
 
+#playlist-edit{
+    float: right;
+    margin-right: 2vw;
+}
+
+.playlist-header #switch-playlist:hover{
+    cursor: pointer;
+    color: #e22d49;
+}
+
+/*
 .playlist-header .fa-times{
     cursor: pointer;
 }
+*/
+
+
+.playlist-header #playlist-edit:hover {
+    cursor: pointer;
+    color: #e22d49;
+}
+
+/*end here*/
 
 /*PLAYLIST LINE ITEMS*/
 .playlist-printout {
@@ -385,6 +430,9 @@ span {
 }
 */
 
+#display-playlist li::selection {
+    color: blue;
+}
 
 /*PLAYLIST SCROLLBAR*/
 ::-webkit-scrollbar {
