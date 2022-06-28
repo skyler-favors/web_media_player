@@ -261,8 +261,8 @@ function showPlaylist() {
   musicPlaylist.style.zIndex = "1";
 }
 //hide playlist
-function hidePlaylist() {
-  musicPlaylist.style.zIndex = "-1";
+function hidePlaylist() {  
+  musicPlaylist.style.zIndex = "-1";  
 }
 
 //Later versions: add ability to add multiple playlists 
