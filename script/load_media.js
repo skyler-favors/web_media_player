@@ -7,6 +7,7 @@ var allMedia = document.getElementsByClassName("media");
 
 var secondFile = false;
 var currentFile = "";
+var currentFileType = "";
 
 function loadMedia() {
   // play is run when the input file node detects a new file
@@ -17,6 +18,7 @@ function loadMedia() {
     var fileURL = URL.createObjectURL(file);
 
     let filetype = getFileType(extension);
+    currentFileType = filetype;
 
     // open second file
     if (secondFile) {
@@ -274,4 +276,20 @@ function displayPlaylist(files){
 function playlistPlayback(number){
   let temp = document.getElementById(`${number}`);
   temp.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
+}
+
+
+function getCurrentMediaPlayer() {
+  switch (currentFileType) {
+    case "video":
+      return videoNode;
+    case "audio":
+      return audioNode;
+    case "image":
+      return imageNode;
+    case "ppm":
+      return ppmNode;
+    default:
+      return "";
+  }
 }

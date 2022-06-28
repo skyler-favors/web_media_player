@@ -77,9 +77,6 @@
               <button onclick="fullScreen(event)" class="btn lg red neu">
                   <div title="fullscreen"><i class="fa fa-expand"></i></div>
               </button>
-              <button onclick="openFullscreen()" class="btn lg red neu">
-                  <div title="image-fullscreen"><i class="fa fa-expand"></i></div>
-              </button>
           </div>
 
           <div class="speedcontrolcontainer">
@@ -99,24 +96,6 @@
           <script src="script/controls.js"></script>
           <script src="script/ppm.js"></script>
           <script src="script/folders.js"></script>
-          <script>
-              /* Get the element you want displayed in fullscreen */
-              var elem = document.getElementById("image-viewer");
-
-              /* Function to open fullscreen mode for different browsers*/
-              function openFullscreen() {
-                  if (elem.requestFullscreen) {
-                      elem.requestFullscreen();
-                  } else if (elem.webkitRequestFullscreen) { /* Safari */
-                      elem.webkitRequestFullscreen();
-                  } else if (elem.msRequestFullscreen) { /* IE11 */
-                      elem.msRequestFullscreen();
-                  } else if (elem.mozRequestFullscreen) {
-                      elem.mozRequestFullscreen();
-                  }
-              }
-          </script>
-
       </div>
    </div>
 </body>
