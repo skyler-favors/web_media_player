@@ -74,7 +74,7 @@ const repeat = (e) => {
 }
 
 //display our play button when a new file is loaded
-function postionSliderHome() {
+function changePlayBtn() {
   showPlayBtn();
 }
 
@@ -125,16 +125,16 @@ playbackrateSlider.addEventListener("change", e => {
 //   display.innerText = displayvalue(video.playbackRate);
 // }
 
-//displays video length
+//lets us seek into video/audio files
 function vidSeek(){
 	var seekto = media[curr].duration * (videoScrubber.value / 100);
 	media[curr].currentTime = seekto;  
 }
 
 function seektimeupdate(){ 
- //keep track of scrub location
- var nt = media[curr].currentTime * (100 / media[curr].duration);
- videoScrubber.value = nt;
+  //keep track of scrub location
+  var nt = media[curr].currentTime * (100 / media[curr].duration);
+  videoScrubber.value = nt;
 }
 
 setInterval(function() { 
@@ -152,10 +152,25 @@ setInterval(function() {
   durTimeText.innerHTML = min2 + ':' + sec2;
 }, 10);
 
-fileButton.addEventListener("change", postionSliderHome, false)
+//change play/pause button when loading new file
+fileButton.addEventListener("change",  changePlayBtn, false)
 videoScrubber.addEventListener("change",vidSeek,false);
-//media[curr].addEventListener("timeupdate",seektimeupdate,false);
-video.addEventListener("timeupdate",seektimeupdate,false);
+
+//keep track of video scrubber
+video.addEventListener("timeupdate", seektimeupdate,false);
+
+//keep track of audio scrubber
+audio.addEventListener("timeupdate", seektimeupdate, false)
+
+//when a new audio file is loaded revert our slider values back to home
+audio.addEventListener('loadeddata', (event) => {
+  videoScrubber.value = 0;
+  playbackrateSlider.value = 1;
+  video.playbackRate = 1;
+  display.innerText = "1.0x";
+})
+
+//when a new video file is loaded revert our slider values back to home
 video.addEventListener('loadeddata', (event) => {
   videoScrubber.value = 0;
   playbackrateSlider.value = 1;
