@@ -55,8 +55,7 @@ function processPPM(fileContents) {
     ctx.putImageData(img, 0, 0);
   } else if (file_type == "P6") {
     //let temp = get_image_data(data[4])
-    let temp = data[commentCount + 3].split('')
-    console.log(data);
+    let temp = data.slice(commentCount + 3, data.length).join('').replaceAll(/(\r\n|\n|\r)/gm, "").split('');
     console.log(temp);
 
     for (var i = 0; i < temp.length; i += 3) {
