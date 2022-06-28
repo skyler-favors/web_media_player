@@ -56,6 +56,8 @@ function processPPM(fileContents) {
   } else if (file_type == "P6") {
     //let temp = get_image_data(data[4])
     let temp = data[commentCount + 3].split('')
+    console.log(data);
+    console.log(temp);
 
     for (var i = 0; i < temp.length; i += 3) {
       pixels[imageIndex++] = temp[i].charCodeAt(0)
