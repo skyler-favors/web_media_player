@@ -10,6 +10,22 @@ var inputNode = document.getElementById("choose-file");
 var secondFile = false;
 var currentFile = "";
 var currentIndex = 0;
+var playlistSize = 0;
+var currtype = "";
+
+function nextSong() {
+  if (currentIndex < playlistSize) {
+    currentIndex += 1;
+    start();
+  }
+}
+
+function previousSong() {
+  if (currentIndex > 0) {
+    currentIndex -= 1;
+    start();
+  }
+}
 
 function start() {
   var extension = checkFileExtension();
@@ -18,6 +34,9 @@ function start() {
   var fileURL = URL.createObjectURL(file);
 
   let filetype = getFileType(extension);
+  playlistSize = inputNode.files.length;
+  currtype = filetype;
+  console.log(currtype);
 
   // open second file
   if (secondFile) {
@@ -29,12 +48,16 @@ function start() {
 
   switch (filetype) {
     case "video":
+      curr = 0;
       videoNode.src = fileURL
+      audioNode.src = null;
       break;
 
     case "audio":
+      curr = 1;
       getCoverArt(file);
       audioNode.src = fileURL
+      videoNode.src = null;
       break;
 
     case "image":
@@ -67,7 +90,8 @@ function loadMedia() {
 
 function checkFileExtension() {
   //split extension path into substrings and pops the last element of the array off
-  let fileName = document.querySelector("#choose-file").value;
+  let fileName = inputNode.files[currentIndex].name;
+  console.log(fileName)
   let extension = fileName.split('.').pop();
   extension = extension.toLowerCase();
   console.log(extension);
@@ -149,6 +173,7 @@ function hideMedia(except) {
   ppmNode.style.display = "none"
   imageNode.style.backgroundImage = null;
   coverArtNode.style.display = "none"
+
   for (let i=0; i<musicInfo.length; i++) {
     musicInfo[i].style.display = "none"
   }
