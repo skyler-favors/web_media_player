@@ -216,15 +216,19 @@ loadMedia();
 openSecondFile();
 
 //Playlist
-let ellipsis = document.querySelector(".fa-ellipsis-v");
-let closeIcon = document.querySelector(".fa-times");
+//let ellipsis = document.querySelector(".fa-ellipsis-v"); //switch to open directory 
+let homeSwitch = document.getElementById("switch-home"); //***
+
+//let closeIcon = document.querySelector(".fa-times");
+let closeIcon = document.getElementById("switch-playlist");
 let musicPlaylist = document.querySelector(".music-playlist");
 let playlistDiv = document.querySelector(".playlist-div");
 let playlist = document.querySelector(".playlist");
 let directory = document.querySelector(".directory");
 
 //event listeners
-ellipsis.addEventListener("click", showPlaylist); //three dots icon 
+//ellipsis.addEventListener("click", showPlaylist); //three dots icon 
+homeSwitch.addEventListener("click", showPlaylist);
 closeIcon.addEventListener("click", hidePlaylist);
 
 //show playlist
@@ -266,10 +270,12 @@ function displayPlaylist() {
   listHTML = [];
 }
 
+let currentPlaylistFile;
+
 //Add ability to double click to play song from playlist 
 function playlistPlayback(number){
-  let temp = document.getElementById(`${number}`);
-  temp.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
+  currentPlaylistFile = document.getElementById(`${number}`);
+  currentPlaylistFile.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
 }
 
 function getFileName() {
