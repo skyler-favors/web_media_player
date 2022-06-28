@@ -81,7 +81,18 @@ function changePlayBtn() {
 // trigger fullscreen
 const fullScreen = (e) => {
     e.preventDefault()
-    video.requestFullscreen()
+    let elem = getCurrentMediaPlayer()
+
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullscreen) {
+        elem.mozRequestFullscreen();
+    }
+
 }
 
 // rewind the current time by 10 seconds

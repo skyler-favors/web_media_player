@@ -36,7 +36,6 @@ function start() {
   let filetype = getFileType(extension);
   playlistSize = inputNode.files.length;
   currtype = filetype;
-  console.log(currtype);
 
   // open second file
   if (secondFile) {
@@ -91,10 +90,8 @@ function loadMedia() {
 function checkFileExtension() {
   //split extension path into substrings and pops the last element of the array off
   let fileName = inputNode.files[currentIndex].name;
-  console.log(fileName)
   let extension = fileName.split('.').pop();
   extension = extension.toLowerCase();
-  console.log(extension);
   return extension;
 }
 
@@ -303,8 +300,23 @@ function playlistPlayback(number){
   currentPlaylistFile.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
 }
 
+
+function getCurrentMediaPlayer() {
+  switch (currentFileType) {
+    case "video":
+      return videoNode;
+    case "audio":
+      return audioNode;
+    case "image":
+      return imageNode;
+    case "ppm":
+      return ppmNode;
+    default:
+      return "";
+  }
+}
+
 function getFileName() {
-  console.log(this.id)
   currentIndex = this.id - 1;
   start();
 }
