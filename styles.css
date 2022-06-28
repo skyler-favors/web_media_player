@@ -232,7 +232,7 @@ span {
 }
 
 /*for the media file loader*/
-@media screen and (min-width:350px) and {
+@media screen and (min-width:350px) {
     video {
         max-width: 100%;
         margin: 0;
