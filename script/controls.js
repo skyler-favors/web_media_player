@@ -5,7 +5,8 @@ const video = document.querySelector("#video-player");
 const audio = document.querySelector("#audio-player");
 const curTimeText = document.getElementById("curtimetext"); 
 const durTimeText = document.getElementById("durtimetext");
-const fileButton = document.querySelector(".input-file")
+const fileButton = document.querySelector(".input-file");
+var inputNode = document.getElementById("choose-file");
 
 const media = [video, audio];
 var curr = 0;
@@ -19,6 +20,10 @@ pitch.addEventListener('change', () => {
 
 // -------- MEDIA CONTROLS -------
 videoScrubber.value= 0;
+
+//for chrome
+playbackrateSlider.value = 1;
+
 document.querySelector(".fa-pause").style.display = "none"
 
 function showPlayBtn() {
