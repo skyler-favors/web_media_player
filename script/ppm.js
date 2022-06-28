@@ -1,41 +1,42 @@
-var canvas = document.getElementById("imageCanvas");
+var canvas = document.getElementById("image-canvas");
 var ctx = canvas.getContext("2d");
 
 function processPPM(fileContents) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  var data = fileContents.split(/\r?\n/);
-
-  var file_type = "";
-
-  if (fileContents.substr(0, 2) == 'P3' || data[0] == 'P3') {
-    console.log('P3');
-    file_type = 'P3'
-  } else if (fileContents.substr(0, 2) == 'P6' || data[0] == 'P6') {
-    console.log('P6');
-    file_type = 'P6'
-  } else {
-    console.log("not a ppm");
-    return
-  }
-
+  var meta = [];
+  var temp = [];
+  var count = 0;
+  var data = []
   var commentCount = 0;
-  for (let i=1; i<data.length; i++) {
-    if (data[i].substr(0, 1) == "#") {
-      commentCount++;
+
+  for (var i=0; i<fileContents.length; i++) {
+    if (fileContents[i] == "\n") {
+      meta.push(temp.join(''));
+      temp = [];
+      count += 1;
     } else {
-      break;
+      temp.push(fileContents[i]);
+    }
+
+    if (fileContents[i] == "#") {
+      commentCount += 1;
+    }
+
+    if (count == 3 + commentCount) {
+      data = fileContents.slice(i, fileContents.length)
+      break
     }
   }
 
-  let dim = data[commentCount + 1].split(' ');
-  var width = dim[0];
-  var height = dim[1];
-  var maxColors = data[commentCount + 2];
+  var dim = meta[commentCount + 1].split(' ');
+  var width = dim[0]
+  var height = dim[1]
 
-  if (maxColors != 255) {
-    console.log('MaxColors is not 255');
-    return;
+  var file_type = meta[0];
+
+  if (file_type == "P3") {
+    data = data.split('\n');
   }
 
   canvas.width=width; 
@@ -55,12 +56,21 @@ function processPPM(fileContents) {
     ctx.putImageData(img, 0, 0);
   } else if (file_type == "P6") {
     //let temp = get_image_data(data[4])
-    let temp = data[commentCount + 3].split('')
+    let temp = data.slice(commentCount + 3, data.length).split('');
 
     for (var i = 0; i < temp.length; i += 3) {
       pixels[imageIndex++] = temp[i].charCodeAt(0)
-      pixels[imageIndex++] = temp[i+1].charCodeAt(0)
-      pixels[imageIndex++] = temp[i+2].charCodeAt(0)
+      if (temp.length > i+1) {
+        pixels[imageIndex++] = temp[i+1].charCodeAt(0)
+      } else {
+        pixels[imageIndex++] = 0;
+      }
+      if (temp.length > i+2) {
+        pixels[imageIndex++] = temp[i+2].charCodeAt(0)
+      } else {
+        pixels[imageIndex++] = 0;
+      }
+
       pixels[imageIndex++] = 255;
     }
     ctx.putImageData(img, 0, 0);
