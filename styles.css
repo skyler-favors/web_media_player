@@ -13,6 +13,7 @@ body {
     color: grey;
     animation-play-state: running;
     overflow: hidden;
+    user-select: none;
 }
 
 @keyframes change{
@@ -394,6 +395,10 @@ margin-top: 1.5vh;
     overflow-x: hidden;
     overflow-y: scroll;
     
+}
+
+.playlist-printout li{
+    user-select: none;
 }
 
 /*

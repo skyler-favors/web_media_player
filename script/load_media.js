@@ -17,6 +17,21 @@ let track;
 let artist;
 let album;
 
+//Add playlist array here WIP 
+
+let library = audioNode.File;
+let currentTrack = 0;
+audioNode.addEventListener("ended", function(){
+  document.getElementById("audio-player").src = library[currentTrack];
+  audioNode.load();
+  currentTrack++;
+  if(currentTrack >= library.length){
+    currentTrack = 0;
+  }
+});
+
+
+
 function nextSong() {
   if (currentIndex < playlistSize) {
     currentIndex += 1;
@@ -286,7 +301,7 @@ function hidePlaylist() {
 }
 
 function modifyPlaylist(){
-  alert("Under Construction");
+  alert("Edit Playlist: Under Construction");
   //add toggle feature to display <i class="fa-solid fa-file-circle-minus"></i>
 }
 
@@ -331,7 +346,8 @@ function selectedPlaylistFile(number){
   selected = document.getElementById(`${number}`);
   //Highlights the selected file 
   selected.style.background = "rgba(255,255,255,.2)";
-  //
+  //selected.style.fontWeight = "600";
+  //selected.style.color = "blue";
   prevFile = true;
 }
 
