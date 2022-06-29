@@ -149,7 +149,6 @@ function seektimeupdate(){
 }
 
 setInterval(function() { 
-  //KENNY - reformatted scrubber time
   var mins = Math.floor(media[curr].currentTime / 60);
   var secs = Math.floor(media[curr].currentTime % 60);
   if (secs < 10) {
@@ -160,6 +159,9 @@ setInterval(function() {
   //Display duration time of song 
   var min2 = Math.floor(media[curr].duration / 60);
   var sec2 = Math.floor(media[curr].duration % 60);
+  if (sec2 < 10) {
+    sec2 = '0' + String(sec2);
+  }
   durTimeText.innerHTML = min2 + ':' + sec2;
 }, 10);
 
