@@ -168,6 +168,7 @@ audio.addEventListener('loadeddata', (event) => {
   playbackrateSlider.value = 1;
   video.playbackRate = 1;
   display.innerText = "1.0x";
+  showPauseBtn()
 })
 
 //when a new video file is loaded revert our slider values back to home
@@ -176,4 +177,5 @@ video.addEventListener('loadeddata', (event) => {
   playbackrateSlider.value = 1;
   video.playbackRate = 1;
   display.innerText = "1.0x";
+  showPauseBtn()
 })
