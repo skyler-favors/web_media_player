@@ -148,7 +148,7 @@ function displayAudioTag(tag){
   album = tag.tags.album;
 
   if(track == ""){
-    document.querySelector("#track").textContent = "Unknown Music"; //display file name? 
+    document.querySelector("#track").textContent = "Unknown Music"; 
   } else {
     document.querySelector("#track").textContent = tag.tags.title;
   }
@@ -165,6 +165,13 @@ function displayAudioTag(tag){
     document.querySelector("#album").textContent = tag.tags.album;
   }
 }
+
+function displayDefaultAudioTag(){
+  coverArtNode.style.backgroundImage = `url("https://youshark.neocities.org/assets/img/default.png")`;
+  document.querySelector("#track").textContent = "Unknown Title";
+  document.querySelector("#artist").textContent = "Unknown Artist";
+  document.querySelector("#album").textContent = "Unknown Album";
+};
 
 function hideMedia(except) {
   // remove everything
@@ -196,9 +203,14 @@ function hideMedia(except) {
       case "audio":
         coverArtNode.style.display = "initial"
         audioNode.style.display = "initial"
+
+
+        
         for (let i=0; i<musicInfo.length; i++) {
           musicInfo[i].style.display = "initial";
         }
+        displayDefaultAudioTag();
+
         break;
 
       default:
@@ -242,7 +254,6 @@ loadMedia();
 openSecondFile();
 
 //Playlist
-//let ellipsis = document.querySelector(".fa-ellipsis-v"); //switch to open directory 
 let homeSwitch = document.getElementById("switch-home"); //***
 
 //let closeIcon = document.querySelector(".fa-times");
@@ -252,9 +263,9 @@ let playlistDiv = document.querySelector(".playlist-div");
 let playlist = document.querySelector(".playlist");
 let directory = document.querySelector(".directory");
 let playlistVisibility = document.querySelector(".playlist-contents");
-let currentPlaylistFile;
 let editPlaylist = document.getElementById("playlist-edit");
-let selected;
+let currentPlaylistFile;
+
 
 //event listeners
 //ellipsis.addEventListener("click", showPlaylist); //three dots icon 
@@ -276,6 +287,7 @@ function hidePlaylist() {
 
 function modifyPlaylist(){
   alert("Under Construction");
+  //add toggle feature to display <i class="fa-solid fa-file-circle-minus"></i>
 }
 
 //Later versions: add ability to add multiple playlists 
@@ -311,11 +323,15 @@ function displayPlaylist() {
 let prevFile = false; 
 
 function selectedPlaylistFile(number){
+  //Returns previous file to original styling 
   if(prevFile == true){
     selected.style.background = "rgba(0,0,0,.9)";
   }
+  //Id's the chosen file
   selected = document.getElementById(`${number}`);
+  //Highlights the selected file 
   selected.style.background = "rgba(255,255,255,.2)";
+  //
   prevFile = true;
 }
 

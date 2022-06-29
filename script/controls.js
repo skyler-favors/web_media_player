@@ -156,7 +156,7 @@ setInterval(function() {
   }
   curTimeText.innerHTML = mins + ':' + secs;
 
-  //Display duration time of song 
+  //Display duration time of audio and video 
   var min2 = Math.floor(media[curr].duration / 60);
   var sec2 = Math.floor(media[curr].duration % 60);
   if (sec2 < 10) {
@@ -190,3 +190,4 @@ video.addEventListener('loadeddata', (event) => {
   video.playbackRate = 1;
   display.innerText = "1.0x";
 })
+
