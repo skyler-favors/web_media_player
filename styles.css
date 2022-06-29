@@ -13,6 +13,7 @@ body {
     color: grey;
     animation-play-state: running;
     overflow: hidden;
+    user-select: none;
 }
 
 @keyframes change{
@@ -58,7 +59,7 @@ body {
     flex-direction: column;
    
     position: relative;
-
+    font-size: 1.1rem;
 }
 
 .iphone .title {
@@ -133,6 +134,10 @@ body {
   color: red;
 }
 
+.buttons button:hover{
+    color: rgba(167, 11, 45, .8);
+}
+
 /*for the out box border shadow*/
 .neu {
     box-shadow: -5px -5px 15px 0px #ffffff9e, 5px 5px 15px 0px #a3b1c6a8;
@@ -164,6 +169,11 @@ body {
 
 .input-file {
     width:90%;
+}
+
+/*KENNY 6/28*/
+#choose-file {
+    display:none;
 }
 
 .song-title {
@@ -220,7 +230,7 @@ input[type=file]::file-selector-button:hover {
 }
 
 span {
-    font-size: 81%;
+    font-size: 75%;
 }
 
 #image-canvas {
@@ -292,8 +302,14 @@ span {
 }
 
 .fa-ellipsis-v:hover {
+    cursor: pointer;
     color: #e22d49;
 
+}
+
+.fa-chevron-left:hover{
+    cursor: pointer;
+    color: #e22d49;
 }
 
 #uploadDirectory {
@@ -324,25 +340,65 @@ span {
 
 .playlist-header > *  {
     display: inline-block;
+    margin-top: 2vh;
+
+    /*
     margin-left: 1.5vw;
     margin-right: 1.5vw;
+    */
 }
 
-
+/*
 .playlist-header .fa-music {
     cursor: pointer;
+}
+*/
+
+/*Kenny 6/28*/
+#playlist-switchback{
+    float: left;
+    margin-left: 2vw;
+}
+
+#playlist-header-title {
+text-align: center;
+margin-top: 1.5vh;
 
 }
 
+#playlist-edit{
+    float: right;
+    margin-right: 2vw;
+}
+
+.playlist-header #switch-playlist:hover{
+    cursor: pointer;
+    color: #e22d49;
+}
+
+/*
 .playlist-header .fa-times{
     cursor: pointer;
 }
+*/
+
+
+.playlist-header #playlist-edit:hover {
+    cursor: pointer;
+    color: #e22d49;
+}
+
+/*end
 
 /*PLAYLIST LINE ITEMS*/
-.playlist-printout {
+.playlist-contents {
     overflow-x: hidden;
     overflow-y: scroll;
     
+}
+
+.playlist-printout li{
+    user-select: none;
 }
 
 /*
@@ -360,8 +416,7 @@ span {
 
 #display-playlist li:hover {
     cursor: pointer;
-    background: rgba(85, 84, 84, 05);
-    font-weight: 750;
+    font-weight: 600;
     /*animation: scrolling 3s linear infinite;*/
     /*
     animation-duration: 3s;
@@ -381,7 +436,6 @@ span {
     }
 }
 */
-
 
 /*PLAYLIST SCROLLBAR*/
 ::-webkit-scrollbar {

@@ -7,11 +7,26 @@ var musicInfo = document.getElementsByClassName("audiotag");
 var allMedia = document.getElementsByClassName("media");
 var inputNode = document.getElementById("choose-file");
 
-var secondFile = false;
+//var secondFile = false;
 var currentFile = "";
 var currentIndex = 0;
 var playlistSize = 0;
 var currtype = "";
+
+let track; 
+let artist;
+let album;
+
+let library = audioNode.File;
+let currentTrack = 0;
+audioNode.addEventListener("ended", function(){
+  document.getElementById("audio-player").src = library[currentTrack];
+  audioNode.load();
+  currentTrack++;
+  if(currentTrack >= library.length){
+    currentTrack = 0;
+  }
+});
 
 function nextSong() {
   if (currentIndex < playlistSize) {
@@ -27,7 +42,7 @@ function previousSong() {
   }
 }
 
-function start() {
+function start() {  
   var extension = checkFileExtension();
   var file = inputNode.files[currentIndex];
   var URL = window.URL || window.webkitURL; 
@@ -37,13 +52,8 @@ function start() {
   playlistSize = inputNode.files.length;
   currtype = filetype;
 
-  // open second file
-  if (secondFile) {
-    hideMedia([currentFile, filetype])
-  } else {
-    hideMedia([filetype])
-    currentFile = filetype;
-  }
+  hideMedia([filetype])
+  currentFile = filetype;
 
   switch (filetype) {
     case "video":
@@ -139,12 +149,12 @@ function getCoverArt(file) {
 }
 
 function displayAudioTag(tag){
-  let track = tag.tags.title;
-  let artist = tag.tags.artist;
-  let album = tag.tags.album;
+  track = tag.tags.title;
+  artist = tag.tags.artist;
+  album = tag.tags.album;
 
   if(track == ""){
-    document.querySelector("#track").textContent = "Unknown Music"; //display file name? 
+    document.querySelector("#track").textContent = "Unknown Music"; 
   } else {
     document.querySelector("#track").textContent = tag.tags.title;
   }
@@ -161,6 +171,13 @@ function displayAudioTag(tag){
     document.querySelector("#album").textContent = tag.tags.album;
   }
 }
+
+function displayDefaultAudioTag(){
+  coverArtNode.style.backgroundImage = `url("https://youshark.neocities.org/assets/img/default.png")`;
+  document.querySelector("#track").textContent = "Unknown Title";
+  document.querySelector("#artist").textContent = "Unknown Artist";
+  document.querySelector("#album").textContent = "Unknown Album";
+};
 
 function hideMedia(except) {
   // remove everything
@@ -192,9 +209,14 @@ function hideMedia(except) {
       case "audio":
         coverArtNode.style.display = "initial"
         audioNode.style.display = "initial"
+
+
+        
         for (let i=0; i<musicInfo.length; i++) {
           musicInfo[i].style.display = "initial";
         }
+        displayDefaultAudioTag();
+
         break;
 
       default:
@@ -235,32 +257,54 @@ function openSecondFile() {
 }
 
 loadMedia();
-openSecondFile();
+//openSecondFile();
 
 //Playlist
-let ellipsis = document.querySelector(".fa-ellipsis-v");
-let closeIcon = document.querySelector(".fa-times");
+let homeSwitch = document.getElementById("switch-home"); //***
+
+//let closeIcon = document.querySelector(".fa-times");
+let closeIcon = document.getElementById("switch-playlist");
 let musicPlaylist = document.querySelector(".music-playlist");
 let playlistDiv = document.querySelector(".playlist-div");
 let playlist = document.querySelector(".playlist");
 let directory = document.querySelector(".directory");
+let playlistVisibility = document.querySelector(".playlist-contents");
+let editPlaylist = document.getElementById("playlist-edit");
+let currentPlaylistFile;
+
 
 //event listeners
-ellipsis.addEventListener("click", showPlaylist); //three dots icon 
+//ellipsis.addEventListener("click", showPlaylist); //three dots icon 
+homeSwitch.addEventListener("click", showPlaylist);
 closeIcon.addEventListener("click", hidePlaylist);
+editPlaylist.addEventListener("click", modifyPlaylist);
 
 //show playlist
 function showPlaylist() {
+  playlistVisibility.style.visibility = "visible";
   musicPlaylist.style.zIndex = "1";
 }
+
 //hide playlist
-function hidePlaylist() {
-  musicPlaylist.style.zIndex = "-1";
+function hidePlaylist() {  
+  musicPlaylist.style.zIndex = "-1";  
+  playlistVisibility.style.visibility = "hidden";
+}
+
+function modifyPlaylist(){
+  alert("Edit Playlist: Under Construction");
+  //add toggle feature to display <i class="fa-solid fa-file-circle-minus"></i>
 }
 
 //Later versions: add ability to add multiple playlists 
 function displayPlaylist() {
   var files = inputNode.files;
+
+  //Cancel playlist overwrite if folder isn't selected in directory
+  if(inputNode.files.length == 0){
+    return
+  }
+
   //Create an ordered list 
   var listHTML = ["<ol id='display-playlist'>"];
 
@@ -270,7 +314,7 @@ function displayPlaylist() {
     let file = files[index].name;
 
     //Display file name in playlist
-    listHTML.push("<li id='", (index + 1) ,"'>", (file) ,"</li>");
+    listHTML.push("<li id='", (index + 1) ,"' onclick='selectedPlaylistFile(", index + 1 ,")'>", (file) ,"</li>");
   }
 
   //Close list
@@ -288,14 +332,48 @@ function displayPlaylist() {
   listHTML = [];
 }
 
+let prevFile = false; 
+
+function selectedPlaylistFile(number){
+  //Returns previous file to original styling 
+  if(prevFile == true){
+    selected.style.background = "rgba(0,0,0,.9)";
+  }
+  //Id's the chosen file
+  selected = document.getElementById(`${number}`);
+  //Highlights the selected file 
+  selected.style.background = "rgba(255,255,255,.2)";
+  //selected.style.fontWeight = "600";
+  //selected.style.color = "blue";
+  prevFile = true;
+}
+
+
 //Add ability to double click to play song from playlist 
 function playlistPlayback(number){
-  let temp = document.getElementById(`${number}`);
-  temp.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
+  currentPlaylistFile = document.getElementById(`${number}`);
+  currentPlaylistFile.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
+}
+
+function getCurrentMediaPlayer() {
+  switch (currtype) {
+    case "video":
+      return videoNode;
+    case "audio":
+      return audioNode;
+    case "image":
+      return imageNode;
+    case "ppm":
+      return ppmNode;
+    default:
+      return "";
+  }
 }
 
 function getFileName() {
   currentIndex = this.id - 1;
+  let temp = document.getElementById(`${currentIndex}`);
+  //temp.style.font = "blue";
   start();
 }
 

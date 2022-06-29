@@ -14,43 +14,62 @@
 
 
 <body id="main">
+  <!--TOP RIGHT BUTTONS-->
   <button class="extraButtons" id="colorscheme">Animating</button>
-  <button class="extraButtons" id="openSecond">Second File Off</button>
-  <label style="color: black;" for="pitch" class="extraButtons">Adjust Pitch</label> 
+  <!--<button class="extraButtons" id="openSecond">Second File Off</button>-->
+  <label style="color: black;" for="pitch" class="extraButtons">Adjust Pitch</label>
   <input type="checkbox" checked class="extraButtons" id="pitch" name="pitch"></input>
   <div class="container">
 
-    <div id="parent" class="iphone neu">
+    <!--HOME HEADER-->
+    <div class="iphone neu" id="parent">
       <div class="title">
-        <div><i class="fas fa-chevron-left"></i></div>
+        <div title="Switch to Playlist"><i class="fas fa-chevron-left" id="switch-home"></i></div>
+
         <div>NOW PLAYING</div>
-        <div><i class="fas fa-ellipsis-v" id="directory"></i></div>
+
+        <div>
+          <label title="Open Directory"><i class="fas fa-ellipsis-v" id="directory"></i>
+            <input onchange="playbackSlider; getFileName;" class="input-file" id="choose-file" onclicked="videoLength"
+              type="file" webkitdirectory directory multiple />
+          </label>
+        </div>
       </div>
 
-      <!--PLAYLIST TEST-->
-
+      <!--PLAYLIST SCREEN-->
       <div class="music-playlist">
-        <div class="playlist-header">
-          <label class="directory" for="file" title="Media Directory">
-            <i class="fas fa-music"></i>
-          </label>
-          <h2 id="playlist-header-title">Playlist</h2>
-          <i class="fas fa-times"></i>
-        </div>
-        <div class="playlist-printout">        
+        <div class="playlist-contents">
+          <div class="playlist-header">
+            <label title="Switch to Media Control" class="directory" for="file" title="Media Directory"
+              id="playlist-switchback">
+              <i class="fas fa-chevron-left" id="switch-playlist"></i>
+              <!--<i class="fas fa-music"></i>-->
+            </label>
+
+            <h2 id="playlist-header-title">Playlist</h2>
+
+            <!--<i class="fas fa-times"></i>-->
+            <i class="fa-solid fa-pen-to-square" id="playlist-edit"></i>
+            <!--<i title="Modify Playlist" class="fa-solid fa-plus-minus" ></i>-->
+
+          </div>
+          <!--displays playlist contents here-->
+          <div class="playlist-printout">
+          </div>
+
         </div>
       </div>
 
       <div class="album-overlay">
         <div id="video_container">
-          <input onchange="playbackSlider; getFileName;" 
+          <!--<input onchange="playbackSlider; getFileName;" 
             class="input-file" id="choose-file" onclicked="videoLength"
-            type="file" webkitdirectory directory multiple />
-          <video id="video-player" class="media"></video>
+            type="file" webkitdirectory directory multiple />-->
+          <video id="video-player" class="media" autoplay></video>
           <img id="image-viewer" class="media"></img>
           <img id="cover-art" class="media"></img>
           <canvas id="image-canvas" class="media" width="250" height="250"></canvas>
-          <audio id='audio-player' class="media"></audio>
+          <audio id='audio-player' class="media" autoplay="autoplay"></audio>
 
           <div id=musicData>
             <!--Displays audio track data-->
@@ -100,9 +119,8 @@
       <script src="script/controls.js"></script>
       <script src="script/ppm.js"></script>
       <script src="script/folders.js"></script>
-
     </div>
-   </div>
+  </div>
 </body>
 
 </html>

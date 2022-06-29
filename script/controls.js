@@ -81,16 +81,27 @@ function changePlayBtn() {
 // trigger fullscreen
 const fullScreen = (e) => {
     e.preventDefault()
-    video.requestFullscreen()
+    let elem = getCurrentMediaPlayer()
+
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullscreen) {
+        elem.mozRequestFullscreen();
+    }
+
 }
 
-// rewind the current time by 10 seconds
+// previousSong
 const rewind = (e) => {
   previousSong();
   showPlayBtn();
 }
 
-// forward the current time by 10 seconds
+// next song
 const forward = (e) => {
   nextSong();
   showPlayBtn();
@@ -138,7 +149,6 @@ function seektimeupdate(){
 }
 
 setInterval(function() { 
-  //KENNY - reformatted scrubber time
   var mins = Math.floor(media[curr].currentTime / 60);
   var secs = Math.floor(media[curr].currentTime % 60);
   if (secs < 10) {
@@ -146,9 +156,12 @@ setInterval(function() {
   }
   curTimeText.innerHTML = mins + ':' + secs;
 
-  //Display duration time of song 
+  //Display duration time of audio and video 
   var min2 = Math.floor(media[curr].duration / 60);
   var sec2 = Math.floor(media[curr].duration % 60);
+  if (sec2 < 10) {
+    sec2 = '0' + String(sec2);
+  }
   durTimeText.innerHTML = min2 + ':' + sec2;
 }, 10);
 
@@ -179,3 +192,4 @@ video.addEventListener('loadeddata', (event) => {
   display.innerText = "1.0x";
   showPauseBtn()
 })
+
