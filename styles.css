@@ -133,6 +133,10 @@ body {
   color: red;
 }
 
+.buttons button:hover{
+    color: rgba(167, 11, 45, .8);
+}
+
 /*for the out box border shadow*/
 .neu {
     box-shadow: -5px -5px 15px 0px #ffffff9e, 5px 5px 15px 0px #a3b1c6a8;
