@@ -46,7 +46,7 @@ function previousSong() {
   }
 }
 
-function start() {
+function start() {  
   var extension = checkFileExtension();
   var file = inputNode.files[currentIndex];
   var URL = window.URL || window.webkitURL; 
@@ -308,6 +308,12 @@ function modifyPlaylist(){
 //Later versions: add ability to add multiple playlists 
 function displayPlaylist() {
   var files = inputNode.files;
+
+  //Cancel playlist overwrite if folder isn't selected in directory
+  if(inputNode.files.length == 0){
+    return
+  }
+
   //Create an ordered list 
   var listHTML = ["<ol id='display-playlist'>"];
 

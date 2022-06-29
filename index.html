@@ -30,10 +30,11 @@
 
         <div>
           <label title="Open Directory"><i class="fas fa-ellipsis-v" id="directory"></i>
-          <input onchange="playbackSlider; getFileName;" 
-          class="input-file" id="choose-file" onclicked="videoLength"
-          type="file"
-          webkitdirectory directory multiple /></label>
+            <input onchange="playbackSlider; getFileName;" 
+            class="input-file" id="choose-file" onclicked="videoLength"
+            type="file"
+            webkitdirectory directory multiple />
+          </label>
         </div>
       </div>
 
@@ -65,7 +66,7 @@
           <!--<input onchange="playbackSlider; getFileName;" 
             class="input-file" id="choose-file" onclicked="videoLength"
             type="file" webkitdirectory directory multiple />-->
-          <video id="video-player" class="media"></video>
+          <video id="video-player" class="media" autoplay></video>
           <img id="image-viewer" class="media"></img>
           <img id="cover-art" class="media"></img>
           <canvas id="image-canvas" class="media" width="250" height="250"></canvas>
