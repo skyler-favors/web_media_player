@@ -28,17 +28,18 @@
 
         <div>NOW PLAYING</div>
 
-        <!--Kenny 6/28-->
         <div>
           <label title="Open Directory"><i class="fas fa-ellipsis-v" id="directory"></i>
           <input onchange="playbackSlider; getFileName;" 
           class="input-file" id="choose-file" onclicked="videoLength"
-          type="file" webkitdirectory directory multiple /></label>
+          type="file"
+          webkitdirectory directory multiple /></label>
         </div>
       </div>
 
       <!--PLAYLIST SCREEN-->
       <div class="music-playlist">
+        <div class="playlist-contents">
         <div class="playlist-header">          
           <label title="Switch to Media Control" class="directory" for="file" title="Media Directory" id="playlist-switchback">
             <i class="fas fa-chevron-left" id="switch-playlist"></i>
@@ -48,13 +49,16 @@
           <h2 id="playlist-header-title">Playlist</h2>          
 
           <!--<i class="fas fa-times"></i>-->
-          <i title="Under Construction" class="fa-solid fa-plus-minus" id="playlist-edit"></i>
+          <i title="Modify Playlist" class="fa-solid fa-plus-minus" id="playlist-edit"></i>
 
         </div>
         <!--displays playlist contents here-->
         <div class="playlist-printout">        
         </div>
+
+        </div>
       </div>
+
       <div class="album-overlay">
         <div id="video_container">
           <!--<input onchange="playbackSlider; getFileName;" 

@@ -58,7 +58,7 @@ body {
     flex-direction: column;
    
     position: relative;
-
+    font-size: 1.1rem;
 }
 
 .iphone .title {
@@ -237,30 +237,27 @@ span {
 }
 
 /*for the media file loader*/
-@media screen and (min-width:350px) {
+@media screen and (min-width:350px){
     video {
-        max-width: 100%;
+        max-width: 100%;        
         margin: 0;
         width: 100%;
         height: auto;
         border: 15px solid rgb(20, 22, 21);
         padding: 0;
         margin: 0;
-        border-style: none;
+        border-style:none;
         max-height: 200px;
         object-fit: scale-down;
     }
 
     img {
         width: 100%;
-        max-width: auto;
         max-height: 200px;
         height: auto;
-        object-fit: scale-down;     
-        
+        object-fit: scale-down;
     }
 }
-
 
 #imageCanvas {
   width: 100%;
@@ -300,12 +297,14 @@ span {
 }
 
 .fa-ellipsis-v:hover {
-    color: #e22d49;
     cursor: pointer;
+    color: #e22d49;
+
 }
 
-.fa-chevron-left{
+.fa-chevron-left:hover{
     cursor: pointer;
+    color: #e22d49;
 }
 
 #uploadDirectory {
@@ -384,10 +383,10 @@ margin-top: 1.5vh;
     color: #e22d49;
 }
 
-/*end here*/
+/*end
 
 /*PLAYLIST LINE ITEMS*/
-.playlist-printout {
+.playlist-contents {
     overflow-x: hidden;
     overflow-y: scroll;
     
@@ -408,8 +407,7 @@ margin-top: 1.5vh;
 
 #display-playlist li:hover {
     cursor: pointer;
-    background: rgba(85, 84, 84, 05);
-    font-weight: 750;
+    font-weight: 600;
     /*animation: scrolling 3s linear infinite;*/
     /*
     animation-duration: 3s;
@@ -429,10 +427,6 @@ margin-top: 1.5vh;
     }
 }
 */
-
-#display-playlist li::selection {
-    color: blue;
-}
 
 /*PLAYLIST SCROLLBAR*/
 ::-webkit-scrollbar {

@@ -13,6 +13,10 @@ var currentIndex = 0;
 var playlistSize = 0;
 var currtype = "";
 
+let track; 
+let artist;
+let album;
+
 function nextSong() {
   if (currentIndex < playlistSize) {
     currentIndex += 1;
@@ -139,9 +143,9 @@ function getCoverArt(file) {
 }
 
 function displayAudioTag(tag){
-  let track = tag.tags.title;
-  let artist = tag.tags.artist;
-  let album = tag.tags.album;
+  track = tag.tags.title;
+  artist = tag.tags.artist;
+  album = tag.tags.album;
 
   if(track == ""){
     document.querySelector("#track").textContent = "Unknown Music"; //display file name? 
@@ -247,19 +251,31 @@ let musicPlaylist = document.querySelector(".music-playlist");
 let playlistDiv = document.querySelector(".playlist-div");
 let playlist = document.querySelector(".playlist");
 let directory = document.querySelector(".directory");
+let playlistVisibility = document.querySelector(".playlist-contents");
+let currentPlaylistFile;
+let editPlaylist = document.getElementById("playlist-edit");
+let selected;
 
 //event listeners
 //ellipsis.addEventListener("click", showPlaylist); //three dots icon 
 homeSwitch.addEventListener("click", showPlaylist);
 closeIcon.addEventListener("click", hidePlaylist);
+editPlaylist.addEventListener("click", modifyPlaylist);
 
 //show playlist
 function showPlaylist() {
+  playlistVisibility.style.visibility = "visible";
   musicPlaylist.style.zIndex = "1";
 }
+
 //hide playlist
 function hidePlaylist() {  
   musicPlaylist.style.zIndex = "-1";  
+  playlistVisibility.style.visibility = "hidden";
+}
+
+function modifyPlaylist(){
+  alert("Under Construction");
 }
 
 //Later versions: add ability to add multiple playlists 
@@ -274,7 +290,7 @@ function displayPlaylist() {
     let file = files[index].name;
 
     //Display file name in playlist
-    listHTML.push("<li id='", (index + 1) ,"'>", (file) ,"</li>");
+    listHTML.push("<li id='", (index + 1) ,"' onclick='selectedPlaylistFile(", index + 1 ,")'>", (file) ,"</li>");
   }
 
   //Close list
@@ -292,13 +308,24 @@ function displayPlaylist() {
   listHTML = [];
 }
 
-let currentPlaylistFile;
+let prevFile = false; 
+
+function selectedPlaylistFile(number){
+  if(prevFile == true){
+    selected.style.background = "rgba(0,0,0,.9)";
+  }
+  selected = document.getElementById(`${number}`);
+  selected.style.background = "rgba(255,255,255,.2)";
+  prevFile = true;
+}
+
 
 //Add ability to double click to play song from playlist 
 function playlistPlayback(number){
   currentPlaylistFile = document.getElementById(`${number}`);
   currentPlaylistFile.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
 }
+
 
 
 function getCurrentMediaPlayer() {
@@ -318,6 +345,8 @@ function getCurrentMediaPlayer() {
 
 function getFileName() {
   currentIndex = this.id - 1;
+  let temp = document.getElementById(`${currentIndex}`);
+  //temp.style.font = "blue";
   start();
 }
 
