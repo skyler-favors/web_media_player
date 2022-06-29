@@ -7,7 +7,7 @@ var musicInfo = document.getElementsByClassName("audiotag");
 var allMedia = document.getElementsByClassName("media");
 var inputNode = document.getElementById("choose-file");
 
-var secondFile = false;
+//var secondFile = false;
 var currentFile = "";
 var currentIndex = 0;
 var playlistSize = 0;
@@ -16,8 +16,6 @@ var currtype = "";
 let track; 
 let artist;
 let album;
-
-//Add playlist array here WIP 
 
 let library = audioNode.File;
 let currentTrack = 0;
@@ -29,8 +27,6 @@ audioNode.addEventListener("ended", function(){
     currentTrack = 0;
   }
 });
-
-
 
 function nextSong() {
   if (currentIndex < playlistSize) {
@@ -56,13 +52,8 @@ function start() {
   playlistSize = inputNode.files.length;
   currtype = filetype;
 
-  // open second file
-  if (secondFile) {
-    hideMedia([currentFile, filetype])
-  } else {
-    hideMedia([filetype])
-    currentFile = filetype;
-  }
+  hideMedia([filetype])
+  currentFile = filetype;
 
   switch (filetype) {
     case "video":
@@ -266,7 +257,7 @@ function openSecondFile() {
 }
 
 loadMedia();
-openSecondFile();
+//openSecondFile();
 
 //Playlist
 let homeSwitch = document.getElementById("switch-home"); //***
@@ -364,10 +355,8 @@ function playlistPlayback(number){
   currentPlaylistFile.addEventListener("dblclick", getFileName); //*** update second parameter to initiate file 
 }
 
-
-
 function getCurrentMediaPlayer() {
-  switch (currentFileType) {
+  switch (currtype) {
     case "video":
       return videoNode;
     case "audio":

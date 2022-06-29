@@ -95,13 +95,13 @@ const fullScreen = (e) => {
 
 }
 
-// rewind the current time by 10 seconds
+// previousSong
 const rewind = (e) => {
   previousSong();
   showPlayBtn();
 }
 
-// forward the current time by 10 seconds
+// next song
 const forward = (e) => {
   nextSong();
   showPlayBtn();

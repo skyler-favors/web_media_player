@@ -16,7 +16,7 @@
 <body id="main">
   <!--TOP RIGHT BUTTONS-->
   <button class="extraButtons" id="colorscheme">Animating</button>
-  <button class="extraButtons" id="openSecond">Second File Off</button>
+  <!--<button class="extraButtons" id="openSecond">Second File Off</button>-->
   <label style="color: black;" for="pitch" class="extraButtons">Adjust Pitch</label>
   <input type="checkbox" checked class="extraButtons" id="pitch" name="pitch"></input>
   <div class="container">
@@ -30,10 +30,8 @@
 
         <div>
           <label title="Open Directory"><i class="fas fa-ellipsis-v" id="directory"></i>
-            <input onchange="playbackSlider; getFileName;" 
-            class="input-file" id="choose-file" onclicked="videoLength"
-            type="file"
-            webkitdirectory directory multiple />
+            <input onchange="playbackSlider; getFileName;" class="input-file" id="choose-file" onclicked="videoLength"
+              type="file" webkitdirectory directory multiple />
           </label>
         </div>
       </div>
@@ -41,22 +39,23 @@
       <!--PLAYLIST SCREEN-->
       <div class="music-playlist">
         <div class="playlist-contents">
-        <div class="playlist-header">          
-          <label title="Switch to Media Control" class="directory" for="file" title="Media Directory" id="playlist-switchback">
-            <i class="fas fa-chevron-left" id="switch-playlist"></i>
-            <!--<i class="fas fa-music"></i>-->
-          </label>
+          <div class="playlist-header">
+            <label title="Switch to Media Control" class="directory" for="file" title="Media Directory"
+              id="playlist-switchback">
+              <i class="fas fa-chevron-left" id="switch-playlist"></i>
+              <!--<i class="fas fa-music"></i>-->
+            </label>
 
-          <h2 id="playlist-header-title">Playlist</h2>          
+            <h2 id="playlist-header-title">Playlist</h2>
 
-          <!--<i class="fas fa-times"></i>-->
-          <i class="fa-solid fa-pen-to-square" id="playlist-edit"></i>
-          <!--<i title="Modify Playlist" class="fa-solid fa-plus-minus" ></i>-->
+            <!--<i class="fas fa-times"></i>-->
+            <i class="fa-solid fa-pen-to-square" id="playlist-edit"></i>
+            <!--<i title="Modify Playlist" class="fa-solid fa-plus-minus" ></i>-->
 
-        </div>
-        <!--displays playlist contents here-->
-        <div class="playlist-printout">        
-        </div>
+          </div>
+          <!--displays playlist contents here-->
+          <div class="playlist-printout">
+          </div>
 
         </div>
       </div>
