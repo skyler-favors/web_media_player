@@ -1,0 +1,9 @@
+fullscreen isnt fully working; cover art and some videos.
+
+add fullscreen controls.
+
+auto-play.
+
+play button update on change.
+
+add settings menu.
